@@ -1,0 +1,6 @@
+@PawfectCareLtd_HostAddress = http://localhost:5258
+
+GET {{PawfectCareLtd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
