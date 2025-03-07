@@ -1,0 +1,26 @@
+MedicationID,MedicationName,SupplierID,StockQuantity,Category,UnitPrice,ExpiryDate
+M10000,Miconazole,S10001,166,Antifungal,25.31,20/08/2027
+M10002,Itraconazole,S10003,96,Antifungal,15.71,10/02/2028
+M10004,Ketoconazole,S10003,448,Antifungal,40.74,21/05/2027
+M10014,Diphenhydramine,S10009,220,Antihistamine,35.9,13/11/2025
+M10015,Cetirizine,S10003,279,Antihistamine,9.55,15/10/2027
+M10018,Loratadine,S10002,197,Antihistamine,8.45,03/08/2027
+M10020,Milbemycin,S10006,102,Antiparasitic,77.2,21/11/2027
+M10026,Selamectin,S10007,203,Antiparasitic,83.32,04/05/2025
+M10032,Amoxicillin,S10001,94,Antibiotic,66.81,23/12/2026
+M10035,Cefalexin,S10004,30,Antibiotic,62.43,11/02/2027
+M10038,Doxycycline,S10002,95,Antibiotic,75.82,27/12/2025
+M10046,Omega-3,S10004,147,Supplement,36.83,15/03/2027
+M10048,Multivitamin,S10007,321,Supplement,76.3,29/11/2025
+M10053,Glucosamine,S10009,485,Supplement,15.8,12/05/2026
+M10056,Meloxicam,S10008,283,Painkiller,58.3,29/11/2027
+M10058,Carprofen,S10008,355,Painkiller,26.23,03/09/2025
+M10064,Gabapentin,S10002,386,Painkiller,33.85,02/06/2027
+M10066,Oratene,S10001,420,Mouth Rinse,39.1,20/12/2027
+M10067,Hexarinse,S10007,278,Mouth Rinse,43.63,17/07/2027
+M10070,Chlorhexidine,S10007,218,Mouth Rinse,26.82,02/01/2026
+M10077,Povidone-Iodine,S10005,155,Antiseptic,84.7,13/02/2027
+M10078,Hydrogen Peroxide,S10006,326,Antiseptic,15.23,27/04/2026
+M10082,Parvo Vaccine,S10004,74,Vaccine,46.92,28/12/2027
+M10083,Rabies Vaccine,S10006,19,Vaccine,80.74,29/11/2025
+M10085,Distemper Vaccine,S10008,378,Vaccine,27.23,28/10/2027
