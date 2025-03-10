@@ -9,8 +9,8 @@ using PawfectCareLtd.Data;
 
 namespace PawfectCareLtd.Migrations
 {
-    [DbContext(typeof(VetContext))]
-    partial class VetContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(DatabaseContext))]
+    partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

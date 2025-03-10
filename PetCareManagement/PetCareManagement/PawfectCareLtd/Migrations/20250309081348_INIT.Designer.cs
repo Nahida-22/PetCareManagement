@@ -10,8 +10,8 @@ using PawfectCareLtd.Data;
 
 namespace PawfectCareLtd.Migrations
 {
-    [DbContext(typeof(VetContext))]
-    [Migration("20250309062910_INIT")]
+    [DbContext(typeof(DatabaseContext))]
+    [Migration("20250309081348_INIT")]
     partial class INIT
     {
         /// <inheritdoc />
