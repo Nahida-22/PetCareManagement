@@ -1,23 +1,37 @@
-﻿//using Microsoft.EntityFrameworkCore;
+﻿using EFCore.BulkExtensions;
+using Microsoft.EntityFrameworkCore;
+using PawfectCareLtd.Models;
+using System.IO;
+using System.Linq;
 
-//namespace PawfectCareLtd.Models
-//{
-   
-//        public class DatabaseContext : DbContext
-//        {
-//            public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
-//            public DbSet<Owner> Owners { get; set; }
-//            public DbSet<Pet> Pets { get; set; }
-//            public DbSet<Appointment> Appointments { get; set; }
-//            public DbSet<Prescription> Prescriptions { get; set; }
-//            public DbSet<Medication> Medications { get; set; }
-//            public DbSet<Vet> Vets { get; set; }
-//            public DbSet<Supplier> Suppliers { get; set; }
-//            public DbSet<Order> orders { get; set; }
-//            public DbSet<Location> Locations { get; set; }
+namespace PawfectCareLtd.Data
+{
+    public class DatabaseContext : DbContext
+    {
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
+        public DbSet<Vet> Vet { get; set; }
 
+        public void BulkInsertVets(string csvFilePath)
+        {
+            if (!Vet.Any()) // Ensure data is inserted only once
+            {
+                var vets = File.ReadAllLines(csvFilePath)
+                    .Skip(1) // Skip CSV header
+                    .Select(line => line.Split(','))
+                    .Select(data => new Vet
+                    {
+                        VetID = data[0].Trim(),
+                        VetName = data[1].Trim(),
+                        Specialisation = data[2].Trim(),
+                        PhoneNo = data[3].Trim(),
+                        Email = data[4].Trim(),
+                        Address = data[5].Trim()
+                    }).ToList();
 
-//        }
-    
-//}
+                var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
+                this.BulkInsert(vets, bulkConfig);
+            }
+        }
+    }
+}

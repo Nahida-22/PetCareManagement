@@ -11,9 +11,9 @@ namespace PawfectCareLtd.Controllers
 
     public class VetController : ControllerBase
     {
-        private readonly VetContext vetContext;
+        private readonly DatabaseContext vetContext;
 
-        public VetController(VetContext vetContext) 
+        public VetController(DatabaseContext vetContext) 
         {
             this.vetContext = vetContext;
         }
