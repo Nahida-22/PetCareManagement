@@ -1,27 +1,39 @@
-﻿//using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel;
+using Microsoft.AspNetCore.Mvc;
+using PawfectCareLtd.Data;
+using PawfectCareLtd.Models;
+using Microsoft.AspNetCore.Http;
 
-//[ApiController]
-//[Route("api/[controller]")]
-//public class OwnersController : ControllerBase
-//{
-//    private readonly CsvReaderService _csvReaderService;
+namespace PawfectCareLtd.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
 
-//    public OwnersController(CsvReaderService csvReaderService)
-//    {
-//        _csvReaderService = csvReaderService;
-//    }
+    public class OwnerController : ControllerBase
+    {
+        private readonly DatabaseContext ownerContext;
 
-//    // Endpoint to load Owners data from a CSV file
-//    [HttpPost("load-owners-csv")]
-//    public IActionResult LoadOwnersCsv()
-//    {
-//        // Path to your CSV file (you can also pass the path dynamically)
-//        var filePath = "C:\\Users\\23052\\Desktop\\Coursework\\PetCareLtd\\PetCareManagement\\PetCareManagement\\PawfectCareLtd\\CSV\\Owner.csv";
-//        _csvReaderService.ReadOwnersFromCsv(filePath);
+        public OwnerController(DatabaseContext ownerContext)
+        {
+            this.ownerContext = ownerContext;
+        }
 
-//        return Ok("Owners data loaded successfully.");
-//    }
+        [HttpGet]
+        [Route("GetOwners")]
+        public List<Owner> GetOwners()
+        {
+            return ownerContext.Owner.ToList();
+        }
 
-    
-    
-//}
+        [HttpPost]
+        [Route("AddOwners")]
+
+        public string AddOwner(Owner owner)
+        {
+            string response = string.Empty;
+            ownerContext.Owner.Add(owner);
+            ownerContext.SaveChanges();
+            return "Owner added";
+        }
+    }
+}

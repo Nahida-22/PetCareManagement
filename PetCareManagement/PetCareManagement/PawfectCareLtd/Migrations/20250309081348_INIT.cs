@@ -25,6 +25,23 @@ namespace PawfectCareLtd.Migrations
                 {
                     table.PrimaryKey("PK_Vet", x => x.VetID);
                 });
+            //Create owner table
+            migrationBuilder.CreateTable(
+                name:"Owner",
+                columns: table => new
+                {
+                    OwnerID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    PhoneNo = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Owner", x => x.OwnerID);
+                });
+                
         }
 
         /// <inheritdoc />
@@ -32,6 +49,7 @@ namespace PawfectCareLtd.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Vet");
+            migrationBuilder.DropTable(name: "Owner");
         }
     }
 }
