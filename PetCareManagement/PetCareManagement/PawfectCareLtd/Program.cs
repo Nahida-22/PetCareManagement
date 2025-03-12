@@ -33,17 +33,33 @@ public class Program
                 Console.WriteLine("Database migration applied successfully.");
 
                 // Corrected CSV file path
-                string csvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Vet.csv");
+                string OwnerCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Owner.csv");
+                string PetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Pet.csv");
+                string VetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Vet.csv");
+                string AppointmentCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Appointment.csv");
+                string SupplierCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Supplier.csv");
+                string OrderCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Order.csv");
+                string MedicationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Medication.csv");
+                string PrescriptionCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Prescription.csv");
 
                 // Check if the CSV file exists and perform the bulk insert
-                if (File.Exists(csvPath))
+                if (File.Exists(VetCsvPath) && File.Exists(AppointmentCsvPath))
                 {
-                    context.BulkInsertVets(csvPath);
+                    context.BulkInsertOwners(OwnerCsvPath);
+                    context.BulkInsertPets(PetCsvPath);
+                    context.BulkInsertVets(VetCsvPath);
+                    context.BulkInsertAppointments(AppointmentCsvPath);
+                    context.BulkInsertSuppliers(SupplierCsvPath);
+                    context.BulkInsertOrders(OrderCsvPath);
+                    context.BulkInsertMedications(MedicationCsvPath);
+                    context.BulkInsertPrescriptions(PrescriptionCsvPath);
+
+
                     Console.WriteLine("Bulk insert completed successfully.");
                 }
                 else
                 {
-                    Console.WriteLine($"CSV file not found at: {csvPath}");
+                    Console.WriteLine($"CSV file not found");
                 }
             }
             catch (Exception ex)

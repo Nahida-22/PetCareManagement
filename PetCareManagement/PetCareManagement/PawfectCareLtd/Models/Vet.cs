@@ -28,5 +28,8 @@ namespace PawfectCareLtd.Models
         [Required]
         [StringLength(255)]
         public string Address { get; set; }
+
+        // Navigation property: A Vet can have MANY Appointments
+        public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }
