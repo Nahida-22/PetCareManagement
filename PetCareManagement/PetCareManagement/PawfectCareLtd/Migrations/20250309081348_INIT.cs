@@ -25,6 +25,7 @@ namespace PawfectCareLtd.Migrations
                 {
                     table.PrimaryKey("PK_Vet", x => x.VetID);
                 });
+
             //Create owner table
             migrationBuilder.CreateTable(
                 name:"Owner",
@@ -41,7 +42,7 @@ namespace PawfectCareLtd.Migrations
                 {
                     table.PrimaryKey("PK_Owner", x => x.OwnerID);
                 });
-                
+
         }
 
         /// <inheritdoc />
@@ -49,7 +50,9 @@ namespace PawfectCareLtd.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Vet");
+
             migrationBuilder.DropTable(name: "Owner");
+
         }
     }
 }

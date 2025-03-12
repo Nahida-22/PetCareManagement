@@ -11,8 +11,11 @@ namespace PawfectCareLtd.Data
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         public DbSet<Vet> Vet { get; set; }
+
         public DbSet<Owner> Owner { get; set; }
         public DbSet<Pet> Pet { get; set; }
+
+
 
         public void BulkInsertVets(string csvFilePath)
         {
@@ -35,6 +38,7 @@ namespace PawfectCareLtd.Data
                 this.BulkInsert(vets, bulkConfig);
             }
         }
+
         public void BulkInsertOwners(string csvFilePath)
         {
             if (!Owner.Any()) // Ensure data is inserted only once
@@ -77,5 +81,7 @@ namespace PawfectCareLtd.Data
                 this.BulkInsert(pets, bulkConfig);
             }
         }
+
+
     }
 }

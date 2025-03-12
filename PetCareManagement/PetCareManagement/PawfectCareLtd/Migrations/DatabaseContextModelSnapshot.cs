@@ -81,6 +81,7 @@ namespace PawfectCareLtd.Migrations
                     b.ToTable("Pet");
                 });
 
+
             modelBuilder.Entity("PawfectCareLtd.Models.Vet", b =>
                 {
                     b.Property<string>("VetID")
