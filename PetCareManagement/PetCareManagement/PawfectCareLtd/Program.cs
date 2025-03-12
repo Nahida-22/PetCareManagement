@@ -45,6 +45,33 @@ public class Program
                 {
                     Console.WriteLine($"CSV file not found at: {csvPath}");
                 }
+
+                string ownercsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Owner.csv");
+
+                // Check if the CSV file exists and perform the bulk insert
+                if (File.Exists(ownercsvPath))
+                {
+                    context.BulkInsertOwners(ownercsvPath);
+                    Console.WriteLine("Bulk insert completed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"CSV file not found at: {ownercsvPath}");
+                }
+                string petcsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Pet.csv");
+
+                // Check if the CSV file exists and perform the bulk insert
+                if (File.Exists(petcsvPath))
+                {
+                    context.BulkInsertPets(petcsvPath);
+                    Console.WriteLine("Bulk insert completed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"CSV file not found at: {petcsvPath}");
+                }
+
+
             }
             catch (Exception ex)
             {
