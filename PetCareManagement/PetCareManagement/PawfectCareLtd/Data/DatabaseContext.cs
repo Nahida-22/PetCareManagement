@@ -3,12 +3,18 @@ using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-
-
 namespace PawfectCareLtd.Data
 {
+    /// <summary>
+    /// DatabaseContext class handles the Entity Framework Core operations
+    /// and configuration for the PawfectCareLtd application.
+    /// </summary>
     public class DatabaseContext : DbContext
     {
+        /// <summary>
+        /// Initializes a new instance of the DatabaseContext with the specified options.
+        /// </summary>
+        /// <param name="options">DbContextOptions used to configure the context.</param>
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         // Define all DbSets (Tables).
@@ -21,20 +27,23 @@ namespace PawfectCareLtd.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Owner> Owners { get; set; }
 
+        /// <summary>
+        /// Configures the relationships, keys, and constraints for the database tables.
+        /// </summary>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Define all relationships
+            // Configure the one-to-many relationship between Appointment and Vet.
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Vet) // Appointment has ONE Vet
                 .WithMany(v => v.Appointments)  // Vet has MANY Appointments
                 .HasForeignKey(a => a.VetID);   // Foreign key in Appointment table
 
-            //modelBuilder.Entity<Appointment>()
-            //    .HasOne(a => a.Pet)
-            //    .WithMany(p => p.Appointments)
-            //    .HasForeignKey(a => a.PetID);
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Pet)
+                .WithMany(p => p.Appointments)
+                .HasForeignKey(a => a.PetID);
 
             // Relationship: One Medication has many Orders
             modelBuilder.Entity<Order>()

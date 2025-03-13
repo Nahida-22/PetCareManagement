@@ -48,13 +48,25 @@ namespace PawfectCareLtd.Models
         [StringLength(20)]
         public string Status { get; set; }
 
+        /// <summary>
+        /// Gets or sets the address where the appointment will take place.
+        /// </summary>
         [Required]
         [StringLength(10)]
         public string Address { get; set; }
 
-        // Navigation properties for relationships
+        /// <summary>
+        /// Gets or sets the vet associated with the appointment.
+        /// This is a navigation property.
+        /// </summary>
         public Vet Vet { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pet associated with the appointment.
+        /// This is a navigation property.
+        /// </summary>
         public Pet Pet { get; set; }
+        public List<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 
 }
