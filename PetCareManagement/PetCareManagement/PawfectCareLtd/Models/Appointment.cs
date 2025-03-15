@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PawfectCareLtd.Models
     ///<summary>
@@ -59,14 +60,16 @@ namespace PawfectCareLtd.Models
         /// Gets or sets the vet associated with the appointment.
         /// This is a navigation property.
         /// </summary>
+        [ForeignKey("VetID")]
         public Vet Vet { get; set; }
 
         /// <summary>
         /// Gets or sets the pet associated with the appointment.
         /// This is a navigation property.
         /// </summary>
+        [ForeignKey("PetID")]
         public Pet Pet { get; set; }
-        public List<Appointment> Appointments { get; set; } = new List<Appointment>();
+
     }
 
 }

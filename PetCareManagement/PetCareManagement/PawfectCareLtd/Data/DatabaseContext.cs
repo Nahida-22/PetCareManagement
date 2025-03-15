@@ -115,6 +115,7 @@ namespace PawfectCareLtd.Data
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
                 this.BulkInsert(owners, bulkConfig);
+                this.SaveChanges();
             }
         }
 
@@ -138,6 +139,7 @@ namespace PawfectCareLtd.Data
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
                 this.BulkInsert(vets, bulkConfig);
+                this.SaveChanges();
             }
         }
         public void BulkInsertPets(string csvFilePath)
@@ -159,6 +161,7 @@ namespace PawfectCareLtd.Data
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
                 this.BulkInsert(pets, bulkConfig);
+                this.SaveChanges();
             }
         }
 
@@ -186,6 +189,7 @@ namespace PawfectCareLtd.Data
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
                 this.BulkInsert(appointments, bulkConfig);
+                this.SaveChanges();
             }
         }
 
@@ -208,6 +212,7 @@ namespace PawfectCareLtd.Data
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
                 this.BulkInsert(suppliers, bulkConfig);
+                this.SaveChanges();
             }
         }
 
@@ -230,6 +235,7 @@ namespace PawfectCareLtd.Data
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
                 this.BulkInsert(orders, bulkConfig);
+                this.SaveChanges();
             }
         }
 
@@ -256,6 +262,7 @@ namespace PawfectCareLtd.Data
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
                 this.BulkInsert(medications, bulkConfig);
+                this.SaveChanges();
             }
         }
         public void BulkInsertPrescriptions(string csvFilePath)
@@ -302,6 +309,7 @@ namespace PawfectCareLtd.Data
 
                 // Insert Prescription-Medication Relationships
                 this.BulkInsert(prescriptionMedicationsList, bulkConfig);
+                this.SaveChanges();
             }
         }
     }

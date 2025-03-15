@@ -12,8 +12,8 @@ using PawfectCareLtd.Data;
 namespace PawfectCareLtd.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250312140756_AddTables")]
-    partial class AddTables
+    [Migration("20250315064539_AddAllTables")]
+    partial class AddAllTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,6 +60,8 @@ namespace PawfectCareLtd.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.HasKey("AppointmentID");
+
+                    b.HasIndex("PetID");
 
                     b.HasIndex("VetID");
 
@@ -222,6 +224,7 @@ namespace PawfectCareLtd.Migrations
             modelBuilder.Entity("PawfectCareLtd.Models.PrescriptionMedication", b =>
                 {
                     b.Property<string>("PrescriptionID")
+                        .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("MedicationID")
@@ -303,11 +306,19 @@ namespace PawfectCareLtd.Migrations
 
             modelBuilder.Entity("PawfectCareLtd.Models.Appointment", b =>
                 {
+                    b.HasOne("PawfectCareLtd.Models.Pet", "Pet")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PawfectCareLtd.Models.Vet", "Vet")
                         .WithMany("Appointments")
                         .HasForeignKey("VetID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Pet");
 
                     b.Navigation("Vet");
                 });
@@ -369,6 +380,11 @@ namespace PawfectCareLtd.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("PrescriptionMedications");
+                });
+
+            modelBuilder.Entity("PawfectCareLtd.Models.Pet", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Prescription", b =>

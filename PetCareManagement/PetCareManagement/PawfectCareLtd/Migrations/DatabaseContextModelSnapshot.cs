@@ -58,6 +58,8 @@ namespace PawfectCareLtd.Migrations
 
                     b.HasKey("AppointmentID");
 
+                    b.HasIndex("PetID");
+
                     b.HasIndex("VetID");
 
                     b.ToTable("Appointments");
@@ -219,6 +221,7 @@ namespace PawfectCareLtd.Migrations
             modelBuilder.Entity("PawfectCareLtd.Models.PrescriptionMedication", b =>
                 {
                     b.Property<string>("PrescriptionID")
+                        .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("MedicationID")
@@ -300,11 +303,19 @@ namespace PawfectCareLtd.Migrations
 
             modelBuilder.Entity("PawfectCareLtd.Models.Appointment", b =>
                 {
+                    b.HasOne("PawfectCareLtd.Models.Pet", "Pet")
+                        .WithMany("Appointments")
+                        .HasForeignKey("PetID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PawfectCareLtd.Models.Vet", "Vet")
                         .WithMany("Appointments")
                         .HasForeignKey("VetID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Pet");
 
                     b.Navigation("Vet");
                 });
@@ -366,6 +377,11 @@ namespace PawfectCareLtd.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("PrescriptionMedications");
+                });
+
+            modelBuilder.Entity("PawfectCareLtd.Models.Pet", b =>
+                {
+                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Prescription", b =>
