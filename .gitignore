@@ -1,3 +1,4 @@
 .vs/ 
 bin/ 
 obj/ 
+/PetCareManagement/PawfectCareLtd/appsettings.Development.json
