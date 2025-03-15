@@ -1,31 +1,38 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PawfectCareLtd.Models
+﻿namespace PawfectCareLtd.Models
 {
-    public class Pet
+    /// <summary>
+    /// Represents a pet owner with details like name, contact information, and address.
+    /// </summary>
+    public class Owner
     {
-        [Key]
-        [StringLength(10)]
-        public string PetID { get; set; }
-
-        [Required]
-        [StringLength(100)]
+        /// <summary>
+        /// Gets or sets the unique identifier for the owner.
+        /// </summary>
         public string OwnerID { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string PetName { get; set; }
+        /// <summary>
+        /// Gets or sets the first name of the owner.
+        /// </summary>
+        public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(15)]
-        public string PetType { get; set; }
+        /// <summary>
+        /// Gets or sets the last name of the owner.
+        /// </summary>
+        public string LastName { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Breed { get; set; }
+        /// <summary>
+        /// Gets or sets the phone number of the owner.
+        /// </summary>
+        public string PhoneNo { get; set; }
 
-        [Required]
-        [Range(0, 30)]  // Assuming age is between 0 and 30 years.
-        public string Age { get; set; }
+        /// <summary>
+        /// Gets or sets the email address of the owner.
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the physical address of the owner.
+        /// </summary>
+        public string Address { get; set; }
     }
 }
