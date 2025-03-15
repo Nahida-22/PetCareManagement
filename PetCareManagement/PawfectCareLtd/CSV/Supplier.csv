@@ -1,19 +1,10 @@
 SupplierID,SupplierName,PhoneNumber,Address,Email
-S10001,White Inc,(994)158-7939x359,"9022 Albert Hollow
-Wilkinsonside, NE 18039",mandyrivera@yahoo.com
-S10003,Lawson Group,909.851.8135,"8428 Victoria Lock
-Rosemouth, SD 55453",stevenmckinney@love-snyder.com
-S10009,"Garcia, Gonzalez and Good",928-901-8309,"91848 Patrick Oval
-Geraldfort, AR 29319",amber61@schultz-turner.net
-S10002,Lambert-Krueger,533.177.2147x599,"2279 Morgan Extensions Suite 586
-West Kennethberg, LA 73373",asmith@perry.info
-S10006,"Davidson, Roberts and Moreno",441.986.3366,"78365 Wright Walks
-North Brittanyville, IL 31992",benjaminrodriguez@yahoo.com
-S10007,"Smith, Gonzalez and Carlson",892-749-7683,"920 Aaron Falls Apt. 524
-Denisefort, MA 48896",martinezsergio@rodriguez.com
-S10004,"Hardy, Arias and Gibson",038-236-5700x411,"451 Murphy Shore
-North Maryfurt, UT 37509",cgarcia@yahoo.com
-S10008,Bryant-Johnson,(035)310-8191x134,"2013 Bell Village Suite 310
-Richardsburgh, CA 86522",psosa@yahoo.com
-S10005,Ellis-Neal,+1-536-197-1320x739,"5514 Morgan Loop
-Mariatown, AZ 42631",zvillanueva@yahoo.com
+S10001,White Inc,(994)158-7939x359,"9022 Albert Hollow Wilkinsonside NE 18039",mandyrivera@yahoo.com
+S10003,Lawson Group,909.851.8135,"8428 Victoria Lock Rosemouth SD 55453",stevenmckinney@love-snyder.com
+S10009,"Garcia Gonzalez and Good",928-901-8309,"91848 Patrick Oval Geraldfort AR 29319",amber61@schultz-turner.net
+S10002,Lambert-Krueger,533.177.2147x599,"2279 Morgan Extensions Suite 586 West Kennethberg LA 73373",asmith@perry.info
+S10006,"Davidson Roberts and Moreno",441.986.3366,"78365 Wright Walks North Brittanyville IL 31992",benjaminrodriguez@yahoo.com
+S10007,"Smith Gonzalez and Carlson",892-749-7683,"920 Aaron Falls Apt. 524 Denisefort MA 48896",martinezsergio@rodriguez.com
+S10004,"Hardy Arias and Gibson",038-236-5700x411,"451 Murphy Shore North Maryfurt UT 37509",cgarcia@yahoo.com
+S10008,Bryant-Johnson,(035)310-8191x134,"2013 Bell Village Suite 310 Richardsburgh CA 86522",psosa@yahoo.com
+S10005,Ellis-Neal,+1-536-197-1320x739,"5514 Morgan Loop Mariatown AZ 42631",zvillanueva@yahoo.com

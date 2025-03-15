@@ -12,8 +12,8 @@ using PawfectCareLtd.Data;
 namespace PawfectCareLtd.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250315123311_Saahil")]
-    partial class Saahil
+    [Migration("20250315150728_MigrationForAllTables")]
+    partial class MigrationForAllTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
