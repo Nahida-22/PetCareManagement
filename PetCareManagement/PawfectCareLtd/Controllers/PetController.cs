@@ -1,39 +1,41 @@
-﻿using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Models;
-using Microsoft.AspNetCore.Http;
+﻿//Commented because it is causing error
 
-namespace PawfectCareLtd.Controllers
-{
-    [ApiController]
-    [Route("api/[controller]")]
+//using System.ComponentModel;
+//using Microsoft.AspNetCore.Mvc;
+//using PawfectCareLtd.Data;
+//using PawfectCareLtd.Models;
+//using Microsoft.AspNetCore.Http;
 
-    public class PetController : ControllerBase
-    {
-        private readonly DatabaseContext petContext;
+//namespace PawfectCareLtd.Controllers
+//{
+//    [ApiController]
+//    [Route("api/[controller]")]
 
-        public PetController(DatabaseContext petContext)
-        {
-            this.petContext = petContext;
-        }
+//    public class PetController : ControllerBase
+//    {
+//        private readonly DatabaseContext petContext;
 
-        [HttpGet]
-        [Route("GetPets")]
-        public List<Pet> GetPets()
-        {
-            return petContext.Pet.ToList();
-        }
+//        public PetController(DatabaseContext petContext)
+//        {
+//            this.petContext = petContext;
+//        }
 
-        [HttpPost]
-        [Route("AddPet")]
+//        [HttpGet]
+//        [Route("GetPets")]
+//        public List<Pet> GetPets()
+//        {
+//            return petContext.Pet.ToList();
+//        }
 
-        public string AddPet(Pet pet)
-        {
-            string response = string.Empty;
-            petContext.Pet.Add(pet);
-            petContext.SaveChanges();
-            return "Vet added";
-        }
-    }
-}
+//        [HttpPost]
+//        [Route("AddPet")]
+
+//        public string AddPet(Pet pet)
+//        {
+//            string response = string.Empty;
+//            petContext.Pet.Add(pet);
+//            petContext.SaveChanges();
+//            return "Vet added";
+//        }
+//    }
+//}

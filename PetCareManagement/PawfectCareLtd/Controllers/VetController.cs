@@ -13,20 +13,20 @@ namespace PawfectCareLtd.Controllers
     {
         private readonly DatabaseContext vetContext;
 
-        public VetController(DatabaseContext vetContext) 
+        public VetController(DatabaseContext vetContext)
         {
             this.vetContext = vetContext;
         }
 
         [HttpGet]
-        [Route ("GetVets")]
+        [Route("GetVets")]
         public List<Vet> GetVets()
         {
             return vetContext.Vet.ToList();
         }
 
         [HttpPost]
-        [Route ("AddVet")]
+        [Route("AddVet")]
 
         public string AddVet(Vet vet)
         {
