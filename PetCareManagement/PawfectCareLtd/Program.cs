@@ -28,9 +28,10 @@ public class Program
 
             try
 {
-    // Apply any pending migrations and update the database
-    context.Database.Migrate();
-    Console.WriteLine("Database migration applied successfully.");
+                // Apply any pending migrations and update the database
+                context.Database.Migrate();
+                Console.WriteLine("Database migration applied successfully.");
+
 
     // Corrected CSV file path
     string OwnerCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Owner.csv");
@@ -57,17 +58,18 @@ public class Program
         context.BulkInsertLocations(LocationCsvPath);
 
 
-        Console.WriteLine("Bulk insert completed successfully.");
-    }
-    else
-    {
-        Console.WriteLine($"CSV file not found");
-    }
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Error applying migrations or bulk inserting data: {ex.Message}");
-}
+
+                    Console.WriteLine("Bulk insert completed successfully.");
+                }
+                else
+                {
+                    Console.WriteLine($"CSV file not found");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error applying migrations or bulk inserting data: {ex.Message}");
+            }
         }
 
         // Configure the HTTP request pipeline.
