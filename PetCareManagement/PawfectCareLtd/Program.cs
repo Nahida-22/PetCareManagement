@@ -32,27 +32,31 @@ public class Program
                 context.Database.Migrate();
                 Console.WriteLine("Database migration applied successfully.");
 
-                // Corrected CSV file path
-                string OwnerCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Owner.csv");
-                string PetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Pet.csv");
-                string VetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Vet.csv");
-                string AppointmentCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Appointment.csv");
-                string SupplierCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Supplier.csv");
-                string OrderCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Order.csv");
-                string MedicationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Medication.csv");
-                string PrescriptionCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Prescription.csv");
+
+    // Corrected CSV file path
+    string OwnerCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Owner.csv");
+    string PetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Pet.csv");
+    string VetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Vet.csv");
+    string AppointmentCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Appointment.csv");
+    string SupplierCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Supplier.csv");
+    string OrderCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Order.csv");
+    string MedicationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Medication.csv");
+    string PrescriptionCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Prescription.csv");
+    string LocationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Location.csv");
 
                 // Check if the CSV file exists and perform the bulk insert
                 if (File.Exists(VetCsvPath) && File.Exists(AppointmentCsvPath))
-                {
-                    context.BulkInsertOwners(OwnerCsvPath);
-                    context.BulkInsertPets(PetCsvPath);
-                    context.BulkInsertVets(VetCsvPath);
-                    context.BulkInsertAppointments(AppointmentCsvPath);
-                    context.BulkInsertSuppliers(SupplierCsvPath);
-                    context.BulkInsertOrders(OrderCsvPath);
-                    context.BulkInsertMedications(MedicationCsvPath);
-                    context.BulkInsertPrescriptions(PrescriptionCsvPath);
+    {
+        context.BulkInsertOwners(OwnerCsvPath);
+        context.BulkInsertPets(PetCsvPath);
+        context.BulkInsertVets(VetCsvPath);
+        context.BulkInsertAppointments(AppointmentCsvPath);
+        context.BulkInsertSuppliers(SupplierCsvPath);
+        context.BulkInsertOrders(OrderCsvPath);
+        context.BulkInsertMedications(MedicationCsvPath);
+        context.BulkInsertPrescriptions(PrescriptionCsvPath);
+        context.BulkInsertLocations(LocationCsvPath);
+
 
 
                     Console.WriteLine("Bulk insert completed successfully.");
@@ -75,9 +79,10 @@ public class Program
             app.UseSwaggerUI();
         }
 
-        app.UseAuthorization();
         app.UseHttpsRedirection();
+        app.UseAuthorization();
         app.MapControllers();
+
 
         // Run the app
         app.Run();

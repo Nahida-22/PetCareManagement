@@ -19,8 +19,9 @@ namespace PawfectCareLtd.Models
         /// This property is required and is a foreign key referencing the Owner entity.
         /// </summary>
         [Required]
-        [StringLength(100)]
+        [StringLength(10)]
         public string OwnerID { get; set; }
+        public Owner Owner { get; set; } // Navigation property
 
         /// <summary>
         /// Gets or sets the name of the pet.
