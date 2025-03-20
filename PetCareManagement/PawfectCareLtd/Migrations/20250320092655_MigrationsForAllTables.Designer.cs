@@ -12,8 +12,8 @@ using PawfectCareLtd.Data;
 namespace PawfectCareLtd.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250315150728_MigrationForAllTables")]
-    partial class MigrationForAllTables
+    [Migration("20250320092655_MigrationsForAllTables")]
+    partial class MigrationsForAllTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,13 +31,12 @@ namespace PawfectCareLtd.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<DateTime>("ApptDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("LocationID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("PetID")
                         .IsRequired()
@@ -61,11 +60,35 @@ namespace PawfectCareLtd.Migrations
 
                     b.HasKey("AppointmentID");
 
+                    b.HasIndex("LocationID");
+
                     b.HasIndex("PetID");
 
                     b.HasIndex("VetID");
 
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("PawfectCareLtd.Models.Location", b =>
+                {
+                    b.Property<string>("LocationID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("LocationID");
+
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Medication", b =>
@@ -130,7 +153,8 @@ namespace PawfectCareLtd.Migrations
             modelBuilder.Entity("PawfectCareLtd.Models.Owner", b =>
                 {
                     b.Property<string>("OwnerID")
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -169,8 +193,8 @@ namespace PawfectCareLtd.Migrations
 
                     b.Property<string>("OwnerID")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("PetName")
                         .IsRequired()
@@ -183,6 +207,8 @@ namespace PawfectCareLtd.Migrations
                         .HasColumnType("nvarchar(15)");
 
                     b.HasKey("PetID");
+
+                    b.HasIndex("OwnerID");
 
                     b.ToTable("Pets");
                 });
@@ -306,6 +332,12 @@ namespace PawfectCareLtd.Migrations
 
             modelBuilder.Entity("PawfectCareLtd.Models.Appointment", b =>
                 {
+                    b.HasOne("PawfectCareLtd.Models.Location", "Location")
+                        .WithMany("Appointments")
+                        .HasForeignKey("LocationID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PawfectCareLtd.Models.Pet", "Pet")
                         .WithMany("Appointments")
                         .HasForeignKey("PetID")
@@ -317,6 +349,8 @@ namespace PawfectCareLtd.Migrations
                         .HasForeignKey("VetID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Location");
 
                     b.Navigation("Pet");
 
@@ -339,6 +373,17 @@ namespace PawfectCareLtd.Migrations
                         .HasForeignKey("MedicationID");
 
                     b.Navigation("Medication");
+                });
+
+            modelBuilder.Entity("PawfectCareLtd.Models.Pet", b =>
+                {
+                    b.HasOne("PawfectCareLtd.Models.Owner", "Owner")
+                        .WithMany("Pets")
+                        .HasForeignKey("OwnerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Prescription", b =>
@@ -375,11 +420,21 @@ namespace PawfectCareLtd.Migrations
                     b.Navigation("Prescription");
                 });
 
+            modelBuilder.Entity("PawfectCareLtd.Models.Location", b =>
+                {
+                    b.Navigation("Appointments");
+                });
+
             modelBuilder.Entity("PawfectCareLtd.Models.Medication", b =>
                 {
                     b.Navigation("Orders");
 
                     b.Navigation("PrescriptionMedications");
+                });
+
+            modelBuilder.Entity("PawfectCareLtd.Models.Owner", b =>
+                {
+                    b.Navigation("Pets");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Pet", b =>

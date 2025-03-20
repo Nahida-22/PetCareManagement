@@ -41,9 +41,10 @@ public class Program
     string OrderCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Order.csv");
     string MedicationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Medication.csv");
     string PrescriptionCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Prescription.csv");
+    string LocationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Location.csv");
 
-    // Check if the CSV file exists and perform the bulk insert
-    if (File.Exists(VetCsvPath) && File.Exists(AppointmentCsvPath))
+                // Check if the CSV file exists and perform the bulk insert
+                if (File.Exists(VetCsvPath) && File.Exists(AppointmentCsvPath))
     {
         context.BulkInsertOwners(OwnerCsvPath);
         context.BulkInsertPets(PetCsvPath);
@@ -53,6 +54,7 @@ public class Program
         context.BulkInsertOrders(OrderCsvPath);
         context.BulkInsertMedications(MedicationCsvPath);
         context.BulkInsertPrescriptions(PrescriptionCsvPath);
+        context.BulkInsertLocations(LocationCsvPath);
 
 
         Console.WriteLine("Bulk insert completed successfully.");
@@ -75,9 +77,10 @@ catch (Exception ex)
             app.UseSwaggerUI();
         }
 
-        app.UseAuthorization();
         app.UseHttpsRedirection();
+        app.UseAuthorization();
         app.MapControllers();
+
 
         // Run the app
         app.Run();

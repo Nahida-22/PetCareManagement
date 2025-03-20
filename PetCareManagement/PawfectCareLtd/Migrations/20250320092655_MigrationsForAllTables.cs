@@ -6,16 +6,31 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PawfectCareLtd.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationForAllTables : Migration
+    public partial class MigrationsForAllTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Locations",
+                columns: table => new
+                {
+                    LocationID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.LocationID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Owners",
                 columns: table => new
                 {
-                    OwnerID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OwnerID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -25,22 +40,6 @@ namespace PawfectCareLtd.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Owners", x => x.OwnerID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Pets",
-                columns: table => new
-                {
-                    PetID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
-                    OwnerID = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PetType = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
-                    Breed = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Age = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pets", x => x.PetID);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,6 +74,28 @@ namespace PawfectCareLtd.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Pets",
+                columns: table => new
+                {
+                    PetID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    OwnerID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    PetName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PetType = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Breed = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Age = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Pets", x => x.PetID);
+                    table.ForeignKey(
+                        name: "FK_Pets_Owners_OwnerID",
+                        column: x => x.OwnerID,
+                        principalTable: "Owners",
+                        principalColumn: "OwnerID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Medications",
                 columns: table => new
                 {
@@ -106,11 +127,17 @@ namespace PawfectCareLtd.Migrations
                     ServiceType = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     ApptDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
+                    LocationID = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Appointments", x => x.AppointmentID);
+                    table.ForeignKey(
+                        name: "FK_Appointments_Locations_LocationID",
+                        column: x => x.LocationID,
+                        principalTable: "Locations",
+                        principalColumn: "LocationID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Appointments_Pets_PetID",
                         column: x => x.PetID,
@@ -196,6 +223,11 @@ namespace PawfectCareLtd.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Appointments_LocationID",
+                table: "Appointments",
+                column: "LocationID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Appointments_PetID",
                 table: "Appointments",
                 column: "PetID");
@@ -214,6 +246,11 @@ namespace PawfectCareLtd.Migrations
                 name: "IX_Orders_MedicationID",
                 table: "Orders",
                 column: "MedicationID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Pets_OwnerID",
+                table: "Pets",
+                column: "OwnerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrescriptionMedication_MedicationID",
@@ -241,10 +278,10 @@ namespace PawfectCareLtd.Migrations
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Owners");
+                name: "PrescriptionMedication");
 
             migrationBuilder.DropTable(
-                name: "PrescriptionMedication");
+                name: "Locations");
 
             migrationBuilder.DropTable(
                 name: "Medications");
@@ -260,6 +297,9 @@ namespace PawfectCareLtd.Migrations
 
             migrationBuilder.DropTable(
                 name: "Vet");
+
+            migrationBuilder.DropTable(
+                name: "Owners");
         }
     }
 }

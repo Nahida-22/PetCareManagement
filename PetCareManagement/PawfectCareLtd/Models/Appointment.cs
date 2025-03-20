@@ -50,11 +50,11 @@ namespace PawfectCareLtd.Models
         public string Status { get; set; }
 
         /// <summary>
-        /// Gets or sets the address where the appointment will take place.
+        /// Gets or sets the unique identifier for the vet associated with the appointment.
         /// </summary>
         [Required]
-        [StringLength(10)]
-        public string Address { get; set; }
+        
+        public string LocationID { get; set; }
 
         /// <summary>
         /// Gets or sets the vet associated with the appointment.
@@ -69,6 +69,13 @@ namespace PawfectCareLtd.Models
         /// </summary>
         [ForeignKey("PetID")]
         public Pet Pet { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Location associated with the appointment.
+        /// This is a navigation property.
+        /// </summary>
+        [ForeignKey("LocationID")]
+        public Location Location { get; set; }
 
     }
 

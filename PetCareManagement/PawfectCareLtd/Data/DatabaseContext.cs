@@ -27,6 +27,8 @@ namespace PawfectCareLtd.Data
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Owner> Owners { get; set; }
 
+        public DbSet <Location> Locations { get; set; }
+
         /// <summary>
         /// Configures the relationships, keys, and constraints for the database tables.
         /// </summary>
@@ -93,6 +95,18 @@ namespace PawfectCareLtd.Data
                 .HasOne(pm => pm.Medication)
                 .WithMany(m => m.PrescriptionMedications)
                 .HasForeignKey(pm => pm.MedicationID);
+            modelBuilder.Entity<Pet>()
+             .HasOne(p => p.Owner)  // Pet has ONE Owner
+             .WithMany(o => o.Pets)  // Owner has MANY Pets
+             .HasForeignKey(p => p.OwnerID);  // Foreign key
+
+            // One Location can have multiple Appointments
+            // One Appointment belongs to one Location
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Location)
+                .WithMany(l => l.Appointments)
+                .HasForeignKey(a => a.LocationID);
+                
 
         }
 
@@ -184,7 +198,7 @@ namespace PawfectCareLtd.Data
                                System.Globalization.CultureInfo.InvariantCulture,
                                System.Globalization.DateTimeStyles.None),
                         Status = data[5].Trim(),
-                        Address = data[6].Trim()
+                        LocationID = data[6].Trim()
                     }).ToList();
 
                 var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
@@ -309,6 +323,28 @@ namespace PawfectCareLtd.Data
 
                 // Insert Prescription-Medication Relationships
                 this.BulkInsert(prescriptionMedicationsList, bulkConfig);
+                this.SaveChanges();
+            }
+        }
+        public void BulkInsertLocations(string csvFilePath)
+        {
+            if (!Locations.Any()) // Ensure data is inserted only once
+            {
+                var locations = File.ReadAllLines(csvFilePath)
+                    .Skip(1) // Skip CSV header
+                    .Select(line => line.Split(','))
+                    .Select(data => new Location
+                    {
+                        LocationID = data[0].Trim(),
+                        Name = data[1].Trim(),
+                        Address= data[2].Trim(),
+                        Phone = (data[3].Trim()),
+                        Email = data[4].Trim(),
+                        
+                    }).ToList();
+
+                var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
+                this.BulkInsert(locations, bulkConfig);
                 this.SaveChanges();
             }
         }
