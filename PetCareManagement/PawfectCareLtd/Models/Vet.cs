@@ -1,60 +1,41 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization; // Required for JsonPropertyName
 
 namespace PawfectCareLtd.Models
 {
-    /// <summary>
-    /// Represents a veterinarian in the system. A vet can have many appointments with pets.
-    /// </summary>
     public class Vet
     {
-        /// <summary>
-        /// Gets or sets the unique identifier for the vet.
-        /// </summary>
         [Key]
         [StringLength(10)]
+        [JsonPropertyName("vetID")]
         public string VetID { get; set; }
 
-        /// <summary>
-        /// Gets or sets the name of the vet.
-        /// </summary>
         [Required]
         [StringLength(100)]
+        [JsonPropertyName("vetName")]
         public string VetName { get; set; }
 
-        /// <summary>
-        /// Gets or sets the specialisation of the vet (e.g surgery, dermatology, etc.).
-        /// </summary>
         [Required]
         [StringLength(50)]
+        [JsonPropertyName("specialisation")]
         public string Specialisation { get; set; }
 
-        /// <summary>
-        /// Gets or sets the phone number for contacting the vet.
-        /// </summary>
         [Required]
         [StringLength(15)]
+        [JsonPropertyName("phoneNo")]
         public string PhoneNo { get; set; }
 
-        /// <summary>
-        /// Gets or sets the email address of the vet.
-        /// Ensures that the email is in a valid format.
-        /// </summary>
         [Required]
         [StringLength(100)]
         [EmailAddress]
+        [JsonPropertyName("email")]
         public string Email { get; set; }
 
-        /// <summary>
-        /// Gets or sets the address of the vet.
-        /// </summary>
         [Required]
         [StringLength(255)]
+        [JsonPropertyName("address")]
         public string Address { get; set; }
 
-        /// <summary>
-        /// Navigation property representing the appointments associated with the vet.
-        /// A vet can have many appointments with pets.
-        /// </summary>
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
     }
 }

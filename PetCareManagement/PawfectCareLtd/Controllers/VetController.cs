@@ -3,37 +3,40 @@ using Microsoft.AspNetCore.Mvc;
 using PawfectCareLtd.Data;
 using PawfectCareLtd.Models;
 using Microsoft.AspNetCore.Http;
+using PawfectCareLtd.Repositories;
+using Humanizer;
 
 namespace PawfectCareLtd.Controllers
 {
+    /// <summary>
+    /// API Controller for managing veterinarians.
+    /// Handles requests related to veterinarians (CRUD operations).
+    /// </summary>
+    
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]")] // Route --> "api/vet"
 
     public class VetController : ControllerBase
     {
-        private readonly DatabaseContext vetContext;
+        // Inject the Vet repository interface.
+        private readonly IVetRepository _vetRepository;
 
-        public VetController(DatabaseContext vetContext)
+        // Constructor to inject the repository dependency.
+        public VetController(IVetRepository vetRepository)
         {
-            this.vetContext = vetContext;
+            _vetRepository = vetRepository;
         }
 
+        // Retrieves a list of all veterinarians.
         [HttpGet]
-        [Route("GetVets")]
-        public List<Vet> GetVets()
+        public async Task <IActionResult> GetAllVets()
         {
-            return vetContext.Vet.ToList();
+            // Call GetAllVetsAsync() to fetch all vets from the database.
+            var vets = await _vetRepository.GetAllVetsAsync();
+
+            // Returns HTTP 200 OK with the list of vets.
+            return Ok(vets);
         }
 
-        [HttpPost]
-        [Route("AddVet")]
-
-        public string AddVet(Vet vet)
-        {
-            string response = string.Empty;
-            vetContext.Vet.Add(vet);
-            vetContext.SaveChanges();
-            return "Vet added";
-        }
     }
 }

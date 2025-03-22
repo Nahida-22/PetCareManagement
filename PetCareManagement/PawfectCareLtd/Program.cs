@@ -4,6 +4,10 @@ using PawfectCareLtd.Models;
 using PawfectCareLtd.Repositories;
 using PawfectCareLtd.Services;
 using System.IO;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly;
+using Microsoft.AspNetCore.Builder;
+
 
 public class Program
 {
@@ -16,8 +20,16 @@ public class Program
         builder.Services.AddDbContext<DatabaseContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        // Add controller services for API requests.
-        builder.Services.AddControllers();
+        // Register MVC controllers and Blazor components
+        builder.Services.AddRazorComponents();
+        builder.Services.AddRazorPages();
+        builder.Services.AddServerSideBlazor();
+
+        // Register HttpClient for dependency injection
+        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7038/") });
+
+        // Add support for MVC Controllers AND Razor Views
+        builder.Services.AddControllersWithViews();
 
         // Add Swagger for API documentation.
         builder.Services.AddEndpointsApiExplorer();
@@ -28,6 +40,12 @@ public class Program
 
         // Register IBulkInsertRepository with its implementation BulkInsertRepository for dependency injection.
         builder.Services.AddScoped<IBulkInsertRepository, BulkInsertRepository>();
+
+        // Register IVetRepository with its implementation VetRepository for dependency injection.
+        builder.Services.AddScoped<IVetRepository, VetRepository>();
+
+        // Register VetService.
+        builder.Services.AddScoped<VetService>();
 
 
         // Build the web application.
@@ -53,9 +71,22 @@ public class Program
         }
 
         // Enable HTTPS redirection for secure communication
+        app.UseStaticFiles();
         app.UseHttpsRedirection();
-        app.MapControllers();
+        app.UseRouting();
+        app.UseAuthorization();
 
+
+        // Enable Blazor component routing
+        app.MapBlazorHub();
+        app.MapFallbackToPage("/_Host");
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+        });
 
         // Run the application.
         app.Run();
