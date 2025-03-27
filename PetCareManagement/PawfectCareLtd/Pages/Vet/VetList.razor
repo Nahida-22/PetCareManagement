@@ -1,0 +1,64 @@
+﻿@using PawfectCareLtd.Models;
+@using System.Text.Json;
+
+@* Define the route for the page *@
+@page "/vets"
+
+@* Inject the VetService for fetching data *@
+@inject VetService VetService
+
+ @* Inject the NavigationManager for handling page navigation *@
+@inject NavigationManager Navigation
+
+<h3>Vet List</h3>
+
+@* Check if the vets list is still loading (null) *@
+@if (vets == null)
+{
+    @* Display loading message. *@
+    <p>Loading...</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Specialisation</th>
+            <th>Actions</th>
+        </tr>
+
+        @* Loop through the list of vets *@
+        @foreach (var vet in vets)
+        {
+            <tr>
+                <td>@vet.VetName</td> <!-- Display vet's name -->
+                <td>@vet.Specialisation</td> <!-- Display vet's specialisation -->
+                <td>
+                    @* Code below is commented for future use. *@
+                    @* <button @onclick="() => Navigation.NavigateTo($"/vet/details/{vet.VetID}")">View</button> *@
+                    @* <button @onclick="() => Navigation.NavigateTo($"/vet/edit/{vet.VetID}")">Edit</button> *@
+                    @* <button @onclick='() => DeleteVet(vet.VetID)'>Delete</button> *@
+
+                    <button @onclick='() => Navigation.NavigateTo($"/vet/details/{vet.VetID}")'>View</button>
+                    <button @onclick='() => Navigation.NavigateTo($"/vet/edit/{vet.VetID}")'>Edit</button>
+
+                </td>
+            </tr>
+        }
+    </table>
+    @* <button @onclick="() => Navigation.NavigateTo("/vet/create")">Add Vet</button> *@
+}
+
+@code {
+    // List to store vets initialised as null.
+    private List<Vet>? vets;
+
+    // Fetch the list of vets from the API
+    protected override async Task OnInitializedAsync()
+    {
+        // Call the service to get the list of vets
+        vets = await VetService.GetAllVets();
+    }
+
+
+}
