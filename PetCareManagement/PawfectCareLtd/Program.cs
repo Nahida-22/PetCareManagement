@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Data;
 using PawfectCareLtd.Models;
+using PawfectCareLtd.Repositories;
+using PawfectCareLtd.Services;
 using System.IO;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly;
-using Microsoft.AspNetCore.Builder;
-using System;
-using System.Windows.Forms;
+//using System.Windows.Forms;
+using PawfectCareLtd;
 
 namespace PetCareLimited
 {
@@ -17,89 +16,67 @@ namespace PetCareLimited
             // Set up the web application for API
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add VetContext
-            builder.Services.AddDbContext<DatabaseContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            // Get the connection to connect to the database.
+            string connectionString = ConnectionStringProvider.ConnectionString(args);
 
-            // Add services to the container
-            builder.Services.AddControllers();
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            // Build the app
-            var app = builder.Build();
-
-            // Apply migrations and seed data at startup
-            using (var scope = app.Services.CreateScope())
+            if (connectionString != null)
             {
-                var context = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+                // Add Database Context to the service container and configure to use default connection string.
+                builder.Services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(connectionString));
 
-                try
+                // Add controller services for API requests.
+                builder.Services.AddControllers();
+
+                // Add Swagger for API documentation.
+                builder.Services.AddEndpointsApiExplorer();
+                builder.Services.AddSwaggerGen();
+
+                // Register CsvImportService as a scoped service (one instance per request).
+                builder.Services.AddScoped<CsvImportService>();
+
+                // Register IBulkInsertRepository with its implementation BulkInsertRepository for dependency injection.
+                builder.Services.AddScoped<IBulkInsertRepository, BulkInsertRepository>();
+
+
+                // Build the app
+                var app = builder.Build();
+
+                // Apply any pending database migrations at application startup.
+                DatabaseInitialiser.Initialise(app.Services);
+
+                // Import CSV data into the database on startup.
+                using (var scope = app.Services.CreateScope())
                 {
-                    // Apply any pending migrations and update the database
-                    context.Database.Migrate();
-                    Console.WriteLine("Database migration applied successfully.");
-
-                    // Corrected CSV file path
-                    string OwnerCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Owner.csv");
-                    string PetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Pet.csv");
-                    string VetCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Vet.csv");
-                    string AppointmentCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Appointment.csv");
-                    string SupplierCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Supplier.csv");
-                    string OrderCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Order.csv");
-                    string MedicationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Medication.csv");
-                    string PrescriptionCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Prescription.csv");
-                    string LocationCsvPath = Path.Combine(Directory.GetCurrentDirectory(), "CSV", "Location.csv");
-
-                    // Check if the CSV file exists and perform the bulk insert
-                    if (File.Exists(VetCsvPath) && File.Exists(AppointmentCsvPath))
-                    {
-                        context.BulkInsertOwners(OwnerCsvPath);
-                        context.BulkInsertPets(PetCsvPath);
-                        context.BulkInsertVets(VetCsvPath);
-                        context.BulkInsertAppointments(AppointmentCsvPath);
-                        context.BulkInsertSuppliers(SupplierCsvPath);
-                        context.BulkInsertOrders(OrderCsvPath);
-                        context.BulkInsertMedications(MedicationCsvPath);
-                        context.BulkInsertPrescriptions(PrescriptionCsvPath);
-                        context.BulkInsertLocations(LocationCsvPath);
-
-                        Console.WriteLine("Bulk insert completed successfully.");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"CSV file not found");
-                    }
+                    // Retrieve the CsvImportService from DI container and run the import process.
+                    var csvService = scope.ServiceProvider.GetRequiredService<CsvImportService>();
+                    csvService.ImportData();
                 }
-                catch (Exception ex)
+
+                // Use Swagger for API documentation only in development environment.
+                if (app.Environment.IsDevelopment())
                 {
-                    Console.WriteLine($"Error applying migrations or bulk inserting data: {ex.Message}");
+                    app.UseSwagger();
+                    app.UseSwaggerUI();
                 }
+
+                // Enable HTTPS redirection for secure communication
+                app.UseHttpsRedirection();
+                app.MapControllers();
+
+                // Run the web application in a separate thread
+                var webAppThread = new System.Threading.Thread(() =>
+                {
+                    app.Run();
+                });
+
+                webAppThread.Start();
+
+                // Run the WinForms application
+                //Application.EnableVisualStyles();
+                //Application.SetCompatibleTextRenderingDefault(false);
+                //Application.Run(new Form1());
             }
-
-            // Configure the HTTP request pipeline
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
-
-            // Run the web application in a separate thread
-            var webAppThread = new System.Threading.Thread(() =>
-            {
-                app.Run();
-            });
-
-            webAppThread.Start();
-
-            // Run the WinForms application
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
         }
     }
 }

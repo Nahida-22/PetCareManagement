@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PawfectCareLtd.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationsForAllTables : Migration
+    public partial class AddMigrationForAllTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
