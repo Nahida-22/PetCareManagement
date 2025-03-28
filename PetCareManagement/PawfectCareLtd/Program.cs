@@ -5,9 +5,8 @@ using PawfectCareLtd.Repositories;
 using PawfectCareLtd.Services;
 using System.IO;
 //using System.Windows.Forms;
-using PawfectCareLtd;
 
-namespace PetCareLimited
+namespace PawfectCareLtd
 {
     internal static class Program
     {
@@ -65,7 +64,7 @@ namespace PetCareLimited
                 app.MapControllers();
 
                 // Run the web application in a separate thread
-                var webAppThread = new System.Threading.Thread(() =>
+                var webAppThread = new Thread(() =>
                 {
                     app.Run();
                 });
