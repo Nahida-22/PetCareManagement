@@ -131,12 +131,14 @@ namespace PawfectCareLtd.Data.DataRetrieval.cs
         }
 
         // Insert a new record into the table
-        public void Insert(Record record)
+        public void Insert(Record record, bool skipDb = false)
         {
             string key = record[primaryKey].ToString();
             rows.Add(key, record);
             // If the table is "Location", also save the record to the database
-            if (Name == "Location")
+            if (Name == "Location" && !skipDb)
+
+
             {
                 var entity = new Location
                 {

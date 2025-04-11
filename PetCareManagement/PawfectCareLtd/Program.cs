@@ -98,7 +98,7 @@ namespace PawfectCareLtd
                 record["Phone"] = loc.Phone;
                 record["Email"] = loc.Email;
 
-                locationTable.Insert(record);
+                locationTable.Insert(record, skipDb: true);
             }
 
             Console.WriteLine("Locations loaded into hash table successfully!");
