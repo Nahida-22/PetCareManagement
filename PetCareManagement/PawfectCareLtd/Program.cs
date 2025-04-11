@@ -1,51 +1,70 @@
-using Microsoft.EntityFrameworkCore;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;
+// Import dependencies.
+using Microsoft.EntityFrameworkCore; // Import the entity framework for databases related operation.
+using PawfectCareLtd.Data; // Import the database context used in the application.
+using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database used in the application.
 
-using PawfectCareLtd.Models;
-using PawfectCareLtd.Repositories;
-using PawfectCareLtd.Services;
-using System.Threading;
+using PawfectCareLtd.Models; // Import the data models used in the application.
+using PawfectCareLtd.Repositories; // Import the repositories used in the application.
+using PawfectCareLtd.Services; // Import the services used in the application.
+using System.Threading; // Import threading.
 
-namespace PawfectCareLtd
+namespace PawfectCareLtd // Define the namespace for the application.
 {
+
+    // Define the main entry point of the program.
     internal static class Program
     {
+        // Main method... The entry point of the program.
         public static void Main(string[] args)
         {
-            // STEP 1: Build the app
+            // Set up the web application for API
             var builder = WebApplication.CreateBuilder(args);
 
-            // STEP 2: Get the connection string
+            // Get the connection to connect to the database.
             string connectionString = ConnectionStringProvider.ConnectionString(args);
 
+
+            // Check if the connection string is not null.
             if (connectionString != null)
             {
-                // STEP 3: Register all services
+                // Add Database Context to the service container and configure to use default connection string.
                 builder.Services.AddDbContext<DatabaseContext>(options =>
                     options.UseSqlServer(connectionString));
 
+                // Add controller services for API requests.
                 builder.Services.AddControllers();
+
+                // Add Swagger for API documentation.
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
+
+                // Register CsvImportService as a scoped service (one instance per request).
                 builder.Services.AddScoped<CsvImportService>();
+
+                // Register IBulkInsertRepository with its implementation BulkInsertRepository for dependency injection.
                 builder.Services.AddScoped<IBulkInsertRepository, BulkInsertRepository>();
 
+                // Build the app
                 var app = builder.Build();
 
-                // STEP 4: Run migrations and import CSVs
+                // Apply any pending database migrations at application startup.
                 DatabaseInitialiser.Initialise(app.Services);
 
+                // Import CSV data into the database on startup.
                 using (var scope = app.Services.CreateScope())
                 {
+                    // Retrieve the CsvImportService from DI container and run the import process.
                     var csvService = scope.ServiceProvider.GetRequiredService<CsvImportService>();
                     csvService.ImportData();
                 }
 
-                // STEP 5: Load data into Hash Tables
+                // Load the data from the SSMS database into the in memory database.
                 LoadTablesFromDatabase(app.Services);
 
-                // STEP 6: Start API thread
+                // Check if the Read part from the LocationCRUD is working.
+                PawfectCareLtd.CRUD.LocationCRUD.ReadOperationForLocation("Address", "123 Main St Downtown City");
+
+                // Use Swagger for API documentation only in development environment.
                 if (app.Environment.IsDevelopment())
                 {
                     app.UseSwagger();
@@ -65,7 +84,7 @@ namespace PawfectCareLtd
             }
         }
 
-        // Method to take data from SQL database and populate the in-built database.
+        // Method to take data from SQL database and populate the in memory database.
         private static void LoadTablesFromDatabase(IServiceProvider services)
         {
             // Connect to the SSMS database.
@@ -246,9 +265,8 @@ namespace PawfectCareLtd
 
             // Make the database that in-built database a static so that it can be assess gobally.
             InMemoryDatabase.InMemoryDatabaseInstance = db;
-
-            DisplayRecord(paymentTable, "B14667");
         }
+
 
         // Test method to see if data has been inserted correctly into the database.
         private static void DisplayRecord(Table Table, string ID)
