@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PawfectCareLtd.Migrations
 {
     /// <inheritdoc />
-    public partial class AddMigrationForAllTables : Migration
+    public partial class AllTablesMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -199,6 +199,27 @@ namespace PawfectCareLtd.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    BillID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    AppointmentID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    TotalAmount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PaymentStatus = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.BillID);
+                    table.ForeignKey(
+                        name: "FK_Payments_Appointments_AppointmentID",
+                        column: x => x.AppointmentID,
+                        principalTable: "Appointments",
+                        principalColumn: "AppointmentID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PrescriptionMedication",
                 columns: table => new
                 {
@@ -248,6 +269,12 @@ namespace PawfectCareLtd.Migrations
                 column: "MedicationID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_AppointmentID",
+                table: "Payments",
+                column: "AppointmentID",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pets_OwnerID",
                 table: "Pets",
                 column: "OwnerID");
@@ -272,22 +299,25 @@ namespace PawfectCareLtd.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Appointments");
+                name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Orders");
+                name: "Payments");
 
             migrationBuilder.DropTable(
                 name: "PrescriptionMedication");
 
             migrationBuilder.DropTable(
-                name: "Locations");
+                name: "Appointments");
 
             migrationBuilder.DropTable(
                 name: "Medications");
 
             migrationBuilder.DropTable(
                 name: "Prescriptions");
+
+            migrationBuilder.DropTable(
+                name: "Locations");
 
             migrationBuilder.DropTable(
                 name: "Suppliers");

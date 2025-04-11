@@ -30,7 +30,7 @@ namespace PawfectCareLtd.Services
             // Each key represents a CSV file, and the value represents the corresponding bulk insert action.
             var csvFiles = new Dictionary <string, Action<string>>
             {
-                { "Owner.CSV", _bulkInsertRepository.BulkInsertOwners },
+                { "Owner.csv", _bulkInsertRepository.BulkInsertOwners },
                 { "Pet.csv", _bulkInsertRepository.BulkInsertPets },
                 { "Vet.csv", _bulkInsertRepository.BulkInsertVets },
                 { "Appointment.csv", _bulkInsertRepository.BulkInsertAppointments },
@@ -38,7 +38,8 @@ namespace PawfectCareLtd.Services
                 { "Order.csv", _bulkInsertRepository.BulkInsertOrders },
                 { "Medication.csv", _bulkInsertRepository.BulkInsertMedications },
                 { "Prescription.csv", _bulkInsertRepository.BulkInsertPrescriptions },
-                { "Location.csv", _bulkInsertRepository.BulkInsertLocations }
+                { "Location.csv", _bulkInsertRepository.BulkInsertLocations },
+                { "Payment.csv", _bulkInsertRepository.BulkInsertPayments }
             };
 
             // Iterate through each file in the dictionary to process the CSV files and insert data into the database.

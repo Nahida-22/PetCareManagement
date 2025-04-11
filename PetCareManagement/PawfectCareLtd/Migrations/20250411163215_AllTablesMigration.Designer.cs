@@ -12,8 +12,8 @@ using PawfectCareLtd.Data;
 namespace PawfectCareLtd.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250328100253_AddMigrationForAllTables")]
-    partial class AddMigrationForAllTables
+    [Migration("20250411163215_AllTablesMigration")]
+    partial class AllTablesMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,6 +174,36 @@ namespace PawfectCareLtd.Migrations
                     b.HasKey("OwnerID");
 
                     b.ToTable("Owners");
+                });
+
+            modelBuilder.Entity("PawfectCareLtd.Models.Payment", b =>
+                {
+                    b.Property<string>("BillID")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("AppointmentID")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.HasKey("BillID");
+
+                    b.HasIndex("AppointmentID")
+                        .IsUnique();
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Pet", b =>
@@ -381,6 +411,17 @@ namespace PawfectCareLtd.Migrations
                     b.Navigation("Medication");
                 });
 
+            modelBuilder.Entity("PawfectCareLtd.Models.Payment", b =>
+                {
+                    b.HasOne("PawfectCareLtd.Models.Appointment", "Appointment")
+                        .WithOne("Payment")
+                        .HasForeignKey("PawfectCareLtd.Models.Payment", "AppointmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+                });
+
             modelBuilder.Entity("PawfectCareLtd.Models.Pet", b =>
                 {
                     b.HasOne("PawfectCareLtd.Models.Owner", "Owner")
@@ -424,6 +465,11 @@ namespace PawfectCareLtd.Migrations
                     b.Navigation("Medication");
 
                     b.Navigation("Prescription");
+                });
+
+            modelBuilder.Entity("PawfectCareLtd.Models.Appointment", b =>
+                {
+                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Location", b =>

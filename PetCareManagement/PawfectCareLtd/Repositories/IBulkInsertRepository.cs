@@ -13,6 +13,7 @@
         void BulkInsertMedications(string filePath);
         void BulkInsertPrescriptions(string filePath);
         void BulkInsertLocations(string filePath);
+        void BulkInsertPayments(string filePath);
     }
 
 }

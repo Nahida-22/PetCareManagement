@@ -267,6 +267,36 @@ namespace PawfectCareLtd.Repositories
                 _databaseContext.SaveChanges();
             }
         }
+
+        // Method to bulk insert payments data from a CSV file into the Payment table
+        public void BulkInsertPayments(string csvFilePath)
+        {
+            if (!_databaseContext.Payments.Any()) // Ensure data is inserted only once
+            {
+                var payments =  File.ReadAllLines(csvFilePath)
+                    .Skip(1) // Skip CSV header
+                    .Select(line => line.Split(','))
+                    .Select(data => new Payment
+                    {
+                        BillID = data[0].Trim(),
+                        AppointmentID = data[1].Trim(),
+                        TotalAmount = decimal.TryParse(data[2].Trim(), out decimal amount) ? amount : 0m, // Convert to decimal
+
+                        PaymentDate = DateTime.TryParseExact(data[3].Trim(),
+                            new[] { "M/d/yyyy", "MM/dd/yyyy", "yyyy-MM-dd" }, // Multiple formats
+                            System.Globalization.CultureInfo.InvariantCulture,
+                            System.Globalization.DateTimeStyles.None,
+                            out DateTime parsedDate) ? parsedDate : (DateTime?)null, // Handle null date
+
+                        PaymentStatus = data[4].Trim() 
+
+                    }).ToList();
+
+                var bulkConfig = new BulkConfig { SetOutputIdentity = false }; // Ensure no identity issue
+                _databaseContext.BulkInsert(payments, bulkConfig);
+                _databaseContext.SaveChanges();
+            }
+        }
     }
 }
 

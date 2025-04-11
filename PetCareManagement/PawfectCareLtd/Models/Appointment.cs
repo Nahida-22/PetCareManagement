@@ -77,6 +77,11 @@ namespace PawfectCareLtd.Models
         [ForeignKey("LocationID")]
         public Location Location { get; set; }
 
+        /// <summary>
+        /// Navigation property for One-to-One Payment
+        /// </summary>
+        public Payment Payment { get; set; } 
+
     }
 
 }
