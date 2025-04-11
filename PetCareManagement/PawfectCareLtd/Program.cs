@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Data;
+using PawfectCareLtd.Data.DataRetrieval.cs;
 using PawfectCareLtd.Models;
 using PawfectCareLtd.Repositories;
 using PawfectCareLtd.Services;
+using System.Threading;
 using System.IO;
 //using System.Windows.Forms;
 
@@ -75,6 +77,53 @@ namespace PawfectCareLtd
                 //Application.EnableVisualStyles();
                 //Application.SetCompatibleTextRenderingDefault(false);
                 //Application.Run(new Form1());
+            }
+        }
+
+
+        private static void LoadTablesFromDatabase(IServiceProvider services)
+        {
+            using var scope = services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<DatabaseContext>();
+
+            // Create Location Table
+            Table locationTable = new Table("Location", "LocationID", dbContext);
+
+            foreach (var loc in dbContext.Locations.ToList())
+            {
+                var record = new Record();
+                record["LocationID"] = loc.LocationID;
+                record["Name"] = loc.Name;
+                record["Address"] = loc.Address;
+                record["Phone"] = loc.Phone;
+                record["Email"] = loc.Email;
+
+                locationTable.Insert(record);
+            }
+
+            Console.WriteLine("Locations loaded into hash table successfully!");
+
+            // Display one data from the Location table (e.g., using LocationID = "L001")
+            DisplayLocationRecord(locationTable, "L001");
+        }
+
+        private static void DisplayLocationRecord(Table locationTable, string locationID)
+        {
+            try
+            {
+                // Get the record from the hash table using the primary key (LocationID)
+                var record = locationTable.Get(locationID);
+
+                // Display the record fields
+                Console.WriteLine("Location Record:");
+                foreach (var field in record.Fields)
+                {
+                    Console.WriteLine($"{field.Key}: {field.Value}");
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine($"No record found for LocationID: {locationID}");
             }
         }
     }
