@@ -87,6 +87,32 @@ namespace PawfectCareLtd // Define the namespace for the application.
                     // Check if the Read part from the AppointmentCRUD is working
                     var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
                     appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
+
+
+                    // 1. Show current record
+                    ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+
+                    // 2. Perform deletion
+                    ownerCrud.DeleteOwnerById("O00001");
+
+                    // 3. Confirm deletion
+                    Console.WriteLine("\nAfter deletion:");
+                    ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+
+                    // 1. Show current pet record before deletion
+                    petCrud.ReadOperationForPet("PetID", "P00002");
+
+                    // 2. Delete the pet
+                    petCrud.DeletePetById("P00002");
+
+                    // 3. Confirm deletion
+                    Console.WriteLine("\nAfter pet deletion:");
+                    petCrud.ReadOperationForPet("PetID", "P00002");
+
+                    
+
+
+
                 }
 
                 // Use Swagger for API documentation only in development environment.

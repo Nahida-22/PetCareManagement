@@ -119,15 +119,16 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
                 if (dbSet != null)
                 {
                     var entityType = dbSet.GetType().GenericTypeArguments[0];
-                    var entityList = ((IEnumerable<object>)dbSet).ToList();
-                    var entity = entityList.FirstOrDefault(e =>
-                        entityType.GetProperty(primaryKey)?.GetValue(e)?.ToString() == primaryKeyValue);
+                    var method = dbSet.GetType().GetMethod("Find", new[] { typeof(object[]) });
+                    var entityToRemove = method?.Invoke(dbSet, new object[] { new object[] { primaryKeyValue } });
 
-                    if (entity != null)
+
+                    if (entityToRemove != null)
                     {
-                        entityType.GetProperty(fieldName)?.SetValue(entity, newValue);
+                        dbSet.Remove(entityToRemove);
                         _dbContext.SaveChanges();
                     }
+
                 }
             }
             else

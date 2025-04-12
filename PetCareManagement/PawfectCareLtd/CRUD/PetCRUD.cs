@@ -1,4 +1,6 @@
 ﻿// Import dependencies.
+using Microsoft.EntityFrameworkCore;
+using PawfectCareLtd.Data;
 using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
 
 
@@ -10,12 +12,15 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
     {
         // Define a field to store a reference to the in memory database.
         private readonly Database _inMemoryDatabase;
+        private readonly DatabaseContext _dbContext;
 
 
         // Constructor to initialise the class with an instance of the in memory database.
-        public PetCRUD(Database inMemoryDatabase)
+        public PetCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
+            _dbContext= dbContext;
+
         }
 
 
@@ -48,5 +53,66 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 Console.WriteLine("------------------\n");
             }
         }
+        public void DeletePetById(string petId)
+        {
+            var petTable = _inMemoryDatabase.GetTable("Pet");
+            var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
+            var prescriptionTable = _inMemoryDatabase.GetTable("Prescription");
+
+            try
+            {
+                // Try to get the pet from in-memory DB
+                var petRecord = petTable.Get(petId);
+
+                // --- Delete related appointments and prescriptions from in-memory database ---
+                var appointments = appointmentTable.GetAll()
+                    .Where(app => app.Fields.ContainsKey("PetID") && app["PetID"]?.ToString() == petId)
+                    .ToList();
+
+                foreach (var appt in appointments)
+                {
+                    appointmentTable.Delete(appt["AppointmentID"].ToString());
+                }
+
+                var prescriptions = prescriptionTable.GetAll()
+                    .Where(presc => presc.Fields.ContainsKey("PetID") && presc["PetID"]?.ToString() == petId)
+                    .ToList();
+
+                foreach (var presc in prescriptions)
+                {
+                    prescriptionTable.Delete(presc["PrescriptionID"].ToString());
+                }
+
+                // --- Delete pet from in-memory database ---
+                petTable.Delete(petId);
+
+                Console.WriteLine($"Pet with ID {petId} and {appointments.Count} appointment(s), {prescriptions.Count} prescription(s) deleted from in-memory database.");
+
+                // --- Delete from EF Core SQL database ---
+                var petEntity = _dbContext.Pets.Find(petId);
+                if (petEntity != null)
+                {
+                    var dbAppointments = _dbContext.Appointments.Where(a => a.PetID == petId).ToList();
+                    var dbPrescriptions = _dbContext.Prescriptions.Where(p => p.PetID == petId).ToList();
+
+                    _dbContext.Appointments.RemoveRange(dbAppointments);
+                    _dbContext.Prescriptions.RemoveRange(dbPrescriptions);
+                    _dbContext.Pets.Remove(petEntity);
+
+                    _dbContext.SaveChanges();
+
+                    Console.WriteLine($"Pet and {dbAppointments.Count} appointment(s), {dbPrescriptions.Count} prescription(s) also deleted from SQL database.");
+                }
+                else
+                {
+                    Console.WriteLine($"Pet with ID {petId} not found in SQL database.");
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                Console.WriteLine($"Pet with ID {petId} does not exist in the in-memory database.");
+            }
+        }
+
     }
 }
