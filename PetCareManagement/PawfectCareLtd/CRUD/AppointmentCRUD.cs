@@ -1,20 +1,29 @@
-﻿using PawfectCareLtd.Data.DataRetrieval;
+﻿// Import dependencies.
+using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
 
-namespace PawfectCareLtd.CRUD
+
+namespace PawfectCareLtd.CRUD// Define the namespace for the application.
 {
+
+    // Class the encapsulate all of the CRUD operation for the Appointment table.
     public class AppointmentCRUD
     {
+        // Define a field to store a reference to the in memory database.
         private readonly Database _inMemoryDatabase;
 
+
+        // Constructor to initialise the class with an instance of the in memory database.
         public AppointmentCRUD(Database inMemoryDatabase)
         {
             _inMemoryDatabase = inMemoryDatabase;
         }
-        // Method to read the data from the owner table.
+
+
+        // Method to read the data from the Appointment table.
         public void ReadOperationForAppointment(string fieldName, string fieldValue)
         {
 
-            // Get the location table form the in memory location.
+            // Get the appointment table form the in memory database.
             var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
 
             // Check if there are any record that matches the search critria.

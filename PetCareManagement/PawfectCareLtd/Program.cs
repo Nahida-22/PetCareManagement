@@ -9,9 +9,9 @@ using PawfectCareLtd.Repositories.HashTableDatabaseLoader; // For loading data f
 using PawfectCareLtd.Services; // For services like CsvImport and HashTableLoader.
 using System.Threading; // For multithreading.
 
-namespace PawfectCareLtd 
-{
 
+namespace PawfectCareLtd // Define the namespace for the application.
+{
     // Define the main entry point of the program.
     internal static class Program
     {
@@ -72,19 +72,19 @@ namespace PawfectCareLtd
                     var locationCrud = scope.ServiceProvider.GetRequiredService<LocationCRUD>();
                     locationCrud.ReadOperationForLocation("Address", "123 Main St Downtown City");
 
-                    //Check if the Read part from the OwnerCRUD is working
+                    // Check if the Read part from the OwnerCRUD is working
                     var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
                     ownerCrud.ReadOperationForOwner("FirstName", "John");
 
-                    //Check if the Read part from the PetCRUD is working
+                    // Check if the Read part from the PetCRUD is working
                     var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
                     petCrud.ReadOperationForPet("PetName", "Carl");
 
-                    //Check if the Read part from the PrescriptionCRUD is working
+                    // Check if the Read part from the PrescriptionCRUD is working
                     var prescriptionCrud = scope.ServiceProvider.GetRequiredService<PrescriptionCRUD>();
                     prescriptionCrud.ReadOperationForPrescription("Diagnosis", "Fungal Infection");
 
-                    //Check if the Read part from the AppointmentCRUD is working
+                    // Check if the Read part from the AppointmentCRUD is working
                     var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
                     appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
                 }
@@ -108,28 +108,5 @@ namespace PawfectCareLtd
                 //Application.Run(new Form1());
             }
         }
-
-        
-        // Test method to see if data has been inserted correctly into the database.
-        private static void DisplayRecord(Table Table, string ID)
-        {
-            try
-            {
-                // Get the record from the hash table using the primary key (LocationID)
-                var record = Table.Get(ID);
-
-                // Display the record fields
-                Console.WriteLine("Location Record:");
-                foreach (var field in record.Fields)
-                {
-                    Console.WriteLine($"{field.Key}: {field.Value}");
-                }
-            }
-            catch (KeyNotFoundException)
-            {
-                Console.WriteLine($"No record found for LocationID: {ID}");
-            }
-        }
-
     }
 }

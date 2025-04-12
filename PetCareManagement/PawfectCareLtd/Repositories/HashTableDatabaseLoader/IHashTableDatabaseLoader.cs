@@ -1,12 +1,11 @@
-﻿// Import required namespaces.
-using PawfectCareLtd.Data;
+﻿// Import dependencies.
+using PawfectCareLtd.Data; // Imports the application's database context.
 
-namespace PawfectCareLtd.Repositories.HashTableDatabaseLoader
+
+namespace PawfectCareLtd.Repositories.HashTableDatabaseLoader // Define the namespace for the application.
 {
-    /// <summary>
-    /// Interface defining methods for loading different tables from the database
-    /// into an in-memory hash table structure for fast access and manipulation.
-    /// </summary>
+
+    // Declare an interface for loading data from SSMS into into the custom in memory database.
     public interface IHashTableDatabaseLoader
     {
         // Methods to load all tables from SQL Database into the in-memory hash table.

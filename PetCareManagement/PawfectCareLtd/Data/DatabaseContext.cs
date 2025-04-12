@@ -1,9 +1,11 @@
-﻿using EFCore.BulkExtensions;
-using Microsoft.EntityFrameworkCore;
-using PawfectCareLtd.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
+﻿// Import dependencies.
+using EFCore.BulkExtensions; // For bulk insertion.
+using Microsoft.EntityFrameworkCore; // For database-related operations using Entity Framework.
+using PawfectCareLtd.Models; // For data models used in the application.
+using Swashbuckle.AspNetCore.SwaggerGen; // Import namespace which provides tools for generating Swagger
 
-namespace PawfectCareLtd.Data
+
+namespace PawfectCareLtd.Data // Define the namespace for the application.
 {
     /// <summary>
     /// DatabaseContext class handles the Entity Framework Core operations

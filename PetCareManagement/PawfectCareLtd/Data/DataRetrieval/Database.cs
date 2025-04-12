@@ -32,12 +32,4 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
             }
         }
     }
-
-
-    // Static class that acts as a global reference to the in memory database
-    public static class InMemoryDatabase
-    {
-        // Define the the global instance of the in memory database.
-        public static Database InMemoryDatabaseInstance;
-    }
 }
