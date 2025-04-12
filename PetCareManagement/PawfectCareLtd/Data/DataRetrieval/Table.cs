@@ -40,7 +40,6 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
         // Method to add a new data into the in memeory database.
         public void Insert(Record record, bool skipDb = false)
         {
-
             // Extract primary key value as a string and store it in a variable call key.
             string key = record[primaryKey].ToString();
 
@@ -81,62 +80,82 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
         public Record Get(string primaryKeyValue) => rows.Get(primaryKeyValue);
 
 
-        //
+        // Method to delete a record by its primary key value.
         public void Delete(string primaryKeyValue)
         {
+            // Remove the row and if the key doesn't exist, throw an exception.
             if (!rows.Remove(primaryKeyValue))
                 throw new KeyNotFoundException($"No record found with key: {primaryKeyValue}");
 
+            // Get the data set.
             var dbSet = GetDbSet();
+
+            // If dataset is not empty.
             if (dbSet != null)
             {
+                // Create entity dynamically from the data set.
                 var entityType = dbSet.GetType().GenericTypeArguments[0];
+
+                // Convert the Dbset to a list of objects for easier searching.
                 var entityList = ((IEnumerable<object>)dbSet).ToList();
 
-                var entityToRemove = entityList.FirstOrDefault(e =>
-                    entityType.GetProperty(primaryKey)?.GetValue(e)?.ToString() == primaryKeyValue);
+                // Search the actual database to get the entry that match the primary key.
+                var entityToRemove = entityList.FirstOrDefault(e => entityType.GetProperty(primaryKey)?.GetValue(e)?.ToString() == primaryKeyValue);
 
+                // If the entry is found in the DbSet, save the delete changes in the actual database.
                 if (entityToRemove != null)
                 {
-                    dbSet.Remove(entityToRemove);  // 
+                    dbSet.Remove(entityToRemove);
                     _dbContext.SaveChanges();
                 }
             }
         }
 
 
-
-
-        //
-        public void Update(string primaryKeyValue, string fieldName, object newValue)
+        // Method to update a record by its primary key value.
+        public void Update(string primaryKeyValue, string fieldName, object newValue, bool skipDb = true)
         {
+            // Get the record from the in memory database using the primary key.
             var record = rows.Get(primaryKeyValue);
+
+            // If the record exist, update the field with the new value.
             if (record != null)
             {
                 record[fieldName] = newValue;
 
-                var dbSet = GetDbSet();
-                if (dbSet != null)
+                // Check if sync with SSMS database is not unable.
+                if (!skipDb)
                 {
-                    var entityType = dbSet.GetType().GenericTypeArguments[0];
-                    var method = dbSet.GetType().GetMethod("Find", new[] { typeof(object[]) });
-                    var entityToRemove = method?.Invoke(dbSet, new object[] { new object[] { primaryKeyValue } });
+                    // Get the data set.
+                    var dbSet = GetDbSet();
 
-
-                    if (entityToRemove != null)
+                    // If dataset is not empty.
+                    if (dbSet != null)
                     {
-                        dbSet.Remove(entityToRemove);
-                        _dbContext.SaveChanges();
-                    }
+                        // Create entity dynamically from the data set.
+                        var entityType = dbSet.GetType().GenericTypeArguments[0];
 
+                        // Convert the Dbset to a list of objects for easier searching.
+                        var entityList = ((IEnumerable<object>)dbSet).ToList();
+
+                        // Search the actual database to get the entry that match the primary key.
+                        var entity = entityList.FirstOrDefault(e => entityType.GetProperty(primaryKey)?.GetValue(e)?.ToString() == primaryKeyValue);
+
+                        // If the entry is found in the DbSet, save the updated changes in the actual database.
+                        if (entity != null)
+                        {
+                            entityType.GetProperty(fieldName)?.SetValue(entity, newValue);
+                            _dbContext.SaveChanges();
+                        }
+
+                    }
                 }
             }
             else
             {
-                throw new KeyNotFoundException($"Record with key '{primaryKeyValue}' not found.");
+                throw new KeyNotFoundException($"Record with key '{primaryKeyValue}' not found."); // Throw an error to show that primary key does not exist.
             }
         }
-
 
 
         // Method to return all the record of a table as an enumerable.

@@ -64,30 +64,19 @@ namespace PawfectCareLtd // Define the namespace for the application.
                     var csvService = scope.ServiceProvider.GetRequiredService<CsvImportService>();
                     csvService.ImportData();
 
-                    // Load SQL data into the in-memory hash tables.
+                    // Load SQL data into the in memory hash tables.
                     var tableLoaderService = scope.ServiceProvider.GetRequiredService<HashtableLoaderService>();
                     await tableLoaderService.LoadAllTablesAsync();
 
-                    // Check if the Read part from the LocationCRUD is working.
-                    var locationCrud = scope.ServiceProvider.GetRequiredService<LocationCRUD>();
-                    locationCrud.ReadOperationForLocation("Address", "123 Main St Downtown City");
+                    //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
+                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
+                    //appointmentCrud.UpdateOperationForAppointment("A10000", "LocationID", "L002", true, "Location");
+                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
+
+
 
                     // Check if the Read part from the OwnerCRUD is working
                     var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
-                    ownerCrud.ReadOperationForOwner("FirstName", "John");
-
-                    // Check if the Read part from the PetCRUD is working
-                    var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
-                    petCrud.ReadOperationForPet("PetName", "Carl");
-
-                    // Check if the Read part from the PrescriptionCRUD is working
-                    var prescriptionCrud = scope.ServiceProvider.GetRequiredService<PrescriptionCRUD>();
-                    prescriptionCrud.ReadOperationForPrescription("Diagnosis", "Fungal Infection");
-
-                    // Check if the Read part from the AppointmentCRUD is working
-                    var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
-                    appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
-
 
                     // 1. Show current record
                     ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
@@ -99,6 +88,11 @@ namespace PawfectCareLtd // Define the namespace for the application.
                     Console.WriteLine("\nAfter deletion:");
                     ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
+
+
+                    // Check if the Read part from the PetCRUD is working
+                    var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
+
                     // 1. Show current pet record before deletion
                     petCrud.ReadOperationForPet("PetID", "P00002");
 
@@ -108,11 +102,6 @@ namespace PawfectCareLtd // Define the namespace for the application.
                     // 3. Confirm deletion
                     Console.WriteLine("\nAfter pet deletion:");
                     petCrud.ReadOperationForPet("PetID", "P00002");
-
-                    
-
-
-
                 }
 
                 // Use Swagger for API documentation only in development environment.
