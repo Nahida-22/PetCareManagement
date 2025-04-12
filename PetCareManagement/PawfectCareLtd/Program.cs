@@ -68,6 +68,43 @@ namespace PawfectCareLtd // Define the namespace for the application.
                     var tableLoaderService = scope.ServiceProvider.GetRequiredService<HashtableLoaderService>();
                     await tableLoaderService.LoadAllTablesAsync();
 
+
+                    // TESTING FOR INSERT AND READ.
+
+                    //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
+
+                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A22000");
+
+                    //var validAppointed = new Dictionary<string, object>
+                    //{
+                    //    ["AppointmentID"] = "A22000",
+                    //    ["PetID"] = "P00267",
+                    //    ["VetID"] = "V1000",
+                    //    ["ServiceType"] = "Heart Screening",
+                    //    ["ApptDate"] = "7/27/2025",
+                    //    ["Status"] = "Scheduled",
+                    //    ["LocationID"] = "L001"
+                    //};
+
+                    //appointmentCrud.InsertOperationForAppointment(
+                    //    validAppointed,
+                    //    primaryKeyName: "AppointmentID",
+                    //    primaryKeyFormat: @"^A\d{5,}$",
+                    //    foreignKeys: new List<(string, string)>
+                    //    {
+                    //        ("LocationID", "Location"),
+                    //        ("PetID", "Pet"),
+                    //        ("VetID", "Vet")
+                    //    }
+                    //);
+
+                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A22000");
+
+
+
+                    // TESTING FOR UPDATE AND READ.
+
+
                     //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
                     //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
                     //appointmentCrud.UpdateOperationForAppointment("A10000", "LocationID", "L002", true, "Location");
@@ -75,33 +112,36 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
 
 
-                    // Check if the Read part from the OwnerCRUD is working
-                    var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
 
-                    // 1. Show current record
-                    ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                    // TESTING FOR DELETE AND READ.
 
-                    // 2. Perform deletion
-                    ownerCrud.DeleteOwnerById("O00001");
+                    //// Check if the Read part from the OwnerCRUD is working
+                    //var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
 
-                    // 3. Confirm deletion
-                    Console.WriteLine("\nAfter deletion:");
-                    ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                    //// 1. Show current record
+                    //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+
+                    //// 2. Perform deletion
+                    //ownerCrud.DeleteOwnerById("O00001");
+
+                    //// 3. Confirm deletion
+                    //Console.WriteLine("\nAfter deletion:");
+                    //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
 
 
-                    // Check if the Read part from the PetCRUD is working
-                    var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
+                    //// Check if the Read part from the PetCRUD is working
+                    //var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
 
-                    // 1. Show current pet record before deletion
-                    petCrud.ReadOperationForPet("PetID", "P00002");
+                    //// 1. Show current pet record before deletion
+                    //petCrud.ReadOperationForPet("PetID", "P00002");
 
-                    // 2. Delete the pet
-                    petCrud.DeletePetById("P00002");
+                    //// 2. Delete the pet
+                    //petCrud.DeletePetById("P00002");
 
-                    // 3. Confirm deletion
-                    Console.WriteLine("\nAfter pet deletion:");
-                    petCrud.ReadOperationForPet("PetID", "P00002");
+                    //// 3. Confirm deletion
+                    //Console.WriteLine("\nAfter pet deletion:");
+                    //petCrud.ReadOperationForPet("PetID", "P00002");
                 }
 
                 // Use Swagger for API documentation only in development environment.
