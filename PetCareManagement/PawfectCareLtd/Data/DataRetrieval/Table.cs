@@ -25,14 +25,41 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
             primaryKey = primaryKeyField; // Set the primary key.
             _dbContext = dbContext; // Set the dbContext.
         }
+        private dynamic GetDbSet()
+        {
+            var dbSetProperty = _dbContext.GetType().GetProperties()
+                .FirstOrDefault(p => p.Name == Name);
+            return dbSetProperty?.GetValue(_dbContext);
+        }
+
 
 
         // Method to insert data into the in memeory database.
         public void Insert(Record record, bool skipDb = false)
         {
-            string key = record[primaryKey].ToString(); // Get the key value of the primary key from the record.
-            rows.Add(key, record); // Add the record to the hashtable.
+            string key = record[primaryKey].ToString();
+            rows.Add(key, record);
+
+            if (!skipDb)
+            {
+                var dbSet = GetDbSet();
+                if (dbSet != null)
+                {
+                    // Create entity dynamically
+                    var entityType = dbSet.GetType().GenericTypeArguments[0];
+                    var entity = Activator.CreateInstance(entityType);
+
+                    foreach (var field in record.Fields)
+                    {
+                        entityType.GetProperty(field.Key)?.SetValue(entity, field.Value);
+                    }
+
+                    dbSet.Add(entity);
+                    _dbContext.SaveChanges();
+                }
+            }
         }
+
 
 
         // Method to get a record by its primary key value.
@@ -45,16 +72,24 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
             if (!rows.Remove(primaryKeyValue))
                 throw new KeyNotFoundException($"No record found with key: {primaryKeyValue}");
 
-            if (Name == "Location")
+            var dbSet = GetDbSet();
+            if (dbSet != null)
             {
-                var entity = _dbContext.Locations.FirstOrDefault(l => l.LocationID == primaryKeyValue);
-                if (entity != null)
+                var entityType = dbSet.GetType().GenericTypeArguments[0];
+                var entityList = ((IEnumerable<object>)dbSet).ToList();
+
+                var entityToRemove = entityList.FirstOrDefault(e =>
+                    entityType.GetProperty(primaryKey)?.GetValue(e)?.ToString() == primaryKeyValue);
+
+                if (entityToRemove != null)
                 {
-                    _dbContext.Locations.Remove(entity);
+                    dbSet.Remove(entityToRemove);  // 
                     _dbContext.SaveChanges();
                 }
             }
         }
+
+
 
 
         //
@@ -65,12 +100,17 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
             {
                 record[fieldName] = newValue;
 
-                if (Name == "Location")
+                var dbSet = GetDbSet();
+                if (dbSet != null)
                 {
-                    var entity = _dbContext.Locations.FirstOrDefault(l => l.LocationID == primaryKeyValue);
+                    var entityType = dbSet.GetType().GenericTypeArguments[0];
+                    var entityList = ((IEnumerable<object>)dbSet).ToList();
+                    var entity = entityList.FirstOrDefault(e =>
+                        entityType.GetProperty(primaryKey)?.GetValue(e)?.ToString() == primaryKeyValue);
+
                     if (entity != null)
                     {
-                        typeof(Location).GetProperty(fieldName)?.SetValue(entity, newValue);
+                        entityType.GetProperty(fieldName)?.SetValue(entity, newValue);
                         _dbContext.SaveChanges();
                     }
                 }
@@ -80,6 +120,7 @@ namespace PawfectCareLtd.Data.DataRetrieval // Define the namespace for the appl
                 throw new KeyNotFoundException($"Record with key '{primaryKeyValue}' not found.");
             }
         }
+
 
 
         // Method to return all the record of a table as an enumerable.

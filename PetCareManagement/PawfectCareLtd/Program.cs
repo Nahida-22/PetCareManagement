@@ -64,6 +64,21 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 // Check if the Read part from the LocationCRUD is working.
                 PawfectCareLtd.CRUD.LocationCRUD.ReadOperationForLocation("Address", "123 Main St Downtown City");
 
+                //Check if the Read part from the OwnerCRUD is working
+                PawfectCareLtd.CRUD.OwnerCRUD.ReadOperationForOwner("FirstName", "John");
+
+                //Check if the Read part from the PetCRUD is working
+                PawfectCareLtd.CRUD.PetCRUD.ReadOperationForPet("PetName", "Carl");
+
+                //Check if the Read part from the PrescriptionCRUD is working
+                PawfectCareLtd.CRUD.PrescriptionCRUD.ReadOperationForPrescription("Diagnosis", "Fungal Infection");
+
+                //Check if the Read part from the AppointmentCRUD is working
+                PawfectCareLtd.CRUD.AppointmentCRUD.ReadOperationForAppointment("ServiceType", "Checkup");
+
+
+
+
                 // Use Swagger for API documentation only in development environment.
                 if (app.Environment.IsDevelopment())
                 {
