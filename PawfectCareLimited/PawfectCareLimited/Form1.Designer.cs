@@ -28,12 +28,50 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            ownersDataGridView = new DataGridView();
+            displayOwnersButton = new Button();
+
+            ((System.ComponentModel.ISupportInitialize)ownersDataGridView).BeginInit();
+            SuspendLayout();
+
+            // 
+            // ownersDataGridView
+            // 
+            ownersDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ownersDataGridView.Location = new Point(12, 12);
+            ownersDataGridView.Name = "ownersDataGridView";
+            ownersDataGridView.RowHeadersWidth = 51;
+            ownersDataGridView.Size = new Size(758, 227);
+            ownersDataGridView.TabIndex = 0;
+
+            // 
+            // displayOwnersButton
+            // 
+            displayOwnersButton.Location = new Point(12, 250);
+            displayOwnersButton.Name = "displayOwnersButton";
+            displayOwnersButton.Size = new Size(150, 30);
+            displayOwnersButton.Text = "Display Owners";
+            displayOwnersButton.UseVisualStyleBackColor = true;
+            displayOwnersButton.Click += new EventHandler(this.displayOwnersButton_Click);
+
+            // 
+            // Form1
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(displayOwnersButton);
+            Controls.Add(ownersDataGridView);
+            Name = "Form1";
+            Text = "Form1";
+
+            ((System.ComponentModel.ISupportInitialize)ownersDataGridView).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private DataGridView ownersDataGridView;
+        private Button displayOwnersButton; // <-- added this line
     }
 }

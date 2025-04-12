@@ -3,39 +3,60 @@ using Microsoft.AspNetCore.Mvc;
 using PawfectCareLtd.Data;
 using PawfectCareLtd.Models;
 using Microsoft.AspNetCore.Http;
+using PawfectCareLtd.Data.DataRetrieval;
 
 
 namespace PawfectCareLtd.Controllers
 {
-    [ApiController]
+    // OwnersController.cs in PawfectCareLtd.API
     [Route("api/[controller]")]
-
-    public class OwnerController : ControllerBase
+    [ApiController]
+    public class OwnersController : ControllerBase
     {
-        private readonly DatabaseContext ownerContext;
+        private readonly Database _database;
 
-        public OwnerController(DatabaseContext ownerContext)
+        public OwnersController(Database database)
         {
-            this.ownerContext = ownerContext;
+            _database = database;
         }
 
         [HttpGet]
-        [Route("GetOwners")]
-        public List<Owner> GetOwners()
+        public IActionResult GetAllOwners()
         {
-            return ownerContext.Owners.ToList();
+            var ownersTable = _database.GetTable("Owner");
+
+            var ownersList = ownersTable.GetAll().Select(r => new
+            {
+                ID = r["OwnerID"],
+                FirstName = r["FirstName"],
+                LastName = r["LastName"]
+            }).ToList();
+
+            return Ok(ownersList);
         }
 
         [HttpPost]
-        [Route("AddOwners")]
-
-        public string AddOwner(Owner owner)
+        public IActionResult AddOwner([FromBody] OwnerDto owner)
         {
-            string response = string.Empty;
-            ownerContext.Owners.Add(owner);
-            ownerContext.SaveChanges();
-            return "Owner added";
+            var ownersTable = _database.GetTable("Owner");
+            var record = new Record
+            {
+                ["OwnerID"] = owner.ID,
+                ["FirstName"] = owner.FirstName,
+                ["LastName"] = owner.LastName
+            };
+
+            ownersTable.Insert(record);
+            return Ok();
         }
     }
+
+    public class OwnerDto
+    {
+        public string ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+
 }
 
