@@ -4,12 +4,19 @@ namespace PawfectCareLtd.CRUD
 {
     public class OwnerCRUD
     {
+        private readonly Database _inMemoryDatabase;
+
+        public OwnerCRUD(Database inMemoryDatabase)
+        {
+            _inMemoryDatabase = inMemoryDatabase;
+        }
+
         // Method to read the data from the owner table.
-        public static void ReadOperationForOwner(string fieldName, string fieldValue)
+        public void ReadOperationForOwner(string fieldName, string fieldValue)
         {
 
             // Get the location table form the in memory location.
-            var ownerTable = InMemoryDatabase.InMemoryDatabaseInstance.GetTable("Owner");
+            var ownerTable = _inMemoryDatabase.GetTable("Owner");
 
             // Check if there are any record that matches the search critria.
             var matchingRecords = ownerTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();

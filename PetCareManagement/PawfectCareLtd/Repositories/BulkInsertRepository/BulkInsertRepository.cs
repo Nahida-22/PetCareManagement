@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Data;
 using PawfectCareLtd.Models;
 
-namespace PawfectCareLtd.Repositories
+namespace PawfectCareLtd.Repositories.BulkInsertRepository
 {
     /// <summary>
     /// Repository for performing bulk insert operations into the database for various entities.

@@ -1,4 +1,4 @@
-﻿namespace PawfectCareLtd.Repositories
+﻿namespace PawfectCareLtd.Repositories.BulkInsertRepository
 {
     // Interface to define the bulk insert operations for various entities of the PetCare Management System.
     public interface IBulkInsertRepository

@@ -9,27 +9,29 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
 
     // Class the encapsulate all of the CRUD operation for the Location table.
-    public static class LocationCRUD
+    public class LocationCRUD
     {
+        private readonly Database _inMemoryDatabase;
 
-        // Method to read the data from the location table.
-        public static void ReadOperationForLocation(string fieldName, string fieldValue)
+        public LocationCRUD(Database inMemoryDatabase)
         {
+            _inMemoryDatabase = inMemoryDatabase;
+        }
 
-            // Get the location table form the in memory location.
-            var locationTable = InMemoryDatabase.InMemoryDatabaseInstance.GetTable("Location");
+        public void ReadOperationForLocation(string fieldName, string fieldValue)
+        {
+            var locationTable = _inMemoryDatabase.GetTable("Location");
 
-            // Check if there are any record that matches the search critria.
-            var matchingRecords = locationTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
+            var matchingRecords = locationTable.GetAll()
+                .Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue)
+                .ToList();
 
-            // If there are not any matches, tell the user that are not any matches.
             if (matchingRecords.Count == 0)
             {
                 Console.WriteLine($"No records found in table '{locationTable.Name}' where {fieldName} = '{fieldValue}'.");
                 return;
             }
 
-            // If there are any matches, tell the user what record are.
             Console.WriteLine($"Found {matchingRecords.Count} record(s) in table '{locationTable.Name}' where {fieldName} = '{fieldValue}':");
             foreach (var record in matchingRecords)
             {
@@ -42,4 +44,5 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
     }
+
 }

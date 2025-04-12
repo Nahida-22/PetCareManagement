@@ -4,12 +4,18 @@ namespace PawfectCareLtd.CRUD
 {
     public class PrescriptionCRUD
     {
+        private readonly Database _inMemoryDatabase;
+
+        public PrescriptionCRUD(Database inMemoryDatabase)
+        {
+            _inMemoryDatabase = inMemoryDatabase;
+        }
         // Method to read the data from the owner table.
-        public static void ReadOperationForPrescription(string fieldName, string fieldValue)
+        public void ReadOperationForPrescription(string fieldName, string fieldValue)
         {
 
             // Get the location table form the in memory location.
-            var prescriptionTable = InMemoryDatabase.InMemoryDatabaseInstance.GetTable("Prescription");
+            var prescriptionTable = _inMemoryDatabase.GetTable("Prescription");
 
             // Check if there are any record that matches the search critria.
             var matchingRecords = prescriptionTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();

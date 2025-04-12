@@ -4,12 +4,18 @@ namespace PawfectCareLtd.CRUD
 {
     public class AppointmentCRUD
     {
+        private readonly Database _inMemoryDatabase;
+
+        public AppointmentCRUD(Database inMemoryDatabase)
+        {
+            _inMemoryDatabase = inMemoryDatabase;
+        }
         // Method to read the data from the owner table.
-        public static void ReadOperationForAppointment(string fieldName, string fieldValue)
+        public void ReadOperationForAppointment(string fieldName, string fieldValue)
         {
 
             // Get the location table form the in memory location.
-            var appointmentTable = InMemoryDatabase.InMemoryDatabaseInstance.GetTable("Appointment");
+            var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
 
             // Check if there are any record that matches the search critria.
             var matchingRecords = appointmentTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();

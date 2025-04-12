@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Data;
-using PawfectCareLtd.Repositories;
+using PawfectCareLtd.Repositories.BulkInsertRepository;
 
 namespace PawfectCareLtd.Services
 {
