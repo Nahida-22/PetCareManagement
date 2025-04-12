@@ -16,7 +16,7 @@ namespace PawfectCareLimited
         {
             try
             {
-                var owners = await _httpClient.GetFromJsonAsync<List<OwnerDto>>("api/Owners");
+                var owners = await _httpClient.GetFromJsonAsync<List<OwnerDto>>("api/Owners/search?field=FirstName&value=James");
                 ownersDataGridView.AutoGenerateColumns = true; // <-- Add this
                 ownersDataGridView.DataSource = owners;
             }
@@ -30,7 +30,7 @@ namespace PawfectCareLimited
         {
             try
             {
-                var owners = await _httpClient.GetFromJsonAsync<List<OwnerDto>>("api/Owners");
+                var owners = await _httpClient.GetFromJsonAsync<List<OwnerDto>>("api/Owners/search?field=FirstName&value=James");
                 ownersDataGridView.AutoGenerateColumns = true;
                 ownersDataGridView.DataSource = owners;
             }

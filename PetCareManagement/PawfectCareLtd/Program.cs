@@ -38,7 +38,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 builder.Services.AddSwaggerGen(); // For Swagger documentation.
 
                 // Register custom services in the DI container.
-                builder.Services.AddScoped<Database>(); // In-memory hash table.
+                builder.Services.AddSingleton<Database>(); // In-memory hash table.
                 builder.Services.AddScoped<CsvImportService>(); // CSV import service.
                 builder.Services.AddScoped<IBulkInsertRepository, BulkInsertRepository>(); // Repository for CSV bulk inserts.
                 builder.Services.AddScoped<IHashTableDatabaseLoader, HashTableDatabaseLoader>(); // Loader for SQL to hash table.
@@ -74,7 +74,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
                     // Check if the Read part from the OwnerCRUD is working
                     var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
-                    ownerCrud.ReadOperationForOwner("FirstName", "John");
+                    //ownerCrud.ReadOperationForOwner("FirstName", "John");
 
                     // Check if the Read part from the PetCRUD is working
                     var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
@@ -90,14 +90,14 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
 
                     // 1. Show current record
-                    ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                    //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
                     // 2. Perform deletion
-                    ownerCrud.DeleteOwnerById("O00001");
+                    //ownerCrud.DeleteOwnerById("O00001");
 
                     // 3. Confirm deletion
                     Console.WriteLine("\nAfter deletion:");
-                    ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                    //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
                     // 1. Show current pet record before deletion
                     petCrud.ReadOperationForPet("PetID", "P00002");

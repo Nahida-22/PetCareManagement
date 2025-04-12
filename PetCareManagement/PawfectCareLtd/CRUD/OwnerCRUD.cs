@@ -102,7 +102,39 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+        //Method for API delete (e.g https://localhost:7038/api/Owners/O00001).
+        public bool DeleteOwnerById2(string ownerId)
+        {
+            var ownerTable = _inMemoryDatabase.GetTable("Owner");
+            var petTable = _inMemoryDatabase.GetTable("Pet");
 
+            var ownerRecord = ownerTable.Get(ownerId)
+                              ?? throw new KeyNotFoundException("Owner not found in memory.");
+
+            // Delete pets
+            var petRecords = petTable.GetAll()
+                                     .Where(pet => pet.Fields.ContainsKey("OwnerID") && pet["OwnerID"]?.ToString() == ownerId)
+                                     .ToList();
+
+            foreach (var pet in petRecords)
+            {
+                petTable.Delete(pet["PetID"].ToString());
+            }
+
+            ownerTable.Delete(ownerId);
+
+            // Delete from EF Core
+            var ownerEntity = _dbContext.Owners.Find(ownerId);
+            if (ownerEntity != null)
+            {
+                var petsInDb = _dbContext.Pets.Where(p => p.OwnerID == ownerId).ToList();
+                _dbContext.Pets.RemoveRange(petsInDb);
+                _dbContext.Owners.Remove(ownerEntity);
+                _dbContext.SaveChanges();
+            }
+
+            return true;
+        }
 
     }
 }
