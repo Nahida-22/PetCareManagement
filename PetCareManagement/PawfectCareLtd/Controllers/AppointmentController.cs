@@ -3,6 +3,7 @@ using PawfectCareLtd.CRUD;
 using PawfectCareLtd.Data.DataRetrieval;
 using PawfectCareLtd.Helpers;
 using PawfectCareLtd.Models.DTO;
+using PawfectCareLtd.Services;
 
 
 namespace PawfectCareLtd.Controllers
@@ -13,11 +14,13 @@ namespace PawfectCareLtd.Controllers
     {
         private readonly Database _database;
         private readonly AppointmentCRUD _appointmentCRUD;
+        private readonly BookAppointmentService _bookAppointmentService;
 
-        public AppointmentController(Database database, AppointmentCRUD appointmentCRUD)
+        public AppointmentController(Database database, AppointmentCRUD appointmentCRUD, BookAppointmentService bookAppointmentService)
         {
             _database = database;
             _appointmentCRUD = appointmentCRUD;
+            _bookAppointmentService = bookAppointmentService;
         }
 
         [HttpGet] // Get all Appointments.
@@ -42,7 +45,7 @@ namespace PawfectCareLtd.Controllers
 
 
         [HttpGet("search")]
-        public IActionResult SearchOwners([FromQuery] Dictionary<string, string> query)
+        public IActionResult SearchAppointments([FromQuery] Dictionary<string, string> query)
         {
             if (query.Count == 0)
                 return BadRequest("Please provide at least one search field and value.");
@@ -51,12 +54,12 @@ namespace PawfectCareLtd.Controllers
             var fieldTypes = new Dictionary<string, string>
             {
                 { "AppointmentID", "string" },
-                { "FirstName", "string" },
-                { "LastName", "string" },
-                { "Email", "string" },
-                { "PhoneNo", "string" },
-                { "Address", "string" }
-
+                { "PetID", "string" },
+                { "VetID", "string" },
+                { "ServiceType", "string" },
+                { "ApptDate", "string" },
+                { "Status", "string" },
+                { "LocationID", "string" }
             };
 
             // Filter the query only to include valid fields from your system
@@ -68,51 +71,49 @@ namespace PawfectCareLtd.Controllers
                 return BadRequest("None of the provided fields are valid or non-empty.");
 
             var helper = new InMemorySearchHelper(_database);
-            var results = helper.FindRecordsByFields("Owner", searchFields);
+            var results = helper.FindRecordsByFields("Appointment", searchFields);
 
             if (results.Count == 0)
-                return NotFound("No matching owners found.");
+                return NotFound("No matching appointments found.");
 
             return Ok(results);
         }
 
-        [HttpPost("insert")]
-        public IActionResult InsertAppointment([FromBody] AppointmentDTO dto)
+        [HttpPost("book")]
+        public IActionResult BookAppointment([FromBody] AppointmentRequest request)
         {
-            int totalAppointments = _appointmentCRUD.GetAppointmentCount();
-            string generatedApptId = $"A{(totalAppointments + 10000)}";
+            if (request == null)
+                return BadRequest("Invalid request data.");
 
-            var fieldValues = new Dictionary<string, object>
-            {
-                ["AppointmentID"] = generatedApptId,
-                ["PetID"] = dto.PetID,
-                ["VetID"] = dto.VetID,
-                ["ServiceType"] = dto.ServiceType,
-                ["ApptDate"] = dto.ApptDate,
-                ["Status"] = dto.Status,
-                ["LocationID"] = dto.LocationID
-            };
+            if (string.IsNullOrWhiteSpace(request.VetID))
+                return BadRequest("VetID is required.");
 
-            string primaryKeyName = "AppointmentID";
-            string primaryKeyFormat = @"^A\d{5}$";
+            var resultMessage = _bookAppointmentService.BookAppointment(
+                request.FirstName,
+                request.LastName,
+                request.PetName,
+                request.AppointmentDate,
+                request.Location,
+                request.ServiceType,
+                request.VetID 
+            );
 
-            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)>
-            {
-                ("PetID", "Pet"),
-                ("VetID", "Veterinarian"),
-                ("LocationID", "Location")
-            };
-
-            try
-            {
-                _appointmentCRUD.InsertOperationForAppointment(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
-                return Ok($"Appointment inserted successfully with ID {generatedApptId}");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Failed to insert appointment: {ex.Message}");
-            }
+            return Ok(resultMessage);
         }
 
+
     }
+
+    public class AppointmentRequest
+    {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PetName { get; set; }
+        public DateTime AppointmentDate { get; set; }
+        public string Location { get; set; }
+        public string ServiceType { get; set; }
+        public string VetID { get; set; }  // <-- Add this
+    }
+
+
 }
