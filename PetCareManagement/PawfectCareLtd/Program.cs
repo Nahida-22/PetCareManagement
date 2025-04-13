@@ -50,6 +50,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 builder.Services.AddScoped<PetCRUD>();
                 builder.Services.AddScoped<PrescriptionCRUD>();
                 builder.Services.AddScoped<AppointmentCRUD>();
+                builder.Services.AddScoped<VetCRUD>();
 
                 // Build the app
                 var app = builder.Build();
@@ -111,6 +112,9 @@ namespace PawfectCareLtd // Define the namespace for the application.
                     //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
 
 
+                    // Check if the Read part from the AppointmentCRUD is working
+                    var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
+                    appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
 
 
                     // TESTING FOR DELETE AND READ.
@@ -129,19 +133,12 @@ namespace PawfectCareLtd // Define the namespace for the application.
                     //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
 
+                    
 
-                    //// Check if the Read part from the PetCRUD is working
-                    //var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
-
-                    //// 1. Show current pet record before deletion
-                    //petCrud.ReadOperationForPet("PetID", "P00002");
 
                     //// 2. Delete the pet
                     //petCrud.DeletePetById("P00002");
 
-                    //// 3. Confirm deletion
-                    //Console.WriteLine("\nAfter pet deletion:");
-                    //petCrud.ReadOperationForPet("PetID", "P00002");
                 }
 
                 // Use Swagger for API documentation only in development environment.

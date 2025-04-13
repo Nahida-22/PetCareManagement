@@ -1,4 +1,6 @@
 ﻿// Import dependencies.
+using Microsoft.EntityFrameworkCore;
+using PawfectCareLtd.Data;
 using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
 
 
@@ -10,12 +12,14 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
     {
         // Define a field to store a reference to the in memory database.
         private readonly Database _inMemoryDatabase;
-
+        private readonly DatabaseContext _dbContext;
 
         // Constructor to initialise the class with an instance of the in memory database.
-        public AppointmentCRUD(Database inMemoryDatabase)
+        public AppointmentCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
+            _dbContext = dbContext;
+
         }
 
 
@@ -120,58 +124,6 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                     Console.WriteLine($"{field.Key}: {field.Value}");
                 }
                 Console.WriteLine("------------------\n");
-            }
-        }
-
-
-        // Method to update data from the Appointment table.
-        public void UpdateOperationForAppointment(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
-        {
-            // Get the Appointment table from the in memory database.
-            var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
-
-            // Convert the data type of the new value to object type.
-            object newValueToObject = newValue;
-
-            // If the field that is being updated is a foreign key.
-            if (isForeignKey)
-            {
-                // Check if the referenced table exists in the in memory database.
-                var referencedTable = _inMemoryDatabase.GetTable(referencedTableName);
-
-                // Check if the referenced table does not exist, exit out of the method.
-                if (referencedTable == null)
-                {
-                    Console.WriteLine($"Referenced table '{referencedTableName}' not found in memory.");
-                    return;
-                }
-
-                // Check if the foreign key value exists in the referenced table.
-                bool exists = referencedTable.GetAll().Any(record => record.Fields.ContainsKey(referencedTable.GetAll().First().Fields.Keys.First()) && record[referencedTable.GetAll().First().Fields.Keys.First()].ToString() == newValue);
-
-                // If new value does not exist in the reference table, exit out of the method to prevent data linking issues.
-                if (!exists)
-                {
-                    Console.WriteLine($"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table.");
-                    return;
-                }
-            }
-
-            // Try updating the data into the Appointment table.
-            try
-            {
-                // Update the the Appointment with the new data.
-                appointmentTable.Update(primaryKeyValue, fieldName, newValueToObject);
-
-                Console.WriteLine($"Field '{fieldName}' updated successfully for Appointment with primary key '{primaryKeyValue}'.");
-            }
-            catch (KeyNotFoundException) // Catch any errors that related to data not being found.
-            {
-                Console.WriteLine($"No record found with primary key '{primaryKeyValue}' in Appointment table.");
-            }
-            catch (Exception ex) // Catch any other error.
-            {
-                Console.WriteLine($"Error updating field: {ex.Message}");
             }
         }
     }
