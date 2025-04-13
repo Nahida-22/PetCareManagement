@@ -2,6 +2,7 @@
 using PawfectCareLtd.CRUD;
 using PawfectCareLtd.Data.DataRetrieval;
 using PawfectCareLtd.Helpers;
+using PawfectCareLtd.Models.DTO;
 
 
 namespace PawfectCareLtd.Controllers
@@ -73,5 +74,44 @@ namespace PawfectCareLtd.Controllers
 
             return Ok(results);
         }
+
+        [HttpPost("insert")]
+        public IActionResult InsertAppointment([FromBody] AppointmentDTO dto)
+        {
+            int totalAppointments = _appointmentCRUD.GetAppointmentCount();
+            string generatedApptId = $"A{(totalAppointments + 10000)}";
+
+            var fieldValues = new Dictionary<string, object>
+            {
+                ["AppointmentID"] = generatedApptId,
+                ["PetID"] = dto.PetID,
+                ["VetID"] = dto.VetID,
+                ["ServiceType"] = dto.ServiceType,
+                ["ApptDate"] = dto.ApptDate,
+                ["Status"] = dto.Status,
+                ["LocationID"] = dto.LocationID
+            };
+
+            string primaryKeyName = "AppointmentID";
+            string primaryKeyFormat = @"^A\d{5}$";
+
+            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)>
+            {
+                ("PetID", "Pet"),
+                ("VetID", "Veterinarian"),
+                ("LocationID", "Location")
+            };
+
+            try
+            {
+                _appointmentCRUD.InsertOperationForAppointment(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
+                return Ok($"Appointment inserted successfully with ID {generatedApptId}");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Failed to insert appointment: {ex.Message}");
+            }
+        }
+
     }
 }
