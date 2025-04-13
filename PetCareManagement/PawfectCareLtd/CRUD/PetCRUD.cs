@@ -256,5 +256,70 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+        public List<object> FindPetByField(string fieldName, string fieldValue)
+        {
+            var petTable = _inMemoryDatabase.GetTable("Owner");
+
+            var matchingRecords = petTable.GetAll()
+                .Where(record => record.Fields.ContainsKey(fieldName) &&
+                                 record[fieldName]?.ToString() == fieldValue)
+                .Select(record => record.Fields.ToDictionary(f => f.Key, f => f.Value))
+                .Cast<object>()
+                .ToList();
+
+            return matchingRecords;
+        }
+
+        // Method to delete a pet record.
+        public (bool Success, string Message, int AppointmentCount, int PrescriptionCount) DeletePetById2(string petId)
+        {
+            var petTable = _inMemoryDatabase.GetTable("Pet");
+            var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
+            var prescriptionTable = _inMemoryDatabase.GetTable("Prescription");
+
+            try
+            {
+                var petRecord = petTable.Get(petId);
+
+                // In-memory deletions
+                var appointments = appointmentTable.GetAll()
+                    .Where(app => app.Fields.ContainsKey("PetID") && app["PetID"]?.ToString() == petId)
+                    .ToList();
+
+                foreach (var appt in appointments)
+                    appointmentTable.Delete(appt["AppointmentID"].ToString());
+
+                var prescriptions = prescriptionTable.GetAll()
+                    .Where(presc => presc.Fields.ContainsKey("PetID") && presc["PetID"]?.ToString() == petId)
+                    .ToList();
+
+                foreach (var presc in prescriptions)
+                    prescriptionTable.Delete(presc["PrescriptionID"].ToString());
+
+                petTable.Delete(petId);
+
+                // SQL deletions
+                var petEntity = _dbContext.Pets.Find(petId);
+                if (petEntity != null)
+                {
+                    var dbAppointments = _dbContext.Appointments.Where(a => a.PetID == petId).ToList();
+                    var dbPrescriptions = _dbContext.Prescriptions.Where(p => p.PetID == petId).ToList();
+
+                    _dbContext.Appointments.RemoveRange(dbAppointments);
+                    _dbContext.Prescriptions.RemoveRange(dbPrescriptions);
+                    _dbContext.Pets.Remove(petEntity);
+                    _dbContext.SaveChanges();
+
+                    return (true, $"Pet and related records deleted from both in-memory and SQL.", dbAppointments.Count, dbPrescriptions.Count);
+                }
+
+                return (true, $"Pet deleted from in-memory. Not found in SQL DB.", appointments.Count, prescriptions.Count);
+            }
+            catch (KeyNotFoundException)
+            {
+                return (false, $"Pet with ID {petId} not found in in-memory database.", 0, 0);
+            }
+        }
+
     }
 }

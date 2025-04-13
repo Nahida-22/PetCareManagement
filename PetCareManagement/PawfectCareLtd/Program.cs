@@ -38,7 +38,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 builder.Services.AddSwaggerGen(); // For Swagger documentation.
 
                 // Register custom services in the DI container.
-                builder.Services.AddScoped<Database>(); // In-memory hash table.
+                builder.Services.AddSingleton<Database>(); // In-memory hash table.
                 builder.Services.AddScoped<CsvImportService>(); // CSV import service.
                 builder.Services.AddScoped<IBulkInsertRepository, BulkInsertRepository>(); // Repository for CSV bulk inserts.
                 builder.Services.AddScoped<IHashTableDatabaseLoader, HashTableDatabaseLoader>(); // Loader for SQL to hash table.
@@ -50,7 +50,11 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 builder.Services.AddScoped<PetCRUD>();
                 builder.Services.AddScoped<PrescriptionCRUD>();
                 builder.Services.AddScoped<AppointmentCRUD>();
+                builder.Services.AddScoped<RegisterService>();
+                builder.Services.AddScoped<BookAppointmentService>();
                 builder.Services.AddScoped<VetCRUD>();
+
+
 
                 // Build the app
                 var app = builder.Build();
