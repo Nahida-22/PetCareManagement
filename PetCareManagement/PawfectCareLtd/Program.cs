@@ -21,148 +21,140 @@ namespace PawfectCareLtd // Define the namespace for the application.
             // Set up the web application for API
             var builder = WebApplication.CreateBuilder(args);
 
-            // Get the connection to connect to the database.
-            string connectionString = ConnectionStringProvider.ConnectionString(args);
+            // Register EF DbContext with the provided connection string.
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // Add necessary services for API controllers.
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(); // For Swagger documentation.
+
+            // Register custom services in the DI container.
+            builder.Services.AddSingleton<Database>(); // In-memory hash table.
+            builder.Services.AddScoped<CsvImportService>(); // CSV import service.
+            builder.Services.AddScoped<IBulkInsertRepository, BulkInsertRepository>(); // Repository for CSV bulk inserts.
+            builder.Services.AddScoped<IHashTableDatabaseLoader, HashTableDatabaseLoader>(); // Loader for SQL to hash table.
+            builder.Services.AddScoped<HashtableLoaderService>(); // Service that wraps hashtable loader logic.
+
+            // Register all CRUD services.
+            builder.Services.AddScoped<LocationCRUD>();
+            builder.Services.AddScoped<OwnerCRUD>();
+            builder.Services.AddScoped<PetCRUD>();
+            builder.Services.AddScoped<PrescriptionCRUD>();
+            builder.Services.AddScoped<AppointmentCRUD>();
+            builder.Services.AddScoped<RegisterService>();
+            builder.Services.AddScoped<BookAppointmentService>();
+            builder.Services.AddScoped<VetCRUD>();
 
 
-            // Check if the connection string is not null.
-            if (connectionString != null)
+
+            // Build the app
+            var app = builder.Build();
+
+            // Apply any pending database migrations at application startup.
+            DatabaseInitialiser.Initialise(app.Services);
+
+            // Define scope.
+            using (var scope = app.Services.CreateScope())
             {
-                // Register EF DbContext with the provided connection string.
-                builder.Services.AddDbContext<DatabaseContext>(options =>
-                    options.UseSqlServer(connectionString));
+                // Import data from CSV files into SQL.
+                var csvService = scope.ServiceProvider.GetRequiredService<CsvImportService>();
+                csvService.ImportData();
 
-                // Add necessary services for API controllers.
-                builder.Services.AddControllers();
-                builder.Services.AddEndpointsApiExplorer();
-                builder.Services.AddSwaggerGen(); // For Swagger documentation.
-
-                // Register custom services in the DI container.
-                builder.Services.AddSingleton<Database>(); // In-memory hash table.
-                builder.Services.AddScoped<CsvImportService>(); // CSV import service.
-                builder.Services.AddScoped<IBulkInsertRepository, BulkInsertRepository>(); // Repository for CSV bulk inserts.
-                builder.Services.AddScoped<IHashTableDatabaseLoader, HashTableDatabaseLoader>(); // Loader for SQL to hash table.
-                builder.Services.AddScoped<HashtableLoaderService>(); // Service that wraps hashtable loader logic.
-
-                // Register all CRUD services.
-                builder.Services.AddScoped<LocationCRUD>();
-                builder.Services.AddScoped<OwnerCRUD>();
-                builder.Services.AddScoped<PetCRUD>();
-                builder.Services.AddScoped<PrescriptionCRUD>();
-                builder.Services.AddScoped<AppointmentCRUD>();
-                builder.Services.AddScoped<RegisterService>();
-                builder.Services.AddScoped<BookAppointmentService>();
-                builder.Services.AddScoped<VetCRUD>();
+                // Load SQL data into the in memory hash tables.
+                var tableLoaderService = scope.ServiceProvider.GetRequiredService<HashtableLoaderService>();
+                await tableLoaderService.LoadAllTablesAsync();
 
 
+                // TESTING FOR INSERT AND READ.
 
-                // Build the app
-                var app = builder.Build();
+                //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
 
-                // Apply any pending database migrations at application startup.
-                DatabaseInitialiser.Initialise(app.Services);
+                //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A22000");
 
-                // Define scope.
-                using (var scope = app.Services.CreateScope())
-                {
-                    // Import data from CSV files into SQL.
-                    var csvService = scope.ServiceProvider.GetRequiredService<CsvImportService>();
-                    csvService.ImportData();
+                //var validAppointed = new Dictionary<string, object>
+                //{
+                //    ["AppointmentID"] = "A22000",
+                //    ["PetID"] = "P00267",
+                //    ["VetID"] = "V1000",
+                //    ["ServiceType"] = "Heart Screening",
+                //    ["ApptDate"] = "7/27/2025",
+                //    ["Status"] = "Scheduled",
+                //    ["LocationID"] = "L001"
+                //};
 
-                    // Load SQL data into the in memory hash tables.
-                    var tableLoaderService = scope.ServiceProvider.GetRequiredService<HashtableLoaderService>();
-                    await tableLoaderService.LoadAllTablesAsync();
+                //appointmentCrud.InsertOperationForAppointment(
+                //    validAppointed,
+                //    primaryKeyName: "AppointmentID",
+                //    primaryKeyFormat: @"^A\d{5,}$",
+                //    foreignKeys: new List<(string, string)>
+                //    {
+                //        ("LocationID", "Location"),
+                //        ("PetID", "Pet"),
+                //        ("VetID", "Vet")
+                //    }
+                //);
 
-
-                    // TESTING FOR INSERT AND READ.
-
-                    //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
-
-                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A22000");
-
-                    //var validAppointed = new Dictionary<string, object>
-                    //{
-                    //    ["AppointmentID"] = "A22000",
-                    //    ["PetID"] = "P00267",
-                    //    ["VetID"] = "V1000",
-                    //    ["ServiceType"] = "Heart Screening",
-                    //    ["ApptDate"] = "7/27/2025",
-                    //    ["Status"] = "Scheduled",
-                    //    ["LocationID"] = "L001"
-                    //};
-
-                    //appointmentCrud.InsertOperationForAppointment(
-                    //    validAppointed,
-                    //    primaryKeyName: "AppointmentID",
-                    //    primaryKeyFormat: @"^A\d{5,}$",
-                    //    foreignKeys: new List<(string, string)>
-                    //    {
-                    //        ("LocationID", "Location"),
-                    //        ("PetID", "Pet"),
-                    //        ("VetID", "Vet")
-                    //    }
-                    //);
-
-                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A22000");
+                //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A22000");
 
 
 
-                    // TESTING FOR UPDATE AND READ.
+                // TESTING FOR UPDATE AND READ.
 
 
-                    //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
-                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
-                    //appointmentCrud.UpdateOperationForAppointment("A10000", "LocationID", "L002", true, "Location");
-                    //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
+                //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
+                //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
+                //appointmentCrud.UpdateOperationForAppointment("A10000", "LocationID", "L002", true, "Location");
+                //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
 
 
-                    // Check if the Read part from the AppointmentCRUD is working
-                    var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
-                    appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
+                // Check if the Read part from the AppointmentCRUD is working
+                var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
+                appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
 
 
-                    // TESTING FOR DELETE AND READ.
+                // TESTING FOR DELETE AND READ.
 
-                    //// Check if the Read part from the OwnerCRUD is working
-                    //var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
+                //// Check if the Read part from the OwnerCRUD is working
+                //var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
 
-                    //// 1. Show current record
-                    //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                //// 1. Show current record
+                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
-                    //// 2. Perform deletion
-                    //ownerCrud.DeleteOwnerById("O00001");
+                //// 2. Perform deletion
+                //ownerCrud.DeleteOwnerById("O00001");
 
-                    //// 3. Confirm deletion
-                    //Console.WriteLine("\nAfter deletion:");
-                    //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                //// 3. Confirm deletion
+                //Console.WriteLine("\nAfter deletion:");
+                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
 
                     
 
 
-                    //// 2. Delete the pet
-                    //petCrud.DeletePetById("P00002");
+                //// 2. Delete the pet
+                //petCrud.DeletePetById("P00002");
 
-                }
-
-                // Use Swagger for API documentation only in development environment.
-                if (app.Environment.IsDevelopment())
-                {
-                    app.UseSwagger();
-                    app.UseSwaggerUI();
-                }
-
-                //app.UseHttpsRedirection();
-                app.MapControllers();
-
-                var webAppThread = new Thread(() => app.Run());
-                webAppThread.Start();
-
-                // STEP 7: Optionally run your WinForms app
-                //Application.EnableVisualStyles();
-                //Application.SetCompatibleTextRenderingDefault(false);
-                //Application.Run(new Form1());
             }
+
+            // Use Swagger for API documentation only in development environment.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            //app.UseHttpsRedirection();
+            app.MapControllers();
+
+            var webAppThread = new Thread(() => app.Run());
+            webAppThread.Start();
+
+            // STEP 7: Optionally run your WinForms app
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Form1());
         }
     }
 }
