@@ -50,7 +50,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 builder.Services.AddScoped<PetCRUD>();
                 builder.Services.AddScoped<PrescriptionCRUD>();
                 builder.Services.AddScoped<AppointmentCRUD>();
-                builder.Services.AddScoped<Register>();
+                builder.Services.AddScoped<RegisterService>();
 
 
                 // Build the app

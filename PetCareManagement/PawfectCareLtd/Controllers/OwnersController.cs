@@ -57,6 +57,7 @@ namespace PawfectCareLtd.Controllers
             // Define expected field types (optional: you can also make this dynamic later)
             var fieldTypes = new Dictionary<string, string>
             {
+                { "OwnerID", "string" },
                 { "FirstName", "string" },
                 { "LastName", "string" },
                 { "Email", "string" },

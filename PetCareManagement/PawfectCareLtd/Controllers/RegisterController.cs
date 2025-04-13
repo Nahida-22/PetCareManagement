@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PawfectCareLtd.CRUD;
+using PawfectCareLtd.Services;
 
 namespace PawfectCareLtd.Controllers
 {
@@ -7,9 +7,9 @@ namespace PawfectCareLtd.Controllers
     [ApiController]
     public class RegisterController : ControllerBase
     {
-        private readonly Register _registerService;
+        private readonly RegisterService _registerService;
 
-        public RegisterController(Register registerService)
+        public RegisterController(RegisterService registerService)
         {
             _registerService = registerService;
         }
@@ -20,7 +20,7 @@ namespace PawfectCareLtd.Controllers
             if (request == null)
                 return BadRequest("Invalid request payload.");
 
-            _registerService.RegisterNewOwnerAndPet(
+            string message = _registerService.RegisterNewOwnerAndPet(
                 request.FirstName,
                 request.LastName,
                 request.Phone,
@@ -32,7 +32,7 @@ namespace PawfectCareLtd.Controllers
                 request.Age
             );
 
-            return Ok("Owner and pet registered successfully.");
+            return Ok(new { Message = message });
         }
 
         [HttpPost("existing-owner-add-pet")]
@@ -41,7 +41,7 @@ namespace PawfectCareLtd.Controllers
             if (request == null)
                 return BadRequest("Invalid request payload.");
 
-            _registerService.RegisterPetForExistingOwner(
+            string message= _registerService.RegisterPetForExistingOwner(
                 request.FirstName,
                 request.LastName,
                 request.PetName,
@@ -50,7 +50,7 @@ namespace PawfectCareLtd.Controllers
                 request.Age
             );
 
-            return Ok("Pet added to existing owner successfully.");
+            return Ok((new { Message = message }));
         }
     }
 
