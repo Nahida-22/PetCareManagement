@@ -152,38 +152,74 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
 
-                var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
+                //                var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
+
+                //                // READ test before inserting
+                //                petCrud.ReadOperationForPet("PetID", "P00002");
+                //                petCrud.DeletePetById("P00002");
+
+                //                // INSERT test
+                //                var petData = new Dictionary<string, object>
+                //                        {
+                //                            { "PetID", "P00002" },
+                //                            { "OwnerID", "O00001" },
+                //                            { "PetName", "Buddy" },
+                //                            { "PetType", "Dog" },
+                //                            { "Breed", "Labrador" },
+                //                            { "Age", "10" },
+
+                //                        };
+                //                petCrud.InsertOperationForPet(petData, "PetID", @"^P\d{5}$", new List<(string, string)>
+                //{
+                //    ("OwnerID", "Owner")
+                //});
+
+                //                // READ to confirm insert
+                //                petCrud.ReadOperationForPet("PetID", "P00002");
+
+                //                // UPDATE test
+                //                petCrud.UpdateOperationForPet("P00002", "Breed", "Golden Retriever");
+
+                //                // READ again to confirm update
+                //                petCrud.ReadOperationForPet("PetID", "P00002");
+
+
+                var vetCrud = scope.ServiceProvider.GetRequiredService<VetCRUD>();
 
                 // READ test before inserting
-                petCrud.ReadOperationForPet("PetID", "P00002");
-                petCrud.DeletePetById("P00002");
+                var readBeforeInsert = vetCrud.ReadOperationForVet("VetID", "V1002");
+                Console.WriteLine(readBeforeInsert.message);
 
                 // INSERT test
-                var petData = new Dictionary<string, object>
-                        {
-                            { "PetID", "P00002" },
-                            { "OwnerID", "O00001" },
-                            { "PetName", "Buddy" },
-                            { "PetType", "Dog" },
-                            { "Breed", "Labrador" },
-                            { "Age", "10" },
-                            
-                        };
-                petCrud.InsertOperationForPet(petData, "PetID", @"^P\d{5}$", new List<(string, string)>
-{
-    ("OwnerID", "Owner")
-});
+                var vetData = new Dictionary<string, object>
+                    {
+                        { "VetID", "V1052" },
+                        { "VetName", "Dr. Emma Stone" },
+                        { "Specialisation", "Dermatology" },
+                        { "PhoneNo", "02055667788" },
+                        { "Email", "emma.stone@pawfectcare.com" },
+                        { "Address", "12 Bark Street, Woofville" }
+                    };
 
-                // READ to confirm insert
-                petCrud.ReadOperationForPet("PetID", "P00002");
+                var insertResult = vetCrud.InsertOperationForVet(vetData, "VetID", @"^V\d{4}$", new List<(string, string)>());
+                Console.WriteLine(insertResult.message);
+
+                // READ after insert
+                var readAfterInsert = vetCrud.ReadOperationForVet("VetID", "V1052");
+                Console.WriteLine(readAfterInsert.message);
 
                 // UPDATE test
-                petCrud.UpdateOperationForPet("P00002", "Breed", "Golden Retriever");
+                var updateResult = vetCrud.UpdateOperationForVet("V1002", "PhoneNo", "03009998877");
+                Console.WriteLine(updateResult.message);
 
-                // READ again to confirm update
-                petCrud.ReadOperationForPet("PetID", "P00002");
+                // READ to confirm update
+                var readAfterUpdate = vetCrud.ReadOperationForVet("VetID", "V1002");
+                Console.WriteLine(readAfterUpdate.message);
 
 
+                // FINAL READ to confirm deletion
+                var finalRead = vetCrud.ReadOperationForVet("VetID", "V1002");
+                Console.WriteLine(finalRead.message);
 
 
                 //// 2. Delete the pet

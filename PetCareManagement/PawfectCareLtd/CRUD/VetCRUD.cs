@@ -1,155 +1,137 @@
 ﻿// Import dependencies.
 using Microsoft.EntityFrameworkCore;
+using PawfectCareLtd.Controllers;
 using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database
-
+using PawfectCareLtd.Data.DataRetrieval;
+using PawfectCareLtd.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
-    // Class the encapsulate all of the CRUD operation for the Vet table.
+    // Class that encapsulates all of the CRUD operations for the Vet table.
     public class VetCRUD
     {
-
-        // Define a field to store a reference to the in memory database.
+        // Define fields to store references to the in-memory and SQL databases.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
-        // Constructor to initialise the class with an instance of the in memory database.
+        // Constructor to initialise the class with instances of the databases.
         public VetCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
             _dbContext = dbContext;
         }
 
-
-
         // Method to insert data into the Vet table.
-        public void InsertOperationForVet(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string, string)> foreignKeys)
+        public OperationResult InsertOperationForVet(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string, string)> foreignKeys)
         {
-
-            // Get the Vet table from the in memory database.
             var vetTable = _inMemoryDatabase.GetTable("Vet");
 
-            // Check if the primary key has been added into the input dictionary.
             if (!fieldValues.ContainsKey(primaryKeyName))
-            {
-                Console.WriteLine("Primary key field is missing.");
-                return;
-            }
+                return new OperationResult { success = false, message = "Primary key must be inputed." };
 
-            // Get the primary key for the record being inserted then convert it to string.
             string primaryKeyValue = fieldValues[primaryKeyName]?.ToString();
 
-            // Check if primary for the the record being inserted is non empty and is in the required format.
             if (string.IsNullOrWhiteSpace(primaryKeyValue) || !System.Text.RegularExpressions.Regex.IsMatch(primaryKeyValue, primaryKeyFormat))
-            {
-                Console.WriteLine($"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'.");
-                return;
-            }
+                return new OperationResult { success = false, message = $"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'." };
 
-            // Check if the primary key for the new already exist in the the Vet table, If yes exist out of the function.
             if (vetTable.GetAll().Any(record => record[primaryKeyName]?.ToString() == primaryKeyValue))
+                return new OperationResult { success = false, message = $"A record with primary key '{primaryKeyValue}' already exists." };
+
+            foreach (var (foreignKeyName, referencedTableName) in foreignKeys)
             {
-                Console.WriteLine($"A record with primary key '{primaryKeyValue}' already exists.");
-                return;
+                if (!fieldValues.ContainsKey(foreignKeyName)) continue;
+
+                var foreignKeyValue = fieldValues[foreignKeyName]?.ToString();
+                var referencedTable = _inMemoryDatabase.GetTable(referencedTableName);
+
+                if (!referencedTable.GetAll().Any(record => record.Fields.ContainsKey(foreignKeyName) && record[foreignKeyName]?.ToString() == foreignKeyValue))
+                    return new OperationResult { success = false, message = $"Foreign key '{foreignKeyName}' with value '{foreignKeyValue}' not found in table '{referencedTableName}'." };
             }
 
-            // Iterate through each foreignkey that need to valides.
-            foreach (var (foreignKeyName, referencedTable) in foreignKeys)
-            {
-                // If the foreign key field is not into the input dictionary, skip it.
-                if (fieldValues.ContainsKey(foreignKeyName))
-                {
-                    // Get the foreign key from the inputed list.
-                    var foreignKeyValue = fieldValues[foreignKeyName]?.ToString();
-
-                    // Get the referenced table which contain the foreign key as the primary key.
-                    var referencedTableRecords = _inMemoryDatabase.GetTable(referencedTable).GetAll();
-
-                    // Check if the foreign key exist in the referenced table, if not exist out of the function.
-                    if (!referencedTableRecords.Any(record => record[foreignKeyName]?.ToString() == foreignKeyValue))
-                    {
-                        Console.WriteLine($"Foreign key '{foreignKeyName}' with value '{foreignKeyValue}' does not exist in the referenced table '{referencedTable}'.");
-                        return;
-                    }
-                }
-            }
-
-            // Insert the new record.
             var newRecord = new Record();
-
-            // Add each field form the inputed dictionary into the record.
             foreach (var field in fieldValues)
-            {
                 newRecord[field.Key] = field.Value;
-            }
 
-            // Try inserting the new record into the Vet table.
             try
             {
-                // Insert the data into the in memory database.
                 vetTable.Insert(newRecord, skipDb: true);
-                Console.WriteLine("Record inserted successfully into Vet table.");
+
+                var newVet = new Vet();
+                foreach (var field in fieldValues)
+                {
+                    var property = typeof(Vet).GetProperty(field.Key);
+                    if (property != null)
+                        property.SetValue(newVet, Convert.ChangeType(field.Value, property.PropertyType));
+                }
+                _dbContext.Vet.Add(newVet);
+                _dbContext.SaveChanges();
+
+                return new OperationResult { success = true, message = "Record inserted successfully into Vet table." };
             }
-            catch (Exception ex) // Catch any errors.
+            catch (Exception ex)
             {
-                Console.WriteLine($"Failed to insert record: {ex.Message}");
+                return new OperationResult { success = false, message = $"Failed to insert record: {ex.Message}" };
             }
         }
-
-
 
         // Method to read the data from the Vet table.
-        public void ReadOperationForVet(string fieldName, string fieldValue)
+        public OperationResult ReadOperationForVet(string fieldName, string fieldValue)
         {
-            // Get the Vet table form the in memory database.
             var vetTable = _inMemoryDatabase.GetTable("Vet");
-
-            // Check if there are any record that matches the search critria.
             var matchingRecords = vetTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
+            var matchingData = matchingRecords.Select(r => r.Fields).ToList();
 
-            // If there are not any matches, tell the user that are not any matches.
             if (matchingRecords.Count == 0)
-            {
-                Console.WriteLine($"No records found in Vet table where {fieldName} = '{fieldValue}'.");
-                return;
-            }
+                return new OperationResult { success = false, message = $"No records found in table '{vetTable.Name}' where {fieldName} = '{fieldValue}'." };
 
-            // If there are any matches, tell the user what record are.
-            Console.WriteLine($"Found {matchingRecords.Count} record(s) in Vet table:");
-            foreach (var record in matchingRecords)
+            return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
+        }
+
+        // Method to update the Vet table.
+        public OperationResult UpdateOperationForVet(string primaryKeyValue, string fieldName, string newValue)
+        {
+            var vetTable = _inMemoryDatabase.GetTable("Vet");
+            object newValueToObject = newValue;
+
+            try
             {
-                Console.WriteLine("----- Record -----");
-                foreach (var field in record.Fields)
+                vetTable.Update(primaryKeyValue, fieldName, newValueToObject);
+
+                var vetEntity = _dbContext.Vet.Find(primaryKeyValue);
+                if (vetEntity != null)
                 {
-                    Console.WriteLine($"{field.Key}: {field.Value}");
+                    var property = typeof(Vet).GetProperty(fieldName);
+                    if (property != null)
+                    {
+                        property.SetValue(vetEntity, Convert.ChangeType(newValue, property.PropertyType));
+                        _dbContext.SaveChanges();
+                    }
                 }
-                Console.WriteLine("------------------\n");
+
+                return new OperationResult { success = true, message = $"Field '{fieldName}' updated successfully for Vet with ID '{primaryKeyValue}'." };
+            }
+            catch (KeyNotFoundException)
+            {
+                return new OperationResult { success = false, message = $"No record found with Vet ID '{primaryKeyValue}'." };
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult { success = false, message = $"Error updating field: {ex.Message}" };
             }
         }
 
+      
 
-        // Method to update the vet table.
-        public void UpdateOperationForVet(string primaryKeyValue, string fieldName, string newValue)
+        // Method to get all the vet records.
+        public OperationResult GetAllVetRecord()
         {
+            var table = _inMemoryDatabase.GetTable("Vet");
+            var allVetRecord = table.GetAll().Select(record => record.Fields).ToList();
 
-            // Get the Vet table from the in memory table.
-            var vetTable = _inMemoryDatabase.GetTable("Vet");
-
-            // Try to update te data.
-            try
-            {
-                vetTable.Update(primaryKeyValue, fieldName, newValue);
-                Console.WriteLine($"Field '{fieldName}' updated successfully for Vet with ID '{primaryKeyValue}'.");
-            }
-            catch (KeyNotFoundException) // Catch any errors related to vetID.
-            {
-                Console.WriteLine($"No record found with Vet ID '{primaryKeyValue}'.");
-            }
-            catch (Exception ex) // Catch any other errors.
-            {
-                Console.WriteLine($"Error updating field: {ex.Message}");
-            }
+            return new OperationResult { success = true, message = "Operation was successed", data = allVetRecord };
         }
     }
 }
