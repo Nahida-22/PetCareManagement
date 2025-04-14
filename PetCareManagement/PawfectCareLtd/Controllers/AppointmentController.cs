@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc; // Import ASP.Net Core MVC.
 using PawfectCareLtd.CRUD; // Import CRUD Operation
 using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
-using PawfectCareLtd.Helpers; // Import custom helper function.
 using PawfectCareLtd.Models.DTO; // Import the Data-Transfer-Object.
 using PawfectCareLtd.Services; // Import services layer logic.
 
@@ -18,7 +17,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
     public class AppointmentController : Controller
     {
 
-        // DEclare a field for the Appointment CRUD Operation
+        // Declare a field for the Appointment CRUD Operation
         private readonly AppointmentCRUD _appointmentCRUD;
 
 
@@ -36,7 +35,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
         public IActionResult CreateAppointment([FromBody] Dictionary<string, object> fieldValues)
         {
             // Define the primary key for the Appointment Table.
-            var primaryKeyName = "AppointmentId";
+            var primaryKeyName = "AppointmentID";
 
             // Regex for the format that the primary key needs to follow.
             var primaryKeyFormat = @"^A\d{5,}$";

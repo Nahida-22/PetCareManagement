@@ -1,128 +1,130 @@
-using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc;
-using PawfectCareLtd.Data;
+//Import dependencies.
+using Microsoft.AspNetCore.Mvc; // Import ASP.Net Core MVC.
+using PawfectCareLtd.CRUD; // Import CRUD Operation
+using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
 using PawfectCareLtd.Models;
-using Microsoft.AspNetCore.Http;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.CRUD;
-using PawfectCareLtd.Helpers;
-using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+using PawfectCareLtd.Models.DTO; // Import the Data-Transfer-Object.
+using PawfectCareLtd.Services; // Import services layer logic.
 
 
-namespace PawfectCareLtd.Controllers
+namespace PawfectCareLtd.Controllers // Define the namespace for the application
 {
-    // OwnersController.cs in PawfectCareLtd.API
+    // Define the route prefix as apiController
     [Route("api/[controller]")]
+    // Spwcifi that is an api controller,
     [ApiController]
-    public class OwnersController : ControllerBase
+
+    // Class of the Owner controler.
+    public class OwnerController : Controller
     {
-        private readonly Database _database;
+
+        // Declare a field for the Owner CRUD Operation
         private readonly OwnerCRUD _ownerCRUD;
 
-        public OwnersController(Database database, OwnerCRUD ownerCRUD)
+
+
+        // Contructor for the Owner controller class.
+        public OwnerController(OwnerCRUD ownerCRUD)
         {
-            _database = database;
-            _ownerCRUD = ownerCRUD;
-        }
-
-        [HttpGet]
-        public IActionResult GetAllOwners()
-        {
-            var ownersTable = _database.GetTable("Owner");
-
-            var ownersList = ownersTable.GetAll().Select(r => new
-            {
-                ID = r["OwnerID"],
-                FirstName = r["FirstName"],
-                LastName = r["LastName"]
-            }).ToList();
-
-            return Ok(ownersList);
+            _ownerCRUD = ownerCRUD;// Assign the injected Owner CRUD operation.
         }
 
 
-        /// <summary>
-        /// 
-        /// API for Search
-        /// Allows search based on multiple fields
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        [HttpGet("search")] 
-        public IActionResult SearchOwners([FromQuery] Dictionary<string, string> query)
-        {
-            if (query.Count == 0)
-                return BadRequest("Please provide at least one search field and value.");
 
-            // Define expected field types (optional: you can also make this dynamic later)
-            var fieldTypes = new Dictionary<string, string>
-            {
-                { "OwnerID", "string" },
-                { "FirstName", "string" },
-                { "LastName", "string" },
-                { "Email", "string" },
-                { "PhoneNo", "string" },
-                { "Address", "string" }
-
-            };
-
-            // Filter the query only to include valid fields from your system
-            var searchFields = query
-                .Where(q => fieldTypes.ContainsKey(q.Key) && !string.IsNullOrEmpty(q.Value))
-                .ToDictionary(q => q.Key, q => q.Value);
-
-            if (searchFields.Count == 0)
-                return BadRequest("None of the provided fields are valid or non-empty.");
-
-            var helper = new InMemorySearchHelper(_database);
-            var results = helper.FindRecordsByFields("Owner", searchFields);
-
-            if (results.Count == 0)
-                return NotFound("No matching owners found.");
-
-            return Ok(results);
-        }
-
+        // Post Owner API.
         [HttpPost]
-        public IActionResult AddOwner([FromBody] OwnerDto owner)
+        public IActionResult CreateOwner([FromBody] Dictionary<string, object> fieldValues)
         {
-            var ownersTable = _database.GetTable("Owner");
-            var record = new Record
-            {
-                ["OwnerID"] = owner.ID,
-                ["FirstName"] = owner.FirstName,
-                ["LastName"] = owner.LastName
-            };
+            // Define the primary key for the Owner Table.
+            var primaryKeyName = "OwnerID";
 
-            ownersTable.Insert(record);
-            return Ok();
+            // Regex for the format that the primary key needs to follow.
+            var primaryKeyFormat = @"^O\d{5}$";
+
+            // List of foreign key in the Owner table.
+            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)> {};
+
+            // Get the result of the insert operation in the Owner table.
+            var result = _ownerCRUD.InsertOperationForOwner(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
         }
 
-        // Api for Deletion.
-        [HttpDelete("{ownerId}")]
+
+
+        // GET Owner API.
+        [HttpGet]
+        public IActionResult ReadOwner(string fieldName, string fieldValue)
+        {
+            // Get the result of the read operation in the Owner table.
+            var result = _ownerCRUD.ReadOperationForOwner(fieldName, fieldValue);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
+        }
+
+
+
+        // PUT Owner API.
+        [HttpPut]
+        public IActionResult UpdateOwner(string ownerId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
+        {
+            // Get the result of the read operation in the Owner table.
+            var result = _ownerCRUD.UpdateOperationForOwner(ownerId, fieldName, newValue, isForeignKey, referencedTableName);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
+        }
+
+
+
+        // DELETE Owner API.
+        [HttpDelete]
         public IActionResult DeleteOwner(string ownerId)
         {
-            try
+            // Get the result of the read operation in the Owner table.
+            var result = _ownerCRUD.DeleteOwnerbyId(ownerId);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
             {
-                var deleted = _ownerCRUD.DeleteOwnerById2(ownerId);
-                return Ok($"Owner {ownerId} and associated pets deleted successfully.");
+                return Ok(result);
             }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
+        }
+
+
+
+        // GET all Owner records API.
+        [HttpGet("all")]
+        public IActionResult GetAllLocation()
+        {
+            // Get the result of getting all of the record from Owner table.
+            var result = _ownerCRUD.GetAllOwnerRecord();
+
+            // Return status 200 to the operation has been a success and the result of the operation.
+            return Ok(result);
         }
     }
-
-    public class OwnerDto
-    {
-        public string ID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-    }
 }
-

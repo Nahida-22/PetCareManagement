@@ -14,41 +14,41 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
     // Spwcifi that is an api controller,
     [ApiController]
 
-    // Class of the Pet controler.
-    public class PetController : Controller
+    // Class of the Medication controler.
+    public class MedicationController : Controller
     {
 
-        // Declare a field for the Pet CRUD Operation
-        private readonly PetCRUD _petCRUD;
+        // Declare a field for the Medication CRUD Operation
+        private readonly MedicationCRUD _medicationCRUD;
 
 
 
-        // Contructor for the Pet controller class.
-        public PetController(PetCRUD petCRUD)
+        // Contructor for the Medication controller class.
+        public MedicationController(MedicationCRUD medicationCRUD)
         {
-            _petCRUD = petCRUD;// Assign the injected Pet CRUD operation.
+            _medicationCRUD = medicationCRUD;// Assign the injected Medication CRUD operation.
         }
 
 
 
-        // Post Pet API.
+        // Post Medication API.
         [HttpPost]
-        public IActionResult CreatePet([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateMedication([FromBody] Dictionary<string, object> fieldValues)
         {
-            // Define the primary key for the Pet Table.
-            var primaryKeyName = "PetID";
+            // Define the primary key for the Medication Table.
+            var primaryKeyName = "MedicationID";
 
             // Regex for the format that the primary key needs to follow.
-            var primaryKeyFormat = @"^P\d{5}$";
+            var primaryKeyFormat = @"^M\d{5}$";
 
-            // List of foreign key in the Pet table.
-            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)>
+            // List of foreign key in the Medication table.
+            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)> 
             {
-                ("OwnerID", "Owner")
+                ("SupplierID", "Supplier")
             };
 
-            // Get the result of the insert operation in the Pet table.
-            var result = _petCRUD.InsertOperationForPet(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
+            // Get the result of the insert operation in the Medication table.
+            var result = _medicationCRUD.InsertOperationForMedication(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -62,12 +62,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // GET Pet API.
+        // GET Medication API.
         [HttpGet]
-        public IActionResult ReadPet(string fieldName, string fieldValue)
+        public IActionResult ReadMedication(string fieldName, string fieldValue)
         {
-            // Get the result of the read operation in the Pet table.
-            var result = _petCRUD.ReadOperationForPet(fieldName, fieldValue);
+            // Get the result of the read operation in the Medication table.
+            var result = _medicationCRUD.ReadOperationForMedication(fieldName, fieldValue);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -81,12 +81,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // PUT Pet API
+        // PUT Owner API.
         [HttpPut]
-        public IActionResult UpdatePet(string petId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
+        public IActionResult UpdateMedication(string medicationId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
         {
-            // Get the result of the read operation in the Pet table.
-            var result = _petCRUD.UpdateOperationForPet(petId, fieldName, newValue, isForeignKey, referencedTableName);
+            // Get the result of the read operation in the Medication table.
+            var result = _medicationCRUD.UpdateOperationForMedication(medicationId, fieldName, newValue, isForeignKey, referencedTableName);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -100,12 +100,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // DELETE Pet API.
+        // DELETE Owner API.
         [HttpDelete]
-        public IActionResult DeletePet(string petId)
+        public IActionResult DeleteMedication(string medicationId)
         {
-            // Get the result of the read operation in the Pet table.
-            var result = _petCRUD.DeletePetbyId(petId);
+            // Get the result of the read operation in the Medication table.
+            var result = _medicationCRUD.DeleteMedicationbyId(medicationId);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -119,12 +119,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // GET all Pet records API.
+        // GET all Medication records API.
         [HttpGet("all")]
-        public IActionResult GetAllPet()
+        public IActionResult GetAllMedication()
         {
-            // Get the result of getting all of the record from Appointment table.
-            var result = _petCRUD.GetAllPetRecord();
+            // Get the result of getting all of the record from Medication table.
+            var result = _medicationCRUD.GetAllMedicationRecord();
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);

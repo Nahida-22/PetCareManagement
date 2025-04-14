@@ -2,11 +2,9 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Data;
-
 using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
 using PawfectCareLtd.Controllers;
 using PawfectCareLtd.Models;  // Import the custom in memory database.
-
 
 
 namespace PawfectCareLtd.CRUD// Define the namespace for the application.

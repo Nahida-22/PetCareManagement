@@ -1,0 +1,15 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Path": "PawfectCareLtd.csproj",
+        "Action": "Start"
+      },
+      {
+        "Path": "..\\..\\PawfectCareLimited\\PawfectCareLimited\\PawfectCareLimited(Winforms).csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]
