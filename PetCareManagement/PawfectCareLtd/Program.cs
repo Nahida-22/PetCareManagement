@@ -332,7 +332,46 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //// 6. READ after update
                 //crud.ReadOperationForLocation("LocationID", "L001");
 
+                var crud = scope.ServiceProvider.GetRequiredService<PrescriptionCRUD>();
 
+                // 1. READ before any changes
+                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
+
+                // 2. DELETE Appointment if it exists
+                crud.DeletePrescriptionById( "PR20000");
+
+                // 3. INSERT new Appointment
+                var prescriptionData = new Dictionary<string, object>
+                {
+                    { "PrescriptionID", "PR20000" },
+                    { "PetID", "P08628" },
+                    { "VetID", "V1007" },
+                    { "Diagnosis", "Severe Infection" },
+                    { "Dosage","1 time a day"},
+                    { "DateIssued", DateTime.Parse("2025-03-09")}
+                };
+
+                crud.InsertOperationForPrescription(
+                    fieldValues: prescriptionData,
+                    primaryKeyName: "PrescriptionID",
+                    primaryKeyFormat: @"^PR\d{5}$"
+,
+                    foreignKeys: new List<(string, string)>
+                    {
+                        ("PetID", "Pet"),
+                        ("VetID", "Vet")
+                       
+                    }
+                );
+
+                // 4. READ after insert
+                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
+
+                // 5. UPDATE status to "Completed"
+                crud.UpdateOperationForPrescription("PR20000", "Diagnosis", "Nutritional Deficiency");
+
+                // 6. READ after update
+                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
 
             }
 
