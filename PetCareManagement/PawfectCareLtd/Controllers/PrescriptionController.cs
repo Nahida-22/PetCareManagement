@@ -1,133 +1,134 @@
-﻿using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc;
-using PawfectCareLtd.Data;
+﻿//Import dependencies.
+using Microsoft.AspNetCore.Mvc; // Import ASP.Net Core MVC.
+using PawfectCareLtd.CRUD; // Import CRUD Operation
+using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
 using PawfectCareLtd.Models;
-using Microsoft.AspNetCore.Http;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.CRUD;
-using PawfectCareLtd.Helpers;
-using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+using PawfectCareLtd.Models.DTO; // Import the Data-Transfer-Object.
+using PawfectCareLtd.Services; // Import services layer logic.
 
-namespace PawfectCareLtd.Controllers
+
+namespace PawfectCareLtd.Controllers // Define the namespace for the application
 {
+    // Define the route prefix as apiController
     [Route("api/[controller]")]
+    // Spwcifi that is an api controller,
     [ApiController]
-    public class PrescriptionController : ControllerBase
+
+    // Class of the Prescription controler.
+    public class PrescriptionController : Controller
     {
-        private readonly Database _database;
-        private readonly PrescriptionCRUD _prescriptionCrud;
 
-        public PrescriptionController(Database database, PrescriptionCRUD prescriptionCrud)
+        // Declare a field for the Prescription CRUD Operation
+        private readonly PrescriptionCRUD _prescriptionCRUD;
+
+
+
+        // Contructor for the Prescription controller class.
+        public PrescriptionController(PrescriptionCRUD prescriptionCRUD)
         {
-            _database = database;
-            _prescriptionCrud = prescriptionCrud;
+            _prescriptionCRUD = prescriptionCRUD;// Assign the injected Prescription CRUD operation.
         }
 
-        // GET: api/prescription
-        [HttpGet]
-        public IActionResult GetAllPrescriptions()
+
+
+        // Post Prescription API.
+        [HttpPost]
+        public IActionResult CreatePrescription([FromBody] Dictionary<string, object> fieldValues)
         {
-            var prescriptionTable = _database.GetTable("Prescription");
+            // Define the primary key for the Prescription Table.
+            var primaryKeyName = "PrescriptionID";
 
-            var prescriptions = prescriptionTable.GetAll().Select(r => new
-            {
-                PrescriptionID = r["PrescriptionID"],
-                PetID = r["PetID"],
-                MedicationID = r["MedicationID"],
-                AppointmentID = r["AppointmentID"],
-                DatePrescribed = r["DatePrescribed"],
-                Dosage = r["Dosage"],
-                
-            }).ToList();
+            // Regex for the format that the primary key needs to follow.
+            var primaryKeyFormat = @"^PR\d{5,}$";
 
-            return Ok(prescriptions);
-        }
-
-        // GET: api/prescription/search?PetID=PET10001
-        [HttpGet("search")]
-        public IActionResult SearchPrescriptions([FromQuery] Dictionary<string, string> query)
-        {
-            if (query.Count == 0)
-                return BadRequest("Please provide at least one search field and value.");
-
-            var validFields = new Dictionary<string, string>
-            {
-                { "PrescriptionID", "string" },
-                { "PetID", "string" },
-                { "MedicationID", "string" },
-                { "AppointmentID", "string" },
-                { "DatePrescribed", "string" },
-                { "Dosage", "string" },
-                { "Duration", "string" }
-            };
-
-            var filtered = query
-                .Where(q => validFields.ContainsKey(q.Key) && !string.IsNullOrEmpty(q.Value))
-                .ToDictionary(q => q.Key, q => q.Value);
-
-            if (filtered.Count == 0)
-                return BadRequest("None of the provided fields are valid or non-empty.");
-
-            var helper = new InMemorySearchHelper(_database);
-            var results = helper.FindRecordsByFields("Prescription", filtered);
-
-            if (results.Count == 0)
-                return NotFound("No matching prescriptions found.");
-
-            return Ok(results);
-        }
-
-        // DELETE: api/prescription/PR20001
-        [HttpDelete("{id}")]
-        public IActionResult DeletePrescription(string id)
-        {
-            var result = _prescriptionCrud.DeletePrescriptionById(id);
-            if (result.Success)
-                return Ok(result.Message);
-
-            return NotFound(result.Message);
-        }
-
-        // POST: api/prescription/insert
-        [HttpPost("insert")]
-        public IActionResult InsertPrescription([FromBody] PrescriptionDTO dto)
-        {
-            if (dto == null)
-                return BadRequest("Invalid prescription data.");
-
-            var fieldValues = new Dictionary<string, object>
-            {
-                { "PrescriptionID", dto.PrescriptionID },
-                { "PetID", dto.PetID },
-                { "MedicationID", dto.MedicationID },
-                { "AppointmentID", dto.AppointmentID },
-                { "DatePrescribed", dto.DatePrescribed },
-                { "Dosage", dto.Dosage },
-                { "Duration", dto.Duration }
-            };
-
-            string primaryKeyName = "PrescriptionID";
-            string primaryKeyFormat = @"^PR\d{5}$";
-            var foreignKeys = new List<(string, string)>
+            // List of foreign key in the Prescription table.
+            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)>
             {
                 ("PetID", "Pet"),
-                ("MedicationID", "Medication"),
-                ("AppointmentID", "Appointment")
+                ("VetID", "Vet")
             };
 
-            _prescriptionCrud.InsertOperationForPrescription(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
+            // Get the result of the insert operation in the Prescription table.
+            var result = _prescriptionCRUD.InsertOperationForPrescription(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
 
-            return Ok("Insert operation completed. Check console for detailed output.");
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
         }
-        public class PrescriptionDTO
+
+
+
+        // GET Prescription API.
+        [HttpGet]
+        public IActionResult ReadPrescription(string fieldName, string fieldValue)
         {
-            public string PrescriptionID { get; set; }
-            public string PetID { get; set; }
-            public string MedicationID { get; set; }
-            public string AppointmentID { get; set; }
-            public string DatePrescribed { get; set; }
-            public string Dosage { get; set; }
-            public string Duration { get; set; }
+            // Get the result of the read operation in the Prescription table.
+            var result = _prescriptionCRUD.ReadOperationForPrescription(fieldName, fieldValue);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
+        }
+
+
+
+        // PUT Prescription API
+        [HttpPut]
+        public IActionResult UpdatePrescription(string prescriptionId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
+        {
+            // Get the result of the read operation in the Prescription table.
+            var result = _prescriptionCRUD.UpdateOperationForPrescription(prescriptionId, fieldName, newValue, isForeignKey, referencedTableName);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
+        }
+
+
+
+        // DELETE Prescription API.
+        [HttpDelete]
+        public IActionResult DeletePrescription(string prescriptionId)
+        {
+            // Get the result of the read operation in the Prescription table.
+            var result = _prescriptionCRUD.DeletePrescriptionbyId(prescriptionId);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
+        }
+
+
+
+        // GET all Prescription records API.
+        [HttpGet("all")]
+        public IActionResult GetAllPrescription()
+        {
+            // Get the result of getting all of the record from Prescription table.
+            var result = _prescriptionCRUD.GetAllPrescriptionRecord();
+
+            // Return status 200 to the operation has been a success and the result of the operation.
+            return Ok(result);
         }
     }
 }

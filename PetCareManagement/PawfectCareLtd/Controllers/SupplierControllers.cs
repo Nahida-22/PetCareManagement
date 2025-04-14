@@ -1,111 +1,130 @@
-﻿using System.ComponentModel;
-using Microsoft.AspNetCore.Mvc;
-using PawfectCareLtd.Data;
+﻿//Import dependencies.
+using Microsoft.AspNetCore.Mvc; // Import ASP.Net Core MVC.
+using PawfectCareLtd.CRUD; // Import CRUD Operation
+using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
 using PawfectCareLtd.Models;
-using Microsoft.AspNetCore.Http;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.CRUD;
-using PawfectCareLtd.Helpers;
+using PawfectCareLtd.Models.DTO; // Import the Data-Transfer-Object.
+using PawfectCareLtd.Services; // Import services layer logic.
 
-namespace PawfectCareLtd.Controllers
+
+namespace PawfectCareLtd.Controllers // Define the namespace for the application
 {
+    // Define the route prefix as apiController
     [Route("api/[controller]")]
+    // Spwcifi that is an api controller,
     [ApiController]
-    public class SuppliersController : ControllerBase
+
+    // Class of the Supplier controler.
+    public class SupplierController : Controller
     {
-        private readonly Database _database;
+
+        // Declare a field for the Supplier CRUD Operation
         private readonly SupplierCRUD _supplierCRUD;
 
-        public SuppliersController(Database database, SupplierCRUD supplierCRUD)
+
+
+        // Contructor for the Appointment controller class.
+        public SupplierController(SupplierCRUD supplierCRUD)
         {
-            _database = database;
-            _supplierCRUD = supplierCRUD;
+            _supplierCRUD = supplierCRUD;// Assign the injected Supplier CRUD operation.
         }
 
-        [HttpGet]
-        public IActionResult GetAllSuppliers()
-        {
-            var supplierTable = _database.GetTable("Supplier");
 
-            var supplierList = supplierTable.GetAll().Select(r => new
-            {
-                ID = r["SupplierID"],
-                Name = r["Name"],
-                Email = r["Email"]
-            }).ToList();
 
-            return Ok(supplierList);
-        }
-
-        [HttpGet("search")]
-        public IActionResult SearchSuppliers([FromQuery] Dictionary<string, string> query)
-        {
-            if (query.Count == 0)
-                return BadRequest("Please provide at least one search field and value.");
-
-            var fieldTypes = new Dictionary<string, string>
-            {
-                { "SupplierID", "string" },
-                { "Name", "string" },
-                { "Email", "string" },
-                { "PhoneNo", "string" },
-                { "Address", "string" }
-            };
-
-            var searchFields = query
-                .Where(q => fieldTypes.ContainsKey(q.Key) && !string.IsNullOrEmpty(q.Value))
-                .ToDictionary(q => q.Key, q => q.Value);
-
-            if (searchFields.Count == 0)
-                return BadRequest("None of the provided fields are valid or non-empty.");
-
-            var helper = new InMemorySearchHelper(_database);
-            var results = helper.FindRecordsByFields("Supplier", searchFields);
-
-            if (results.Count == 0)
-                return NotFound("No matching suppliers found.");
-
-            return Ok(results);
-        }
-
+        // Post Supplier API.
         [HttpPost]
-        public IActionResult AddSupplier([FromBody] SupplierDto supplier)
+        public IActionResult CreateSupplier([FromBody] Dictionary<string, object> fieldValues)
         {
-            var supplierTable = _database.GetTable("Supplier");
-            var record = new Record
-            {
-                ["SupplierID"] = supplier.ID,
-                ["Name"] = supplier.Name,
-                ["Email"] = supplier.Email
-            };
+            // Define the primary key for the Supplier Table.
+            var primaryKeyName = "SupplierID";
 
-            supplierTable.Insert(record);
-            return Ok();
+            // Regex for the format that the primary key needs to follow.
+            var primaryKeyFormat = @"^S\d{5}$";
+
+            // List of foreign key in the Supplier table.
+            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)> { };
+
+            // Get the result of the insert operation in the Supplier table.
+            var result = _supplierCRUD.InsertOperationForSupplier(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
         }
 
-        [HttpDelete("{supplierId}")]
+
+
+        // GET Supplier API.
+        [HttpGet]
+        public IActionResult ReadSupplier(string fieldName, string fieldValue)
+        {
+            // Get the result of the read operation in the Supplier table.
+            var result = _supplierCRUD.ReadOperationForSupplier(fieldName, fieldValue);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
+        }
+
+
+
+        // PUT Supplier API
+        [HttpPut]
+        public IActionResult UpdateSupplier(string supplierId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
+        {
+            // Get the result of the read operation in the Supplier table.
+            var result = _supplierCRUD.UpdateOperationForSupplier(supplierId, fieldName, newValue, isForeignKey, referencedTableName);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
+        }
+
+
+
+        // DELETE Supplier API.
+        [HttpDelete]
         public IActionResult DeleteSupplier(string supplierId)
         {
-            try
-            {
-                var deleted = _supplierCRUD.DeleteSupplierById(supplierId);
-                return Ok($"Supplier {supplierId} and associated data deleted successfully.");
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-    }
+            // Get the result of the read operation in the Supplier table.
+            var result = _supplierCRUD.DeleteSupplierbyId(supplierId);
 
-    public class SupplierDto
-    {
-        public string ID { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
+        }
+
+
+
+        // GET all Supplier records API.
+        [HttpGet("all")]
+        public IActionResult GetAllSupplier()
+        {
+            // Get the result of getting all of the record from Supplier table.
+            var result = _supplierCRUD.GetAllSupplierRecord();
+
+            // Return status 200 to the operation has been a success and the result of the operation.
+            return Ok(result);
+        }
     }
 }
