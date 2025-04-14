@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc; // Import ASP.Net Core MVC.
 using PawfectCareLtd.CRUD; // Import CRUD Operation
 using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
-using PawfectCareLtd.Models;
 using PawfectCareLtd.Models.DTO; // Import the Data-Transfer-Object.
 using PawfectCareLtd.Services; // Import services layer logic.
 
@@ -14,38 +13,38 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
     // Spwcifi that is an api controller,
     [ApiController]
 
-    // Class of the Supplier controler.
-    public class SupplierController : Controller
+    // Class of the Vet controler.
+    public class VetController : Controller
     {
 
-        // Declare a field for the Supplier CRUD Operation
-        private readonly SupplierCRUD _supplierCRUD;
+        // Declare a field for the Vet CRUD Operation
+        private readonly VetCRUD _vetCRUD;
 
 
 
-        // Contructor for the Appointment controller class.
-        public SupplierController(SupplierCRUD supplierCRUD)
+        // Contructor for the Vet controller class.
+        public VetController(VetCRUD vetCRUD)
         {
-            _supplierCRUD = supplierCRUD;// Assign the injected Supplier CRUD operation.
+            _vetCRUD = vetCRUD;// Assign the injected Vet CRUD operation.
         }
 
 
 
-        // Post Supplier API.
+        // Post Vet API.
         [HttpPost]
-        public IActionResult CreateSupplier([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateVet([FromBody] Dictionary<string, object> fieldValues)
         {
-            // Define the primary key for the Supplier Table.
-            var primaryKeyName = "SupplierID";
+            // Define the primary key for the Vet Table.
+            var primaryKeyName = "VetID";
 
             // Regex for the format that the primary key needs to follow.
-            var primaryKeyFormat = @"^S\d{5}$";
+            var primaryKeyFormat = @"^V\d{4}$";
 
-            // List of foreign key in the Supplier table.
+            // List of foreign key in the Vet table.
             var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)> { };
 
-            // Get the result of the insert operation in the Supplier table.
-            var result = _supplierCRUD.InsertOperationForSupplier(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
+            // Get the result of the insert operation in the Vet table.
+            var result = _vetCRUD.InsertOperationForVet(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -59,12 +58,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // GET Supplier API.
+        // GET Vet API.
         [HttpGet]
-        public IActionResult ReadSupplier(string fieldName, string fieldValue)
+        public IActionResult ReadVet(string fieldName, string fieldValue)
         {
-            // Get the result of the read operation in the Supplier table.
-            var result = _supplierCRUD.ReadOperationForSupplier(fieldName, fieldValue);
+            // Get the result of the read operation in the Vet table.
+            var result = _vetCRUD.ReadOperationForVet(fieldName, fieldValue);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -78,12 +77,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // PUT Supplier API
+        // PUT Vet API
         [HttpPut]
-        public IActionResult UpdateSupplier(string supplierId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
+        public IActionResult UpdateVet(string vetId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
         {
-            // Get the result of the read operation in the Supplier table.
-            var result = _supplierCRUD.UpdateOperationForSupplier(supplierId, fieldName, newValue, isForeignKey, referencedTableName);
+            // Get the result of the read operation in the Vet table.
+            var result = _vetCRUD.UpdateOperationForVet(vetId, fieldName, newValue, isForeignKey, referencedTableName);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -97,12 +96,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // DELETE Supplier API.
+        // DELETE Vet API.
         [HttpDelete]
-        public IActionResult DeleteSupplier(string supplierId)
+        public IActionResult DeleteVet(string VetId)
         {
-            // Get the result of the read operation in the Supplier table.
-            var result = _supplierCRUD.DeleteSupplierbyId(supplierId);
+            // Get the result of the read operation in the Vet table.
+            var result = _vetCRUD.DeleteAppointmentbyId(VetId);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)
@@ -116,12 +115,12 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
-        // GET all Supplier records API.
+        // GET all Vet records API.
         [HttpGet("all")]
-        public IActionResult GetAllSupplier()
+        public IActionResult GetAllVet()
         {
-            // Get the result of getting all of the record from Supplier table.
-            var result = _supplierCRUD.GetAllSupplierRecord();
+            // Get the result of getting all of the record from Vet table.
+            var result = _vetCRUD.GetAllVetRecord();
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
