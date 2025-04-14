@@ -121,7 +121,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
 
 
         // Method to update data from the Appointment table.
-        public void UpdateOperationForAppointment(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
+        public OperationResult UpdateOperationForAppointment(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
         {
             // Get the Appointment table from the in memory database.
             var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
@@ -138,8 +138,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 // Check if the referenced table does not exist, exit out of the method.
                 if (referencedTable == null)
                 {
-                    Console.WriteLine($"Referenced table '{referencedTableName}' not found in memory.");
-                    return;
+                    return new OperationResult { success = false, message= $"Referenced table '{referencedTableName}' not found in memory." };
                 }
 
                 // Check if the foreign key value exists in the referenced table.
@@ -148,8 +147,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 // If new value does not exist in the reference table, exit out of the method to prevent data linking issues.
                 if (!exists)
                 {
-                    Console.WriteLine($"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table.");
-                    return;
+                    return new OperationResult { success = false, message = $"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table." };
                 }
             }
             // Try updating the data into the Appointment table.
@@ -170,21 +168,21 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                     }
                 }
 
-                Console.WriteLine($"Field '{fieldName}' updated successfully for Appointment with primary key '{primaryKeyValue}'.");
+                return new OperationResult { success = true, message = $"Field '{fieldName}' updated successfully for Appointment with primary key '{primaryKeyValue}'." };
             }
             catch (KeyNotFoundException) // Catch any errors that related to data not being found.
             {
-                Console.WriteLine($"No record found with primary key '{primaryKeyValue}' in Appointment table.");
+                return new OperationResult { success = false, message = $"No record found with primary key '{primaryKeyValue}' in Appointment table." };
             }
             catch (Exception ex) // Catch any other error.
             {
-                Console.WriteLine($"Error updating field: {ex.Message}");
+                return new OperationResult { success = false, message = $"Error updating field: {ex.Message}" };
             }
         }
 
        
         // Method to delete data from the Appointment table.
-        public bool DeleteAppointmentbyId(string appointmentId)
+        public OperationResult DeleteAppointmentbyId(string appointmentId)
         {
             var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
 
@@ -192,12 +190,10 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             try
             {
                 appointmentTable.Delete(appointmentId);
-                Console.WriteLine($"Appointment with ID {appointmentId} deleted from in-memory database.");
             }
             catch (KeyNotFoundException)
             {
-                Console.WriteLine($"Appointment with ID {appointmentId} not found in in-memory database.");
-                return false;
+                return new OperationResult { success = false, message = $"Appointment with ID {appointmentId} not found in in-memory database."};
             }
 
             // Try delete from SQL Server
@@ -206,14 +202,13 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             {
                 _dbContext.Appointments.Remove(appointmentEntity);
                 _dbContext.SaveChanges();
-                Console.WriteLine($"Appointment with ID {appointmentId} deleted from SQL database.");
             }
             else
             {
                 Console.WriteLine($"Appointment with ID {appointmentId} not found in SQL database.");
             }
 
-            return true;
+            return new OperationResult { success = true, message = $"Appointment with ID {appointmentId} deleted from in-memory database." };
         }
 
 

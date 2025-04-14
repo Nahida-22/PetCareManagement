@@ -65,7 +65,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
         // GET Appointment API.
-        [HttpGet("{id}")]
+        [HttpGet]
         public IActionResult ReadAppointment(string fieldName, string fieldValue)
         {
             // Get the result of the read operation in the Appointment table.
