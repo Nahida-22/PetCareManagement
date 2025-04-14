@@ -104,7 +104,7 @@ namespace PawfectCareLtd.Controllers
         {
             try
             {
-                var deleted = _ownerCRUD.DeleteOwnerById2(ownerId);
+                var deleted = _ownerCRUD.DeleteOwnerById(ownerId);
                 return Ok($"Owner {ownerId} and associated pets deleted successfully.");
             }
             catch (KeyNotFoundException ex)
