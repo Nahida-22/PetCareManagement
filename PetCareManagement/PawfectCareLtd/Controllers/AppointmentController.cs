@@ -1,119 +1,97 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PawfectCareLtd.CRUD;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.Helpers;
-using PawfectCareLtd.Models.DTO;
-using PawfectCareLtd.Services;
+﻿//Import dependencies.
+using Microsoft.AspNetCore.Mvc; // Import ASP.Net Core MVC.
+using PawfectCareLtd.CRUD; // Import CRUD Operation
+using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
+using PawfectCareLtd.Helpers; // Import custom helper function.
+using PawfectCareLtd.Models.DTO; // Import the Data-Transfer-Object.
+using PawfectCareLtd.Services; // Import services layer logic.
 
 
-namespace PawfectCareLtd.Controllers
+namespace PawfectCareLtd.Controllers // Define the namespace for the application
 {
+    // Define the route prefix as apiController
     [Route("api/[controller]")]
+    // Spwcifi that is an api controller,
     [ApiController]
+
+    // Class of the Appointment controler.
     public class AppointmentController : Controller
     {
-        private readonly Database _database;
+
+        // DEclare a field for the Appointment CRUD Operation
         private readonly AppointmentCRUD _appointmentCRUD;
-        private readonly BookAppointmentService _bookAppointmentService;
 
-        public AppointmentController(Database database, AppointmentCRUD appointmentCRUD, BookAppointmentService bookAppointmentService)
+
+
+        // Contructor for the Appointment controller class.
+        public AppointmentController(AppointmentCRUD appointmentCRUD)
         {
-            _database = database;
-            _appointmentCRUD = appointmentCRUD;
-            _bookAppointmentService = bookAppointmentService;
-        }
-
-        [HttpGet] // Get all Appointments.
-        public IActionResult GetAllOwners()
-        {
-            var appointmentsTable = _database.GetTable("Appointment");
-
-            var appointmentsList = appointmentsTable.GetAll().Select(r => new
-            {
-                AppointmentID = r["AppointmentID"],
-                PetID = r["PetID"],
-                VetID = r["VetID"],
-                ServiceType = r["ServiceType"],
-                ApptDate = r["ApptDate"],
-                Status = r["Status"],
-                LocationID = r["LocationID"],
-
-            }).ToList();
-
-            return Ok(appointmentsList);
+            _appointmentCRUD = appointmentCRUD;// Assign the injected Appointment CRUD operation.
         }
 
 
-        [HttpGet("search")]
-        public IActionResult SearchAppointments([FromQuery] Dictionary<string, string> query)
-        {
-            if (query.Count == 0)
-                return BadRequest("Please provide at least one search field and value.");
 
-            // Define expected field types (optional: you can also make this dynamic later)
-            var fieldTypes = new Dictionary<string, string>
+        // Post Appointment API.
+        [HttpPost]
+        public IActionResult CreateAppointment([FromBody] Dictionary<string, object> fieldValues)
+        {
+            // Define the primary key for the Appointment Table.
+            var primaryKeyName = "AppointmentId";
+
+            // Regex for the format that the primary key needs to follow.
+            var primaryKeyFormat = @"^A\d{5,}$";
+
+            // List of foreign key in the Appointment table.
+            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)>
             {
-                { "AppointmentID", "string" },
-                { "PetID", "string" },
-                { "VetID", "string" },
-                { "ServiceType", "string" },
-                { "ApptDate", "string" },
-                { "Status", "string" },
-                { "LocationID", "string" }
+                ("LocationID", "Location"),
+                ("PetID", "Pet"),
+                ("VetID", "Vet")
             };
 
-            // Filter the query only to include valid fields from your system
-            var searchFields = query
-                .Where(q => fieldTypes.ContainsKey(q.Key) && !string.IsNullOrEmpty(q.Value))
-                .ToDictionary(q => q.Key, q => q.Value);
+            // Get the result of the insert operation in the Appointment table.
+            var result = _appointmentCRUD.InsertOperationForAppointment(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
 
-            if (searchFields.Count == 0)
-                return BadRequest("None of the provided fields are valid or non-empty.");
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
 
-            var helper = new InMemorySearchHelper(_database);
-            var results = helper.FindRecordsByFields("Appointment", searchFields);
-
-            if (results.Count == 0)
-                return NotFound("No matching appointments found.");
-
-            return Ok(results);
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
         }
 
-        [HttpPost("book")]
-        public IActionResult BookAppointment([FromBody] AppointmentRequest request)
+
+
+        // GET Appointment API.
+        [HttpGet("{id}")]
+        public IActionResult ReadAppointment(string fieldName, string fieldValue)
         {
-            if (request == null)
-                return BadRequest("Invalid request data.");
+            // Get the result of the read operation in the Appointment table.
+            var result = _appointmentCRUD.ReadOperationForAppointment(fieldName, fieldValue);
 
-            if (string.IsNullOrWhiteSpace(request.VetID))
-                return BadRequest("VetID is required.");
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
 
-            var resultMessage = _bookAppointmentService.BookAppointment(
-                request.FirstName,
-                request.LastName,
-                request.PetName,
-                request.AppointmentDate,
-                request.Location,
-                request.ServiceType,
-                request.VetID 
-            );
-
-            return Ok(resultMessage);
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
         }
 
 
+
+        // GET all Appointment records API.
+        [HttpGet("all")]
+        public IActionResult GetAllAppointments()
+        {
+            // Get the result of getting all of the record from Appointment table.
+            var result = _appointmentCRUD.GetAllAppointmentRecord();
+
+            // Return status 200 to the operation has been a success and the result of the operation.
+            return Ok(result);
+        }
     }
-
-    public class AppointmentRequest
-    {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PetName { get; set; }
-        public DateTime AppointmentDate { get; set; }
-        public string Location { get; set; }
-        public string ServiceType { get; set; }
-        public string VetID { get; set; }  // <-- Add this
-    }
-
-
 }

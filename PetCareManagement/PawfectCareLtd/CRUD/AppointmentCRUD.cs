@@ -3,6 +3,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Data;
 using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
+using PawfectCareLtd.Controllers;
 
 
 namespace PawfectCareLtd.CRUD// Define the namespace for the application.
@@ -25,7 +26,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
 
 
         // Method to insert data into the Appointment table.
-        public void InsertOperationForAppointment(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
+        public OperationResult InsertOperationForAppointment(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
         {
 
             // Get the Appointment table from the in memory database.
@@ -34,8 +35,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             // Check if the primary key has been added into the input dictionary.
             if (!fieldValues.ContainsKey(primaryKeyName))
             {
-                Console.WriteLine("Primary key field is missing.");
-                return;
+                return new OperationResult { success = false, message = "Primary key must be inputed."};
             }
 
             // Get the primary key for the record being inserted then convert it to string.
@@ -44,15 +44,14 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             // Check if primary for the the record being inserted is non empty and is in the required format.
             if (string.IsNullOrWhiteSpace(primaryKeyValue) || !System.Text.RegularExpressions.Regex.IsMatch(primaryKeyValue, primaryKeyFormat))
             {
-                Console.WriteLine($"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'.");
-                return;
+                return new OperationResult { success = false, message = $"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'." };
+                
             }
 
             // Check if the primary key for the new already exist in the the Appointment table, If yes exist out of the function.
             if (appointmentTable.GetAll().Any(record => record[primaryKeyName]?.ToString() == primaryKeyValue))
             {
-                Console.WriteLine($"A record with primary key '{primaryKeyValue}' already exists.");
-                return;
+                return new OperationResult { success = false, message = $"A record with primary key '{primaryKeyValue}' already exists." };
             }
 
             // Iterate through each foreignkey that need to valides.
@@ -70,8 +69,8 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 // Check if the foreign key exist in the referenced table, if not exist out of the function.
                 if (!referencedTable.GetAll().Any(record => record.Fields.Values.Contains(foreignKeyValue)))
                 {
-                    Console.WriteLine($"Foreign key value '{foreignKeyValue}' not found in table '{referencedTableName}'.");
-                    return;
+                    return new OperationResult { success = false, message = $"Foreign key value '{foreignKeyValue}' not found in table '{referencedTableName}'." };
+                    
                 }
             }
 
@@ -89,17 +88,17 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             {
                 // Insert the data into the in memory database.
                 appointmentTable.Insert(newRecord, skipDb: true);
-                Console.WriteLine("Record inserted successfully into Location table.");
+                return new OperationResult{ success = true, message = "Record inserted successfully into Location table." };
             }
             catch (Exception ex) // Catch any errors.
             {
-                Console.WriteLine($"Failed to insert record: {ex.Message}");
+                return new OperationResult { success = true, message = $"Failed to insert record: {ex.Message}" };
             }
         }
 
 
         // Method to read the data from the Appointment table.
-        public void ReadOperationForAppointment(string fieldName, string fieldValue)
+        public OperationResult ReadOperationForAppointment(string fieldName, string fieldValue)
         {
 
             // Get the appointment table form the in memory database.
@@ -111,29 +110,26 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             // If there are not any matches, tell the user that are not any matches.
             if (matchingRecords.Count == 0)
             {
-                Console.WriteLine($"No records found in table '{appointmentTable.Name}' where {fieldName} = '{fieldValue}'.");
-                return;
+                return new OperationResult { success = false, message = $"No records found in table '{appointmentTable.Name}' where {fieldName} = '{fieldValue}'." };
+                
             }
 
             // If there are any matches, tell the user what record are.
-            Console.WriteLine($"Found {matchingRecords.Count} record(s) in table '{appointmentTable.Name}' where {fieldName} = '{fieldValue}':");
-            foreach (var record in matchingRecords)
-            {
-                Console.WriteLine("----- Record -----");
-                foreach (var field in record.Fields)
-                {
-                    Console.WriteLine($"{field.Key}: {field.Value}");
-                }
-                Console.WriteLine("------------------\n");
-            }
+            return new OperationResult { success = true, message = "Operation was successed", data = matchingRecords };
         }
 
 
 
-        public int GetAppointmentCount()
+        // Method to get all the appointments record.
+        public OperationResult GetAllAppointmentRecord()
         {
+            // Get the Appointment table from the inmemory database.
             var table = _inMemoryDatabase.GetTable("Appointment");
-            return table.GetAll().Count(); 
+
+            // Get all of the record from Appointment table.
+            var allAppointmentRecord = table.GetAll();
+
+            return new OperationResult { success = true, message = "Operation was successed", data = allAppointmentRecord };
         }
 
     }
