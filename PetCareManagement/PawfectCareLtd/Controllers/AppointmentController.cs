@@ -107,7 +107,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
         public IActionResult DeleteAppointment(string appointmentId)
         {
             // Get the result of the read operation in the Appointment table.
-            var result = _appointmentCRUD.DeleteAppointmentbyId(appointmentId);
+            var result = _appointmentCRUD.DeleteAppointmentById(appointmentId);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)

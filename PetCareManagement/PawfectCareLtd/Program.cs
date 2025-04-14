@@ -113,31 +113,31 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //// Check if the Read part from the AppointmentCRUD is working
                 //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
                 //appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
-                //var supplierCrud = scope.ServiceProvider.GetRequiredService<SupplierCRUD>();
+                var supplierCrud = scope.ServiceProvider.GetRequiredService<SupplierCRUD>();
 
-                //// READ test before inserting
-                //supplierCrud.ReadOperationForSupplier("SupplierID", "S10012");
+                // READ test before inserting
+                supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
 
-                //// INSERT test
-                //                    var supplierData = new Dictionary<string, object>
-                //    {
-                //        { "SupplierID", "S10012" },
-                //        { "SupplierName", "Dr. Samantha Holmes" },
-                //        { "PhoneNumber", "58443312" },
-                //        { "Address", "Wa" },
-                //        { "Email", "mandyrivera@yahoo.com" }
-                //    };
-                //supplierCrud.InsertOperationForSupplier(supplierData, "SupplierID", @"^S\d{5}$");
+                // INSERT test
+                var supplierData = new Dictionary<string, object>
+                    {
+                        { "SupplierID", "S10013" },
+                        { "SupplierName", "Dr. Samantha Holmes" },
+                        { "PhoneNumber", "58443312" },
+                        { "Address", "Wa" },
+                        { "Email", "mandyrivera@yahoo.com" }
+                    };
+                supplierCrud.InsertOperationForSupplier(supplierData, "SupplierID", @"^S\d{5}$");
 
 
-                //// READ to confirm insert
-                //supplierCrud.ReadOperationForSupplier("SupplierID", "S10012");
+                // READ to confirm insert
+                supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
 
-                //// UPDATE test
-                //supplierCrud.UpdateOperationForSupplier("S10006", "PhoneNumber", "59887766");
+                // UPDATE test
+                supplierCrud.UpdateOperationForSupplier("S10003", "PhoneNumber", "59887766");
 
-                //// READ again to confirm update
-                //supplierCrud.ReadOperationForSupplier("SupplierID", "S10012");
+                // READ again to confirm update
+                supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
 
 
                 // TESTING FOR DELETE AND READ.w
@@ -159,37 +159,37 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //// 2. Delete the pet
                 //petCrud.DeletePetById("P00002");
 
-                var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
+                //var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
 
-                // DELETE test to clean up any existing OwnerID
-                try
-                {
-                    ownerCrud.DeleteOwnerById("O00001");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Delete failed or not needed: {ex.Message}");
-                }
+                //// DELETE test to clean up any existing OwnerID
+                //try
+                //{
+                //    ownerCrud.DeleteOwnerById("O00001");
+                //}
+                //catch (Exception ex)
+                //{
+                //    Console.WriteLine($"Delete failed or not needed: {ex.Message}");
+                //}
 
-                // READ test to confirm deletion
-                ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                //// READ test to confirm deletion
+                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
-                // INSERT test
-                var ownerData = new Dictionary<string, object>
-                    {
-                        { "OwnerID", "O00001" },
-                        { "FirstName", "Tom" },
-                        { "LastName", "Sar" },
-                        { "PhoneNo", "58849714" },
-                        { "Email", "TomSawyer@yahoo.com" },
-                        { "Address", "La Marie Road, Flether" }
-                    };
-                ownerCrud.InsertOperationForOwner(ownerData, "OwnerID", @"^O\d{5}$", new List<(string, string)>());
-                ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                //// INSERT test
+                //var ownerData = new Dictionary<string, object>
+                //    {
+                //        { "OwnerID", "O00001" },
+                //        { "FirstName", "Tom" },
+                //        { "LastName", "Sar" },
+                //        { "PhoneNo", "58849714" },
+                //        { "Email", "TomSawyer@yahoo.com" },
+                //        { "Address", "La Marie Road, Flether" }
+                //    };
+                //ownerCrud.InsertOperationForOwner(ownerData, "OwnerID", @"^O\d{5}$", new List<(string, string)>());
+                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
-                // UPDATE test
-                ownerCrud.UpdateOperationForOwner("O00001", "PhoneNo", "59999999");
-                ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                //// UPDATE test
+                //ownerCrud.UpdateOperationForOwner("O00001", "PhoneNo", "59999999");
+                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
                 //var crud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
 
