@@ -208,66 +208,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
         }
 
 
-        // Method to delete date from the Owner table.
-        public void DeleteOwnerById(string ownerId)
-        {
-
-            // Get the in memory Owner table.
-            var ownerTable = _inMemoryDatabase.GetTable("Owner");
-
-            // Get the in memory Pet table.
-            var petTable = _inMemoryDatabase.GetTable("Pet");
-
-            // Try deleting the data.
-            try
-            {
-                // Get the owner record by its id.
-                var ownerRecord = ownerTable.Get(ownerId);
-
-                // Delete pets from in memory database.
-                var petRecords = petTable.GetAll()
-                                         .Where(pet => pet.Fields.ContainsKey("OwnerID") && pet["OwnerID"]?.ToString() == ownerId)
-                                         .ToList();
-
-                // Iterate though each pet from pet record to delete them.
-                foreach (var pet in petRecords)
-                {
-                    string petId = pet["PetID"].ToString();
-                    petTable.Delete(petId);
-                }
-
-                Console.WriteLine($"{petRecords.Count} pet(s) deleted for Owner ID {ownerId}.");
-
-                // Delete owner from in memory database.
-                ownerTable.Delete(ownerId);
-                Console.WriteLine($"Owner with ID {ownerId} has been successfully deleted from in-memory database.");
-
-                // Delete from SSMS database.
-                var ownerEntity = _dbContext.Owners.Find(ownerId);
-
-                // If the Owner table does exist in the database.
-                if (ownerEntity != null)
-                {
-                    // Update the database to reflect the changes made in the in memory databse.
-                    var petsInDb = _dbContext.Pets.Where(p => p.OwnerID == ownerId).ToList();
-                    _dbContext.Pets.RemoveRange(petsInDb);
-                    _dbContext.Owners.Remove(ownerEntity);
-                    _dbContext.SaveChanges();
-
-                    // Tell that deletion was a success.
-                    Console.WriteLine($"Owner and {petsInDb.Count} pet(s) also deleted from SQL database.");
-                }
-                else
-                {
-                    // Tell that owner was not found in the SSMS database.
-                    Console.WriteLine($"Owner with ID {ownerId} not found in SQL database.");
-                }
-            }
-            catch (KeyNotFoundException)
-            {
-                Console.WriteLine($"Owner with ID {ownerId} does not exist in the in memory database."); // Throw an error to show the owner ID was not found in the in memory database.
-            }
-        }
+        
 
         //Method for API delete (e.g https://localhost:7038/api/Owners/O00001).
         public bool DeleteOwnerById2(string ownerId)
