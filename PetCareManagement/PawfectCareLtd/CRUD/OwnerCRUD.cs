@@ -1,8 +1,11 @@
 ﻿// Import dependencies.
 using System;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
+using PawfectCareLtd.Data.DataRetrieval;
+using PawfectCareLtd.Models;
+
 
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
@@ -90,7 +93,19 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             {
                 // Insert the data into the in memory database.
                 ownerTable.Insert(newRecord, skipDb: true);
-                Console.WriteLine("Record inserted successfully into Location table.");
+
+                // Save to SQL database.
+                var newOwner = new Owner();
+                foreach (var field in fieldValues)
+                {
+                    var property = typeof(Owner).GetProperty(field.Key);
+                    if (property != null)
+                        property.SetValue(newOwner, Convert.ChangeType(field.Value, property.PropertyType));
+                }
+                _dbContext.Owners.Add(newOwner);
+                _dbContext.SaveChanges();
+
+                Console.WriteLine("Record inserted successfully into Owner table.");
             }
             catch (Exception ex) // Catch any errors.
             {
@@ -162,12 +177,23 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                     return;
                 }
             }
-
             // Try updating the data into the Owner table.
             try
             {
                 // Update the the Owner with the new data.
                 ownerTable.Update(primaryKeyValue, fieldName, newValueToObject);
+
+                // Save to SQL database.
+                var ownerEntity = _dbContext.Owners.Find(primaryKeyValue);
+                if (ownerEntity != null)
+                {
+                    var property = typeof(Owner).GetProperty(fieldName);
+                    if (property != null)
+                    {
+                        property.SetValue(ownerEntity, Convert.ChangeType(newValue, property.PropertyType));
+                        _dbContext.SaveChanges();
+                    }
+                }
 
                 Console.WriteLine($"Field '{fieldName}' updated successfully for Appointment with primary key '{primaryKeyValue}'.");
             }
