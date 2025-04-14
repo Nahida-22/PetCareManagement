@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Import dependencies.
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using PawfectCareLtd.Data;
@@ -10,58 +11,62 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
     // Class to encapsulate all of the CRUD operations for the Supplier table.
     public class SupplierCRUD
     {
-        // Define fields to store references to the in-memory and EF Core databases.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
-        // Constructor to initialise the class with instances of the in-memory and EF Core databases.
         public SupplierCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
             _dbContext = dbContext;
         }
-        // Method to insert data into the Supplier table.
+
         public void InsertOperationForSupplier(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat)
         {
-            // Get the Supplier table from the in-memory database.
             var supplierTable = _inMemoryDatabase.GetTable("Supplier");
 
-            // Check if the primary key has been added into the input dictionary.
             if (!fieldValues.ContainsKey(primaryKeyName))
             {
                 Console.WriteLine("Primary key field is missing.");
                 return;
             }
 
-            // Get the primary key for the record being inserted then convert it to string.
             string primaryKeyValue = fieldValues[primaryKeyName]?.ToString();
 
-            // Check if primary key is non-empty and matches the required format.
             if (string.IsNullOrWhiteSpace(primaryKeyValue) || !System.Text.RegularExpressions.Regex.IsMatch(primaryKeyValue, primaryKeyFormat))
             {
                 Console.WriteLine($"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'.");
                 return;
             }
 
-            // Check if the primary key already exists in the Supplier table.
             if (supplierTable.GetAll().Any(record => record[primaryKeyName]?.ToString() == primaryKeyValue))
             {
                 Console.WriteLine($"A record with primary key '{primaryKeyValue}' already exists.");
                 return;
             }
 
-            // Create a new record and populate it with values from the input dictionary.
             var newRecord = new Record();
             foreach (var field in fieldValues)
             {
                 newRecord[field.Key] = field.Value;
             }
 
-
-            // Try inserting the new record into the Supplier table.
             try
             {
                 supplierTable.Insert(newRecord, skipDb: true);
+
+                // --- Save to SQL DB ---
+                var newSupplier = new Supplier();
+                foreach (var kv in fieldValues)
+                {
+                    var prop = typeof(Supplier).GetProperty(kv.Key);
+                    if (prop != null && kv.Value != null)
+                    {
+                        prop.SetValue(newSupplier, Convert.ChangeType(kv.Value, prop.PropertyType));
+                    }
+                }
+                _dbContext.Suppliers.Add(newSupplier);
+                _dbContext.SaveChanges();
+
                 Console.WriteLine("Record inserted successfully into Supplier table.");
             }
             catch (Exception ex)
@@ -70,26 +75,20 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
-
-        // Method to read data from the Supplier table.
         public void ReadOperationForSupplier(string fieldName, string fieldValue)
         {
-            // Get the Supplier table from the in-memory database.
             var supplierTable = _inMemoryDatabase.GetTable("Supplier");
 
-            // Check if there are any records that match the search criteria.
             var matchingRecords = supplierTable.GetAll()
                 .Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue)
                 .ToList();
 
-            // If there are no matches, inform the user.
             if (matchingRecords.Count == 0)
             {
                 Console.WriteLine($"No records found in table '{supplierTable.Name}' where {fieldName} = '{fieldValue}'.");
                 return;
             }
 
-            // If there are matches, display the matching records.
             Console.WriteLine($"Found {matchingRecords.Count} record(s) in table '{supplierTable.Name}' where {fieldName} = '{fieldValue}':");
             foreach (var record in matchingRecords)
             {
@@ -102,18 +101,26 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
-        // Method to update data in the Supplier table.
         public void UpdateOperationForSupplier(string primaryKeyValue, string fieldName, string newValue)
         {
-            // Get the Supplier table from the in-memory database.
             var supplierTable = _inMemoryDatabase.GetTable("Supplier");
-            // Convert the new value to object type.
             object newValueToObject = newValue;
 
-            // Try updating the Supplier record.
             try
             {
                 supplierTable.Update(primaryKeyValue, fieldName, newValueToObject);
+
+                var supplierEntity = _dbContext.Suppliers.Find(primaryKeyValue);
+                if (supplierEntity != null)
+                {
+                    var prop = typeof(Supplier).GetProperty(fieldName);
+                    if (prop != null)
+                    {
+                        prop.SetValue(supplierEntity, Convert.ChangeType(newValue, prop.PropertyType));
+                        _dbContext.SaveChanges();
+                    }
+                }
+
                 Console.WriteLine($"Field '{fieldName}' updated successfully for Supplier with primary key '{primaryKeyValue}'.");
             }
             catch (KeyNotFoundException)
@@ -132,7 +139,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
         {
             // Get the Supplier table from the in-memory database.
             var supplierTable = _inMemoryDatabase.GetTable("Supplier");
-            
+
             // Get the Medication table from the in-memory database.
             var medicationTable = _inMemoryDatabase.GetTable("Medication");
 

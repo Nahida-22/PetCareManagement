@@ -46,6 +46,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
             builder.Services.AddScoped<RegisterService>();
             builder.Services.AddScoped<BookAppointmentService>();
             builder.Services.AddScoped<VetCRUD>();
+            builder.Services.AddScoped<SupplierCRUD>();
 
 
 
@@ -109,9 +110,34 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //appointmentCrud.ReadOperationForAppointment("AppointmentID", "A10000");
 
 
-                // Check if the Read part from the AppointmentCRUD is working
-                var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
-                appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
+                //// Check if the Read part from the AppointmentCRUD is working
+                //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
+                //appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
+                var supplierCrud = scope.ServiceProvider.GetRequiredService<SupplierCRUD>();
+
+                // READ test before inserting
+                supplierCrud.ReadOperationForSupplier("SupplierID", "S10012");
+
+                // INSERT test
+                var supplierData = new Dictionary<string, object>
+{
+    { "SupplierID", "S10012" },
+    { "SupplierName", "Dr. Samantha Holmes" },
+    { "PhoneNumber", "58443312" },
+    { "Address", "Wa" },
+    { "Email", "mandyrivera@yahoo.com" }
+};
+                supplierCrud.InsertOperationForSupplier(supplierData, "SupplierID", @"^S\d{5}$");
+
+
+                // READ to confirm insert
+                supplierCrud.ReadOperationForSupplier("SupplierID", "S10012");
+
+                // UPDATE test
+                supplierCrud.UpdateOperationForSupplier("S10006", "PhoneNumber", "59887766");
+
+                // READ again to confirm update
+                supplierCrud.ReadOperationForSupplier("SupplierID", "S10012");
 
 
                 // TESTING FOR DELETE AND READ.
