@@ -83,6 +83,44 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
 
 
+        // PUT Appointment API
+        [HttpPut]
+        public IActionResult UpdateAppointment(string appointmentId, [FromQuery] string fieldName, [FromQuery] string newValue, [FromQuery] bool isForeignKey = false, [FromQuery] string referencedTableName = null)
+        {
+            // Get the result of the read operation in the Appointment table.
+            var result = _appointmentCRUD.UpdateOperationForAppointment(appointmentId, fieldName, newValue, isForeignKey, referencedTableName);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return BadRequest(result);
+        }
+
+
+
+        // DELETE Appointment API.
+        [HttpDelete]
+        public IActionResult DeleteAppointment(string appointmentId)
+        {
+            // Get the result of the read operation in the Appointment table.
+            var result = _appointmentCRUD.DeleteAppointmentbyId(appointmentId);
+
+            // Return status 200 if the operation has been a success and the result of the operation.
+            if (result.success)
+            {
+                return Ok(result);
+            }
+
+            // Return 400 BadRequest with result if there was an error and the result of the operation.
+            return NotFound(result);
+        }
+
+
+
         // GET all Appointment records API.
         [HttpGet("all")]
         public IActionResult GetAllAppointments()

@@ -19,6 +19,8 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
+
+
         // Constructor to initialise the class with an instance of the in memory database.
         public AppointmentCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
@@ -26,6 +28,8 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             _dbContext = dbContext;
 
         }
+
+
 
         // Method to insert data into the Appointment table.
         public OperationResult InsertOperationForAppointment(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
@@ -98,6 +102,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
         }
 
 
+
         // Method to read the data from the Appointment table.
         public OperationResult ReadOperationForAppointment(string fieldName, string fieldValue)
         {
@@ -108,6 +113,9 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             // Check if there are any record that matches the search critria.
             var matchingRecords = appointmentTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
 
+            // Transform the record into a file that can be read into the database.
+            var matchingData = matchingRecords.Select(r => r.Fields).ToList();
+
             // If there are not any matches, tell the user that are not any matches.
             if (matchingRecords.Count == 0)
             {
@@ -116,8 +124,9 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             }
 
             // If there are any matches, tell the user what record are.
-            return new OperationResult { success = true, message = "Operation was successed", data = matchingRecords };
+            return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
+
 
 
         // Method to update data from the Appointment table.
@@ -181,6 +190,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
         }
 
        
+
         // Method to delete data from the Appointment table.
         public OperationResult DeleteAppointmentbyId(string appointmentId)
         {
@@ -220,10 +230,9 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             var table = _inMemoryDatabase.GetTable("Appointment");
 
             // Get all of the record from Appointment table.
-            var allAppointmentRecord = table.GetAll();
+            var allAppointmentRecord = table.GetAll().Select(record => record.Fields).ToList();
 
             return new OperationResult { success = true, message = "Operation was successed", data = allAppointmentRecord };
         }
-
     }
 }
