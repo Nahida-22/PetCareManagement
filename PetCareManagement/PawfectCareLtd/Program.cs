@@ -159,37 +159,37 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //// 2. Delete the pet
                 //petCrud.DeletePetById("P00002");
 
-                //var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
+                var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
 
-                //// DELETE test to clean up any existing OwnerID
-                //try
-                //{
-                //    ownerCrud.DeleteOwnerById("O00001");
-                //}
-                //catch (Exception ex)
-                //{
-                //    Console.WriteLine($"Delete failed or not needed: {ex.Message}");
-                //}
+                // DELETE test to clean up any existing OwnerID
+                try
+                {
+                    ownerCrud.DeleteOwnerById("O00001");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Delete failed or not needed: {ex.Message}");
+                }
 
-                //// READ test to confirm deletion
-                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                // READ test to confirm deletion
+                ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
-                //// INSERT test
-                //var ownerData = new Dictionary<string, object>
-                //    {
-                //        { "OwnerID", "O00001" },
-                //        { "FirstName", "Tom" },
-                //        { "LastName", "Sawyer" },
-                //        { "PhoneNo", "58849714" },
-                //        { "Email", "TomSawyer@yahoo.com" },
-                //        { "Address", "La Marie Road, Flether" }
-                //    };
-                //ownerCrud.InsertOperationForOwner(ownerData, "OwnerID", @"^O\d{5}$", new List<(string, string)>());
-                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                // INSERT test
+                var ownerData = new Dictionary<string, object>
+                    {
+                        { "OwnerID", "O00001" },
+                        { "FirstName", "Tom" },
+                        { "LastName", "Sar" },
+                        { "PhoneNo", "58849714" },
+                        { "Email", "TomSawyer@yahoo.com" },
+                        { "Address", "La Marie Road, Flether" }
+                    };
+                ownerCrud.InsertOperationForOwner(ownerData, "OwnerID", @"^O\d{5}$", new List<(string, string)>());
+                ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
-                //// UPDATE test
-                //ownerCrud.UpdateOperationForOwner("O00001", "PhoneNo", "59999999");
-                //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+                // UPDATE test
+                ownerCrud.UpdateOperationForOwner("O00001", "PhoneNo", "59999999");
+                ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
                 //var crud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
 
@@ -232,39 +232,39 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //// 6. READ after update
                 //crud.ReadOperationForAppointment("AppointmentID", "A10000");
 
-                var crud = scope.ServiceProvider.GetRequiredService<LocationCRUD>();
+                //var crud = scope.ServiceProvider.GetRequiredService<LocationCRUD>();
 
-                // 1. READ before any changes
-                crud.ReadOperationForLocation("LocationID", "L001");
+                //// 1. READ before any changes
+                //crud.ReadOperationForLocation("LocationID", "L001");
 
-                // 2. DELETE if exists (optional — if you have a delete function)
-                crud.ReadOperationForLocation("LocationID", "L001");
+                //// 2. DELETE if exists (optional — if you have a delete function)
+                //crud.ReadOperationForLocation("LocationID", "L001");
 
-                // 3. INSERT new Location
-                var locationData = new Dictionary<string, object>
-                    {
-                        { "LocationID", "L001" },  // Keeping this as-is
-                        { "Name", "Pawfect Care Ltd 1" },
-                        { "Address", "La Marie Road, Flic-en-Flac" },  // Fixed spelling
-                        { "Phone", "56785432" },
-                        { "Email", "eastside@email.com" }
-                    };
+                //// 3. INSERT new Location
+                //var locationData = new Dictionary<string, object>
+                //    {
+                //        { "LocationID", "L001" },  // Keeping this as-is
+                //        { "Name", "Pawfect Care Ltd 1" },
+                //        { "Address", "La Marie Road, Flic-en-Flac" },  // Fixed spelling
+                //        { "Phone", "56785432" },
+                //        { "Email", "eastside@email.com" }
+                //    };
 
-                crud.InsertOperationForLocation(
-                    fieldValues: locationData,
-                    primaryKeyName: "LocationID",
-                    primaryKeyFormat: @"^L\d{3}$",  // Updated regex to match "L001"
-                    foreignKeys: new List<(string, string)>()  // No foreign keys
-                );
+                //crud.InsertOperationForLocation(
+                //    fieldValues: locationData,
+                //    primaryKeyName: "LocationID",
+                //    primaryKeyFormat: @"^L\d{3}$",  // Updated regex to match "L001"
+                //    foreignKeys: new List<(string, string)>()  // No foreign keys
+                //);
 
-                // 4. READ after insert
-                crud.ReadOperationForLocation("LocationID", "L001");
+                //// 4. READ after insert
+                //crud.ReadOperationForLocation("LocationID", "L001");
 
-                // 5. UPDATE address to "Royal Road"
-                crud.UpdateOperationForLocation("L001", "Address", "Royal Road");
+                //// 5. UPDATE address to "Royal Road"
+                //crud.UpdateOperationForLocation("L001", "Address", "Royal Road");
 
-                // 6. READ after update
-                crud.ReadOperationForLocation("LocationID", "L001");
+                //// 6. READ after update
+                //crud.ReadOperationForLocation("LocationID", "L001");
 
 
 

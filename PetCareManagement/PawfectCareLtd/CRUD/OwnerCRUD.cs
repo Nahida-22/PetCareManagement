@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using PawfectCareLtd.Controllers;
 using PawfectCareLtd.Data;
 using PawfectCareLtd.Data.DataRetrieval;
 using PawfectCareLtd.Models;
@@ -29,7 +30,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
 
         // Method to insert data into the Owner table.
-        public void InsertOperationForOwner(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
+        public OperationResult InsertOperationForOwner(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
         {
 
             // Get the Owner table from the in memory database.
@@ -38,8 +39,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             // Check if the primary key has been added into the input dictionary.
             if (!fieldValues.ContainsKey(primaryKeyName))
             {
-                Console.WriteLine("Primary key field is missing.");
-                return;
+                return new OperationResult { success = false, message = "Primary key must be inputed." };
             }
 
             // Get the primary key for the record being inserted then convert it to string.
@@ -48,15 +48,13 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             // Check if primary for the the record being inserted is non empty and is in the required format.
             if (string.IsNullOrWhiteSpace(primaryKeyValue) || !System.Text.RegularExpressions.Regex.IsMatch(primaryKeyValue, primaryKeyFormat))
             {
-                Console.WriteLine($"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'.");
-                return;
+                return new OperationResult { success = false, message = $"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'." };
             }
 
             // Check if the primary key for the new already exist in the the Owner table, If yes exist out of the function.
             if (ownerTable.GetAll().Any(record => record[primaryKeyName]?.ToString() == primaryKeyValue))
             {
-                Console.WriteLine($"A record with primary key '{primaryKeyValue}' already exists.");
-                return;
+                return new OperationResult { success = false, message = $"A record with primary key '{primaryKeyValue}' already exists." };
             }
 
             // Iterate through each foreignkey that need to valides.
@@ -74,8 +72,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 // Check if the foreign key exist in the referenced table, if not exist out of the function.
                 if (!referencedTable.GetAll().Any(record => record.Fields.Values.Contains(foreignKeyValue)))
                 {
-                    Console.WriteLine($"Foreign key value '{foreignKeyValue}' not found in table '{referencedTableName}'.");
-                    return;
+                    return new OperationResult { success = false, message = $"Foreign key value '{foreignKeyValue}' not found in table '{referencedTableName}'." };
                 }
             }
 
@@ -105,17 +102,17 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 _dbContext.Owners.Add(newOwner);
                 _dbContext.SaveChanges();
 
-                Console.WriteLine("Record inserted successfully into Owner table.");
+                return new OperationResult { success = true, message = "Record inserted successfully into Owner table." };
             }
             catch (Exception ex) // Catch any errors.
             {
-                Console.WriteLine($"Failed to insert record: {ex.Message}");
+                return new OperationResult { success = false, message = $"Failed to insert record: {ex.Message}" };
             }
         }
 
 
         // Method to read the data from the Owner table.
-        public void ReadOperationForOwner(string fieldName, string fieldValue)
+        public OperationResult ReadOperationForOwner(string fieldName, string fieldValue)
         {
 
             // Get the Owner table form the in memory database.
@@ -123,30 +120,23 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
             // Check if there are any record that matches the search critria.
             var matchingRecords = ownerTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
-
+            // Transform the record into a file that can be read into the database.
+            var matchingData = matchingRecords.Select(r => r.Fields).ToList();
             // If there are not any matches, tell the user that are not any matches.
+           
             if (matchingRecords.Count == 0)
             {
-                Console.WriteLine($"No records found in table '{ownerTable.Name}' where {fieldName} = '{fieldValue}'.");
-                return;
+                return new OperationResult { success = false, message = $"No records found in table '{ownerTable.Name}' where {fieldName} = '{fieldValue}'." };
+
             }
 
             // If there are any matches, tell the user what record are.
-            Console.WriteLine($"Found {matchingRecords.Count} record(s) in table '{ownerTable.Name}' where {fieldName} = '{fieldValue}':");
-            foreach (var record in matchingRecords)
-            {
-                Console.WriteLine("----- Record -----");
-                foreach (var field in record.Fields)
-                {
-                    Console.WriteLine($"{field.Key}: {field.Value}");
-                }
-                Console.WriteLine("------------------\n");
-            }
+            return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
 
 
         // Method to update data from the Owner table.
-        public void UpdateOperationForOwner(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
+        public OperationResult UpdateOperationForOwner(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
         {
             // Get the Owner table from the in memory database.
             var ownerTable = _inMemoryDatabase.GetTable("Owner");
@@ -163,8 +153,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 // Check if the referenced table does not exist, exit out of the method.
                 if (referencedTable == null)
                 {
-                    Console.WriteLine($"Referenced table '{referencedTableName}' not found in memory.");
-                    return;
+                    return new OperationResult { success = false, message = $"Referenced table '{referencedTableName}' not found in memory." };
                 }
 
                 // Check if the foreign key value exists in the referenced table.
@@ -173,8 +162,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 // If new value does not exist in the reference table, exit out of the method to prevent data linking issues.
                 if (!exists)
                 {
-                    Console.WriteLine($"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table.");
-                    return;
+                    return new OperationResult { success = false, message = $"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table." };
                 }
             }
             // Try updating the data into the Owner table.
@@ -195,53 +183,61 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                     }
                 }
 
-                Console.WriteLine($"Field '{fieldName}' updated successfully for Appointment with primary key '{primaryKeyValue}'.");
+                return new OperationResult { success = true, message = $"Field '{fieldName}' updated successfully for Owner with primary key '{primaryKeyValue}'." };
             }
             catch (KeyNotFoundException) // Catch any errors that related to data not being found.
             {
-                Console.WriteLine($"No record found with primary key '{primaryKeyValue}' in Appointment table.");
+                return new OperationResult { success = false, message = $"No record found with primary key '{primaryKeyValue}' in Owner table." };
             }
             catch (Exception ex) // Catch any other error.
             {
-                Console.WriteLine($"Error updating field: {ex.Message}");
+                return new OperationResult { success = false, message = $"Error updating field: {ex.Message}" };
             }
         }
 
 
-        
+
 
         //Method for API delete (e.g https://localhost:7038/api/Owners/O00001).
-        public bool DeleteOwnerById2(string ownerId)
+        public OperationResult DeleteOwnerById(string ownerId)
         {
             var ownerTable = _inMemoryDatabase.GetTable("Owner");
-            var petTable = _inMemoryDatabase.GetTable("Pet");
 
-            var ownerRecord = ownerTable.Get(ownerId)
-                              ?? throw new KeyNotFoundException("Owner not found in memory.");
-
-            // Delete pets
-            var petRecords = petTable.GetAll()
-                                     .Where(pet => pet.Fields.ContainsKey("OwnerID") && pet["OwnerID"]?.ToString() == ownerId)
-                                     .ToList();
-
-            foreach (var pet in petRecords)
+            // Try delete from memory
+            try
             {
-                petTable.Delete(pet["PetID"].ToString());
+                ownerTable.Delete(ownerId);
+            }
+            catch (KeyNotFoundException)
+            {
+                return new OperationResult { success = false, message = $"Owner with ID {ownerId} not found in in-memory database." };
             }
 
-            ownerTable.Delete(ownerId);
-
-            // Delete from EF Core
+            // Try delete from SQL Server
             var ownerEntity = _dbContext.Owners.Find(ownerId);
             if (ownerEntity != null)
             {
-                var petsInDb = _dbContext.Pets.Where(p => p.OwnerID == ownerId).ToList();
-                _dbContext.Pets.RemoveRange(petsInDb);
                 _dbContext.Owners.Remove(ownerEntity);
                 _dbContext.SaveChanges();
             }
+            else
+            {
+                Console.WriteLine($"Owner with ID {ownerId} not found in SQL database.");
+            }
 
-            return true;
+            return new OperationResult { success = true, message = $"Owner with ID {ownerId} deleted from in-memory database." };
+        }
+
+        // Method to get all the appointments record.
+        public OperationResult GetAllOwnerRecord()
+        {
+            // Get the Appointment table from the inmemory database.
+            var table = _inMemoryDatabase.GetTable("Owner");
+
+            // Get all of the record from Appointment table.
+            var allOwnerRecord = table.GetAll().Select(record => record.Fields).ToList();
+
+            return new OperationResult { success = true, message = "Operation was successed", data = allOwnerRecord };
         }
 
     }
