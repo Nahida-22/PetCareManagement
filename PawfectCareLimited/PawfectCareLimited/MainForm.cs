@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Http.Json;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace PawfectCareLimited
+{
+    public partial class MainForm : Form
+    {
+        private readonly HttpClient _httpClient;
+        public MainForm()
+        {
+            // Initialise the components.
+            InitializeComponent();
+        }
+
+        // Event to open tables based on the table dropdown option.
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the selected option from the dropdown.
+            string selected = comboBox1.SelectedItem.ToString();
+
+            // IF statement to show appropriate windows based on the selected option from the dropdown.
+            if (selected == "Owner")
+            {
+                // Create an object of the type OwnerTableInterface.
+                var ownerTableInterface = new OwnerTableInterface();
+
+                // Show the window.
+                ownerTableInterface.ShowDialog();
+            }
+        }
+    }
+
+    public class OwnerDto
+    {
+        public string ID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+}
