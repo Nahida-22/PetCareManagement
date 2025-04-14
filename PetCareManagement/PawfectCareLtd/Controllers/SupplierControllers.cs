@@ -33,29 +33,29 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Supplier API.
         [HttpPost]
-        public IActionResult CreateSupplier([FromBody] Dictionary<string, object> fieldValues)
-        {
-            // Define the primary key for the Supplier Table.
-            var primaryKeyName = "SupplierID";
+        //public IActionResult CreateSupplier([FromBody] Dictionary<string, object> fieldValues)
+        //{
+        //    // Define the primary key for the Supplier Table.
+        //    var primaryKeyName = "SupplierID";
 
-            // Regex for the format that the primary key needs to follow.
-            var primaryKeyFormat = @"^S\d{5}$";
+        //    // Regex for the format that the primary key needs to follow.
+        //    var primaryKeyFormat = @"^S\d{5}$";
 
-            // List of foreign key in the Supplier table.
-            var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)> { };
+        //    // List of foreign key in the Supplier table.
+        //    var foreignKeys = new List<(string ForeignKeyField, string ReferencedTableName)> { };
 
-            // Get the result of the insert operation in the Supplier table.
-            var result = _supplierCRUD.InsertOperationForSupplier(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
+        //    // Get the result of the insert operation in the Supplier table.
+        //    var result = _supplierCRUD.InsertOperationForSupplier(fieldValues, primaryKeyName, primaryKeyFormat, foreignKeys);
 
-            // Return status 200 if the operation has been a success and the result of the operation.
-            if (result.success)
-            {
-                return Ok(result);
-            }
+        //    // Return status 200 if the operation has been a success and the result of the operation.
+        //    if (result.success)
+        //    {
+        //        return Ok(result);
+        //    }
 
-            // Return 400 BadRequest with result if there was an error and the result of the operation.
-            return BadRequest(result);
-        }
+        //    // Return 400 BadRequest with result if there was an error and the result of the operation.
+        //    return BadRequest(result);
+        //}
 
 
 
@@ -102,7 +102,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
         public IActionResult DeleteSupplier(string supplierId)
         {
             // Get the result of the read operation in the Supplier table.
-            var result = _supplierCRUD.DeleteSupplierbyId(supplierId);
+            var result = _supplierCRUD.DeleteSupplierById(supplierId);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)

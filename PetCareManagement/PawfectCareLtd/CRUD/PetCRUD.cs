@@ -1,204 +1,150 @@
 ﻿// Import dependencies.
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using PawfectCareLtd.Controllers;
 using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
-
+using PawfectCareLtd.Data.DataRetrieval;
+using PawfectCareLtd.Models;
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
-
-    // Class the encapsulate all of the CRUD operation for the Pet table.
+    // Class that encapsulates all of the CRUD operations for the Pet table.
     public class PetCRUD
     {
-        // Define a field to store a reference to the in memory database.
+        // Define fields to store references to the in-memory and SQL databases.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
-
-        // Constructor to initialise the class with an instance of the in memory database.
+        // Constructor to initialise the class with instances of the databases.
         public PetCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
-            _dbContext= dbContext;
-
+            _dbContext = dbContext;
         }
 
-
         // Method to insert data into the Pet table.
-        public void InsertOperationForPet(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
+        public OperationResult InsertOperationForPet(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
         {
-
-            // Get the Pet table from the in memory database.
             var petTable = _inMemoryDatabase.GetTable("Pet");
 
             // Check if the primary key has been added into the input dictionary.
             if (!fieldValues.ContainsKey(primaryKeyName))
-            {
-                Console.WriteLine("Primary key field is missing.");
-                return;
-            }
+                return new OperationResult { success = false, message = "Primary key must be inputed." };
 
-            // Get the primary key for the record being inserted then convert it to string.
+            // Get the primary key for the record being inserted and validate format.
             string primaryKeyValue = fieldValues[primaryKeyName]?.ToString();
-
-            // Check if primary for the the record being inserted is non empty and is in the required format.
             if (string.IsNullOrWhiteSpace(primaryKeyValue) || !System.Text.RegularExpressions.Regex.IsMatch(primaryKeyValue, primaryKeyFormat))
-            {
-                Console.WriteLine($"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'.");
-                return;
-            }
+                return new OperationResult { success = false, message = $"Primary key '{primaryKeyValue}' does not match required format '{primaryKeyFormat}'." };
 
-            // Check if the primary key for the new already exist in the the Pet table, If yes exist out of the function.
+            // Check for duplicate primary key.
             if (petTable.GetAll().Any(record => record[primaryKeyName]?.ToString() == primaryKeyValue))
-            {
-                Console.WriteLine($"A record with primary key '{primaryKeyValue}' already exists.");
-                return;
-            }
+                return new OperationResult { success = false, message = $"A record with primary key '{primaryKeyValue}' already exists." };
 
-            // Iterate through each foreignkey that need to valides.
+            // Validate foreign key constraints.
             foreach (var (foreignKeyField, referencedTableName) in foreignKeys)
             {
-                // If the foreign key field is not into the input dictionary, skip it.
                 if (!fieldValues.ContainsKey(foreignKeyField)) continue;
-
-                // Get the foreign key from the inputed list.
                 string foreignKeyValue = fieldValues[foreignKeyField]?.ToString();
-
-                // Get the referenced table which contain the foreign key as the primary key.
                 var referencedTable = _inMemoryDatabase.GetTable(referencedTableName);
 
-                // Check if the foreign key exist in the referenced table, if not exist out of the function.
                 if (!referencedTable.GetAll().Any(record => record.Fields.Values.Contains(foreignKeyValue)))
-                {
-                    Console.WriteLine($"Foreign key value '{foreignKeyValue}' not found in table '{referencedTableName}'.");
-                    return;
-                }
+                    return new OperationResult { success = false, message = $"Foreign key value '{foreignKeyValue}' not found in table '{referencedTableName}'." };
             }
 
-            // Create a new record.
+            // Add fields to a new record.
             var newRecord = new Record();
-
-            // Add each field form the inputed dictionary into the record.
             foreach (var field in fieldValues)
-            {
                 newRecord[field.Key] = field.Value;
-            }
 
-            // Try inserting the new record into the Pet table.
             try
             {
-                // Insert the data into the in memory database.
+                // Insert into in-memory database.
                 petTable.Insert(newRecord, skipDb: true);
-                Console.WriteLine("Record inserted successfully into Location table.");
+
+                // Insert into SQL database.
+                var newPet = new Pet();
+                foreach (var field in fieldValues)
+                {
+                    var property = typeof(Pet).GetProperty(field.Key);
+                    if (property != null)
+                        property.SetValue(newPet, Convert.ChangeType(field.Value, property.PropertyType));
+                }
+                _dbContext.Pets.Add(newPet);
+                _dbContext.SaveChanges();
+
+                return new OperationResult { success = true, message = "Record inserted successfully into Pet table." };
             }
-            catch (Exception ex) // Catch any errors.
+            catch (Exception ex)
             {
-                Console.WriteLine($"Failed to insert record: {ex.Message}");
+                return new OperationResult { success = false, message = $"Failed to insert record: {ex.Message}" };
             }
         }
-
 
         // Method to read the data from the Pet table.
-        public void ReadOperationForPet(string fieldName, string fieldValue)
+        public OperationResult ReadOperationForPet(string fieldName, string fieldValue)
         {
-
-            // Get the Pet table form the in memory database.
             var petTable = _inMemoryDatabase.GetTable("Pet");
-
-            // Check if there are any record that matches the search critria.
             var matchingRecords = petTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
+            var matchingData = matchingRecords.Select(r => r.Fields).ToList();
 
-            // If there are not any matches, tell the user that are not any matches.
+            // Check if there are any matching records.
             if (matchingRecords.Count == 0)
-            {
-                Console.WriteLine($"No records found in table '{petTable.Name}' where {fieldName} = '{fieldValue}'.");
-                return;
-            }
+                return new OperationResult { success = false, message = $"No records found in table '{petTable.Name}' where {fieldName} = '{fieldValue}'." };
 
-            // If there are any matches, tell the user what record are.
-            Console.WriteLine($"Found {matchingRecords.Count} record(s) in table '{petTable.Name}' where {fieldName} = '{fieldValue}':");
-            foreach (var record in matchingRecords)
-            {
-                Console.WriteLine("----- Record -----");
-                foreach (var field in record.Fields)
-                {
-                    Console.WriteLine($"{field.Key}: {field.Value}");
-                }
-                Console.WriteLine("------------------\n");
-            }
+            return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
 
-
-        // Method to update data from the Pet table.
-        public void UpdateOperationForPet(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
+        // Method to update data in the Pet table.
+        public OperationResult UpdateOperationForPet(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
         {
-            // Get the Pet table from the in memory database.
             var petTable = _inMemoryDatabase.GetTable("Pet");
-
-            // Convert the data type of the new value to object type.
             object newValueToObject = newValue;
 
-            // If the field that is being updated is a foreign key.
+            // If the field is a foreign key, validate its existence in the referenced table.
             if (isForeignKey)
             {
-                // Check if the referenced table exists in the in memory database.
                 var referencedTable = _inMemoryDatabase.GetTable(referencedTableName);
-
-                // Check if the referenced table does not exist, exit out of the method.
                 if (referencedTable == null)
-                {
-                    Console.WriteLine($"Referenced table '{referencedTableName}' not found in memory.");
-                    return;
-                }
+                    return new OperationResult { success = false, message = $"Referenced table '{referencedTableName}' not found in memory." };
 
-                // Check if the foreign key value exists in the referenced table.
                 bool exists = referencedTable.GetAll().Any(record => record.Fields.ContainsKey(referencedTable.GetAll().First().Fields.Keys.First()) && record[referencedTable.GetAll().First().Fields.Keys.First()].ToString() == newValue);
-
-                // If new value does not exist in the reference table, exit out of the method to prevent data linking issues.
                 if (!exists)
-                {
-                    Console.WriteLine($"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table.");
-                    return;
-                }
+                    return new OperationResult { success = false, message = $"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table." };
             }
 
-            // Try updating the data into the Pet table.
             try
             {
-                // Update the the Pet with the new data.
+                // Update the in-memory database.
                 petTable.Update(primaryKeyValue, fieldName, newValueToObject);
 
-                Console.WriteLine($"Field '{fieldName}' updated successfully for Appointment with primary key '{primaryKeyValue}'.");
+                // Update the SQL database.
+                var petEntity = _dbContext.Pets.Find(primaryKeyValue);
+                if (petEntity != null)
+                {
+                    var property = typeof(Pet).GetProperty(fieldName);
+                    if (property != null)
+                    {
+                        property.SetValue(petEntity, Convert.ChangeType(newValue, property.PropertyType));
+                        _dbContext.SaveChanges();
+                    }
+                }
+
+                return new OperationResult { success = true, message = $"Field '{fieldName}' updated successfully for Pet with primary key '{primaryKeyValue}'." };
             }
-            catch (KeyNotFoundException) // Catch any errors that related to data not being found.
+            catch (KeyNotFoundException)
             {
-                Console.WriteLine($"No record found with primary key '{primaryKeyValue}' in Appointment table.");
+                return new OperationResult { success = false, message = $"No record found with primary key '{primaryKeyValue}' in Pet table." };
             }
-            catch (Exception ex) // Catch any other error.
+            catch (Exception ex)
             {
-                Console.WriteLine($"Error updating field: {ex.Message}");
+                return new OperationResult { success = false, message = $"Error updating field: {ex.Message}" };
             }
-        }
-
-
-        
-
-        public List<object> FindPetByField(string fieldName, string fieldValue)
-        {
-            var petTable = _inMemoryDatabase.GetTable("Owner");
-
-            var matchingRecords = petTable.GetAll()
-                .Where(record => record.Fields.ContainsKey(fieldName) &&
-                                 record[fieldName]?.ToString() == fieldValue)
-                .Select(record => record.Fields.ToDictionary(f => f.Key, f => f.Value))
-                .Cast<object>()
-                .ToList();
-
-            return matchingRecords;
         }
 
         // Method to delete a pet record.
-        public (bool Success, string Message, int AppointmentCount, int PrescriptionCount) DeletePetById2(string petId)
+        public OperationResult DeletePetById(string petId)
         {
             var petTable = _inMemoryDatabase.GetTable("Pet");
             var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
@@ -206,26 +152,10 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
             try
             {
-                var petRecord = petTable.Get(petId);
-
-                // In-memory deletions
-                var appointments = appointmentTable.GetAll()
-                    .Where(app => app.Fields.ContainsKey("PetID") && app["PetID"]?.ToString() == petId)
-                    .ToList();
-
-                foreach (var appt in appointments)
-                    appointmentTable.Delete(appt["AppointmentID"].ToString());
-
-                var prescriptions = prescriptionTable.GetAll()
-                    .Where(presc => presc.Fields.ContainsKey("PetID") && presc["PetID"]?.ToString() == petId)
-                    .ToList();
-
-                foreach (var presc in prescriptions)
-                    prescriptionTable.Delete(presc["PrescriptionID"].ToString());
-
+                // Delete from in-memory database.
                 petTable.Delete(petId);
 
-                // SQL deletions
+                // Delete from SQL database.
                 var petEntity = _dbContext.Pets.Find(petId);
                 if (petEntity != null)
                 {
@@ -236,17 +166,23 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                     _dbContext.Prescriptions.RemoveRange(dbPrescriptions);
                     _dbContext.Pets.Remove(petEntity);
                     _dbContext.SaveChanges();
-
-                    return (true, $"Pet and related records deleted from both in-memory and SQL.", dbAppointments.Count, dbPrescriptions.Count);
                 }
 
-                return (true, $"Pet deleted from in-memory. Not found in SQL DB.", appointments.Count, prescriptions.Count);
+                return new OperationResult { success = true, message = $"Pet with ID {petId} and related data deleted." };
             }
             catch (KeyNotFoundException)
             {
-                return (false, $"Pet with ID {petId} not found in in-memory database.", 0, 0);
+                return new OperationResult { success = false, message = $"Pet with ID {petId} not found in in-memory database." };
             }
         }
 
+        // Method to get all the pet records.
+        public OperationResult GetAllPetRecord()
+        {
+            var table = _inMemoryDatabase.GetTable("Pet");
+            var allPetRecord = table.GetAll().Select(record => record.Fields).ToList();
+
+            return new OperationResult { success = true, message = "Operation was successed", data = allPetRecord };
+        }
     }
 }

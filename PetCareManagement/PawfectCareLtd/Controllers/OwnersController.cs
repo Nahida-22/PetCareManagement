@@ -102,7 +102,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
         public IActionResult DeleteOwner(string ownerId)
         {
             // Get the result of the read operation in the Owner table.
-            var result = _ownerCRUD.DeleteOwnerbyId(ownerId);
+            var result = _ownerCRUD.DeleteOwnerById(ownerId);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)

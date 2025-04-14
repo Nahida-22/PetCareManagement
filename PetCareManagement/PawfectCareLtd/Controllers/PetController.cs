@@ -105,7 +105,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
         public IActionResult DeletePet(string petId)
         {
             // Get the result of the read operation in the Pet table.
-            var result = _petCRUD.DeletePetbyId(petId);
+            var result = _petCRUD.DeletePetById(petId);
 
             // Return status 200 if the operation has been a success and the result of the operation.
             if (result.success)

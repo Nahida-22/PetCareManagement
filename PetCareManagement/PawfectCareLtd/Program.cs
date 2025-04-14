@@ -113,31 +113,31 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //// Check if the Read part from the AppointmentCRUD is working
                 //var appointmentCrud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
                 //appointmentCrud.ReadOperationForAppointment("ServiceType", "Checkup");
-                var supplierCrud = scope.ServiceProvider.GetRequiredService<SupplierCRUD>();
+                //var supplierCrud = scope.ServiceProvider.GetRequiredService<SupplierCRUD>();
 
-                // READ test before inserting
-                supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
+                //// READ test before inserting
+                //supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
 
-                // INSERT test
-                var supplierData = new Dictionary<string, object>
-                    {
-                        { "SupplierID", "S10013" },
-                        { "SupplierName", "Dr. Samantha Holmes" },
-                        { "PhoneNumber", "58443312" },
-                        { "Address", "Wa" },
-                        { "Email", "mandyrivera@yahoo.com" }
-                    };
-                supplierCrud.InsertOperationForSupplier(supplierData, "SupplierID", @"^S\d{5}$");
+                //// INSERT test
+                //var supplierData = new Dictionary<string, object>
+                //    {
+                //        { "SupplierID", "S10013" },
+                //        { "SupplierName", "Dr. Samantha Holmes" },
+                //        { "PhoneNumber", "58443312" },
+                //        { "Address", "Wa" },
+                //        { "Email", "mandyrivera@yahoo.com" }
+                //    };
+                //supplierCrud.InsertOperationForSupplier(supplierData, "SupplierID", @"^S\d{5}$");
 
 
-                // READ to confirm insert
-                supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
+                //// READ to confirm insert
+                //supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
 
-                // UPDATE test
-                supplierCrud.UpdateOperationForSupplier("S10003", "PhoneNumber", "59887766");
+                //// UPDATE test
+                //supplierCrud.UpdateOperationForSupplier("S10003", "PhoneNumber", "59887766");
 
-                // READ again to confirm update
-                supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
+                //// READ again to confirm update
+                //supplierCrud.ReadOperationForSupplier("SupplierID", "S10013");
 
 
                 // TESTING FOR DELETE AND READ.w
@@ -152,6 +152,36 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
 
+                var petCrud = scope.ServiceProvider.GetRequiredService<PetCRUD>();
+
+                // READ test before inserting
+                petCrud.ReadOperationForPet("PetID", "P00002");
+                petCrud.DeletePetById("P00002");
+
+                // INSERT test
+                var petData = new Dictionary<string, object>
+                        {
+                            { "PetID", "P00002" },
+                            { "OwnerID", "O00001" },
+                            { "PetName", "Buddy" },
+                            { "PetType", "Dog" },
+                            { "Breed", "Labrador" },
+                            { "Age", "10" },
+                            
+                        };
+                petCrud.InsertOperationForPet(petData, "PetID", @"^P\d{5}$", new List<(string, string)>
+{
+    ("OwnerID", "Owner")
+});
+
+                // READ to confirm insert
+                petCrud.ReadOperationForPet("PetID", "P00002");
+
+                // UPDATE test
+                petCrud.UpdateOperationForPet("P00002", "Breed", "Golden Retriever");
+
+                // READ again to confirm update
+                petCrud.ReadOperationForPet("PetID", "P00002");
 
 
 
