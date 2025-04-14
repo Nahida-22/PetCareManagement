@@ -128,6 +128,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             }
         }
 
+<<<<<<< Updated upstream
         //Method to insert data into the Appointment table.
         public void InsertOperationForAppointment(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
         {
@@ -200,6 +201,9 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 Console.WriteLine($"Failed to insert record: {ex.Message}");
             }
         }
+=======
+        
+>>>>>>> Stashed changes
 
         public int GetAppointmentCount()
         {

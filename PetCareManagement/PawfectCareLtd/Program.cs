@@ -116,11 +116,20 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
                 // TESTING FOR DELETE AND READ.
 
+<<<<<<< Updated upstream
                 //// Check if the Read part from the OwnerCRUD is working
                 //var ownerCrud = scope.ServiceProvider.GetRequiredService<OwnerCRUD>();
 
                 //// 1. Show current record
                 //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
+=======
+                    //TESTING FOR DELETE AND READ
+                    //var prescriptionCrud = scope.ServiceProvider.GetRequiredService<PrescriptionCRUD>();
+                    //prescriptionCrud.ReadOperationForPrescription("PrescriptionID", "PR20001");
+                    //var result = prescriptionCrud.DeletePrescriptionById("PR20001");
+                    //Console.WriteLine(result.Message);  // Message is the output from DeletePrescriptionById
+                    //prescriptionCrud.ReadOperationForPrescription("PrescriptionID", "PR20001");
+>>>>>>> Stashed changes
 
                 //// 2. Perform deletion
                 //ownerCrud.DeleteOwnerById("O00001");
@@ -130,7 +139,8 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
 
-                    
+
+
 
 
                 //// 2. Delete the pet
