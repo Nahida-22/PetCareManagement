@@ -1,4 +1,4 @@
-﻿namespace PawfectCareLimited(Winforms).SignUpForms
+﻿namespace PawfectCareLimited
 {
     partial class SignUpForms
 {
