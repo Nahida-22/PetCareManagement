@@ -30,11 +30,11 @@
         {
             Registration = new TabControl();
             tabPage1 = new TabPage();
+            bookAppointmentButton = new Button();
+            newOwnerRegisterButton = new Button();
             tabPage2 = new TabPage();
             comboBox1 = new ComboBox();
             TablesLabel = new Label();
-            newOwnerRegisterButton = new Button();
-            bookAppointmentButton = new Button();
             Registration.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
@@ -62,10 +62,30 @@
             tabPage1.Controls.Add(newOwnerRegisterButton);
             tabPage1.Location = new Point(30, 4);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3, 3, 3, 3);
+            tabPage1.Padding = new Padding(3);
             tabPage1.Size = new Size(755, 443);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Operations";
+            // 
+            // bookAppointmentButton
+            // 
+            bookAppointmentButton.Location = new Point(414, 46);
+            bookAppointmentButton.Name = "bookAppointmentButton";
+            bookAppointmentButton.Size = new Size(185, 38);
+            bookAppointmentButton.TabIndex = 1;
+            bookAppointmentButton.Text = "Book an Appointment";
+            bookAppointmentButton.UseVisualStyleBackColor = true;
+            bookAppointmentButton.Click += bookAppointmentButton_Click;
+            // 
+            // newOwnerRegisterButton
+            // 
+            newOwnerRegisterButton.Location = new Point(55, 46);
+            newOwnerRegisterButton.Name = "newOwnerRegisterButton";
+            newOwnerRegisterButton.Size = new Size(197, 38);
+            newOwnerRegisterButton.TabIndex = 0;
+            newOwnerRegisterButton.Text = "Register New Owner";
+            newOwnerRegisterButton.UseVisualStyleBackColor = true;
+            newOwnerRegisterButton.Click += newOwnerRegisterButton_Click;
             // 
             // tabPage2
             // 
@@ -73,7 +93,7 @@
             tabPage2.Controls.Add(TablesLabel);
             tabPage2.Location = new Point(30, 4);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3, 3, 3, 3);
+            tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(755, 443);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Database";
@@ -82,7 +102,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Owner", "Pet", "Appointment" });
+            comboBox1.Items.AddRange(new object[] { "Owner", "Pet", "Appointment", "Medication" });
             comboBox1.Location = new Point(15, 55);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(151, 28);
@@ -99,25 +119,6 @@
             TablesLabel.Size = new Size(90, 37);
             TablesLabel.TabIndex = 0;
             TablesLabel.Text = "Tables";
-            // 
-            // newOwnerRegisterButton
-            // 
-            newOwnerRegisterButton.Location = new Point(55, 46);
-            newOwnerRegisterButton.Name = "newOwnerRegisterButton";
-            newOwnerRegisterButton.Size = new Size(197, 38);
-            newOwnerRegisterButton.TabIndex = 0;
-            newOwnerRegisterButton.Text = "Register New Owner";
-            newOwnerRegisterButton.UseVisualStyleBackColor = true;
-            // 
-            // bookAppointmentButton
-            // 
-            bookAppointmentButton.Location = new Point(414, 46);
-            bookAppointmentButton.Name = "bookAppointmentButton";
-            bookAppointmentButton.Size = new Size(185, 38);
-            bookAppointmentButton.TabIndex = 1;
-            bookAppointmentButton.Text = "Book an Appointment";
-            bookAppointmentButton.UseVisualStyleBackColor = true;
-            bookAppointmentButton.Click += bookAppointmentButton_Click;
             // 
             // MainForm
             // 

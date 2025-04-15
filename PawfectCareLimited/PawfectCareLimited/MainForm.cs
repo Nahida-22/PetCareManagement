@@ -43,6 +43,11 @@ namespace PawfectCareLimited
                 // Show the window.
                 appointmentTableInterface.ShowDialog();
             }
+            else if(selected == "Medication")
+            {
+                var medicationTableInterface = new MedicationInterfaceForm();
+                medicationTableInterface.ShowDialog();
+            }
         }
 
         private void bookAppointmentButton_Click(object sender, EventArgs e)
@@ -50,6 +55,13 @@ namespace PawfectCareLimited
             // Call the INSERT Form.
             var appointmentInsertForm = new AppointmentBookingForm();
             appointmentInsertForm.ShowDialog(); // Show the window.
+        }
+
+        private void newOwnerRegisterButton_Click(object sender, EventArgs e)
+        {
+            // Call the REGISTER Form.
+            var registerInterfaceForm = new RegisterInterfaceForm();
+            registerInterfaceForm.ShowDialog();
         }
     }
 
