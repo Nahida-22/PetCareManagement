@@ -50,7 +50,7 @@ namespace PawfectCareLimited
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        ApiResponse apiResponse = JsonConvert.DeserializeObject<ApiResponse>(json);
+                        LocationApiResponse apiResponse = JsonConvert.DeserializeObject<LocationApiResponse>(json);
 
                         if (apiResponse.success)
                         {
@@ -86,10 +86,10 @@ namespace PawfectCareLimited
             {
                 // Get values from selected row
                 string id = locationTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
-                string Name = locationTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
-                string Address = locationTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
-                string Phone = locationTableDataGridView.CurrentRow.Cells[4].Value?.ToString();
-                string Email = locationTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
+                string Name = locationTableDataGridView.CurrentRow.Cells[1].Value?.ToString();
+                string Address = locationTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
+                string Phone = locationTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
+                string Email = locationTableDataGridView.CurrentRow.Cells[4].Value?.ToString();
 
 
                 // Call the UPDATE Window and pass the values of the selected row in its constructor.
