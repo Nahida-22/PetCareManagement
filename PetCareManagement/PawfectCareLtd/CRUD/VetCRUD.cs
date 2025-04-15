@@ -149,22 +149,22 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
 
         // Method to delete data from the Vet table.
-        public OperationResult DeleteVetbyId(string vetId)
+        public OperationResult DeleteVetbyId(string VetId)
         {
             var VetTable = _inMemoryDatabase.GetTable("Vet");
 
             // Try delete from memory
             try
             {
-                VetTable.Delete(vetId);
+                VetTable.Delete(VetId);
             }
             catch (KeyNotFoundException)
             {
-                return new OperationResult { success = false, message = $"Appointment with ID {vetId} not found in in-memory database." };
+                return new OperationResult { success = false, message = $"Appointment with ID {VetId} not found in in-memory database." };
             }
 
             // Try delete from SQL Server
-            var locationEntity = _dbContext.Locations.Find(vetId);
+            var locationEntity = _dbContext.Locations.Find(VetId);
             if (locationEntity != null)
             {
                 _dbContext.Locations.Remove(locationEntity);
@@ -172,7 +172,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
             else
             {
-                Console.WriteLine($"Location with ID {vetId} not found in SQL database.");
+                Console.WriteLine($"Location with ID {VetId} not found in SQL database.");
             }
 
             // Return a success status.
