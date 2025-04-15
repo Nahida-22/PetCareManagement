@@ -48,11 +48,12 @@
             Registration.Controls.Add(tabPage2);
             Registration.Dock = DockStyle.Left;
             Registration.Location = new Point(0, 0);
+            Registration.Margin = new Padding(3, 2, 3, 2);
             Registration.Multiline = true;
             Registration.Name = "Registration";
             Registration.RightToLeft = RightToLeft.No;
             Registration.SelectedIndex = 0;
-            Registration.Size = new Size(788, 450);
+            Registration.Size = new Size(690, 338);
             Registration.SizeMode = TabSizeMode.Fixed;
             Registration.TabIndex = 0;
             // 
@@ -62,27 +63,30 @@
             tabPage1.Controls.Add(ExisitngOwnerButton);
             tabPage1.Controls.Add(NewOwnerButton);
             tabPage1.Controls.Add(RegistrationLabel);
-            tabPage1.Location = new Point(30, 4);
+            tabPage1.Location = new Point(27, 4);
+            tabPage1.Margin = new Padding(3, 2, 3, 2);
             tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(754, 442);
+            tabPage1.Padding = new Padding(3, 2, 3, 2);
+            tabPage1.Size = new Size(659, 330);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Operations";
             // 
             // ExisitngOwnerButton
             // 
-            ExisitngOwnerButton.Location = new Point(412, 186);
+            ExisitngOwnerButton.Location = new Point(360, 140);
+            ExisitngOwnerButton.Margin = new Padding(3, 2, 3, 2);
             ExisitngOwnerButton.Name = "ExisitngOwnerButton";
-            ExisitngOwnerButton.Size = new Size(189, 52);
+            ExisitngOwnerButton.Size = new Size(165, 39);
             ExisitngOwnerButton.TabIndex = 3;
             ExisitngOwnerButton.Text = "Existing Owner";
             ExisitngOwnerButton.UseVisualStyleBackColor = true;
             // 
             // NewOwnerButton
             // 
-            NewOwnerButton.Location = new Point(143, 186);
+            NewOwnerButton.Location = new Point(125, 140);
+            NewOwnerButton.Margin = new Padding(3, 2, 3, 2);
             NewOwnerButton.Name = "NewOwnerButton";
-            NewOwnerButton.Size = new Size(122, 52);
+            NewOwnerButton.Size = new Size(107, 39);
             NewOwnerButton.TabIndex = 2;
             NewOwnerButton.Text = "New Owner";
             NewOwnerButton.UseVisualStyleBackColor = true;
@@ -91,9 +95,9 @@
             // 
             RegistrationLabel.AutoSize = true;
             RegistrationLabel.Font = new Font("Segoe UI", 16F);
-            RegistrationLabel.Location = new Point(272, 29);
+            RegistrationLabel.Location = new Point(238, 22);
             RegistrationLabel.Name = "RegistrationLabel";
-            RegistrationLabel.Size = new Size(177, 37);
+            RegistrationLabel.Size = new Size(144, 30);
             RegistrationLabel.TabIndex = 1;
             RegistrationLabel.Text = "Register a Pet";
             // 
@@ -101,10 +105,11 @@
             // 
             tabPage2.Controls.Add(comboBox1);
             tabPage2.Controls.Add(TablesLabel);
-            tabPage2.Location = new Point(30, 4);
+            tabPage2.Location = new Point(27, 4);
+            tabPage2.Margin = new Padding(3, 2, 3, 2);
             tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(754, 442);
+            tabPage2.Padding = new Padding(3, 2, 3, 2);
+            tabPage2.Size = new Size(659, 330);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Database";
             tabPage2.UseVisualStyleBackColor = true;
@@ -113,9 +118,10 @@
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Owner", "Pet", "Appointment" });
-            comboBox1.Location = new Point(15, 55);
+            comboBox1.Location = new Point(13, 41);
+            comboBox1.Margin = new Padding(3, 2, 3, 2);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
+            comboBox1.Size = new Size(133, 23);
             comboBox1.TabIndex = 5;
             comboBox1.Text = "Select a table";
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
@@ -124,19 +130,20 @@
             // 
             TablesLabel.AutoSize = true;
             TablesLabel.Font = new Font("Segoe UI", 16F);
-            TablesLabel.Location = new Point(15, 15);
+            TablesLabel.Location = new Point(13, 11);
             TablesLabel.Name = "TablesLabel";
-            TablesLabel.Size = new Size(90, 37);
+            TablesLabel.Size = new Size(73, 30);
             TablesLabel.TabIndex = 0;
             TablesLabel.Text = "Tables";
             // 
-            // Form2
+            // MainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(Registration);
-            Name = "Form2";
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "MainForm";
             Text = "Form2";
             Registration.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
