@@ -10,30 +10,30 @@ using System.Windows.Forms;
 
 namespace PawfectCareLimited
 {
-    public partial class AppointmentUpdateForm : Form
+    public partial class MedicationUpdateForm : Form
     {
         // UPDATE window form.
         // Declare variables.
-        private string appointmentId, appointmentVetId, appointmentServiceType, appointmentStatus, appointmentLocation;
-        private DateTime appointmentDate;
+        private string id, name , quanity, category, price;
+        private DateTime expiry;
 
         // Initialise an instance of HttpClient for API calls.
         private readonly HttpClient _httpClient = new HttpClient();
 
         public event EventHandler AppointmentUpdated;
 
-        public AppointmentUpdateForm(string id, string vetId, string serviceType, DateTime date, string status, string location)
+        public MedicationUpdateForm(string medicationId, string medicationName, string stockQuantity, DateTime expiryDate, string medicationCategory, string unitPrice)
         {
             // Initialise the UI components.
             InitializeComponent();
 
             // Values retrieved from the table DataGridView.
-            appointmentId = id;
-            appointmentVetId = vetId;
-            appointmentServiceType = serviceType;
-            appointmentDate = date;
-            appointmentStatus = status;
-            appointmentLocation = location;
+            id = medicationId;
+            name = medicationName;
+            quanity = stockQuantity;
+            category = medicationCategory;
+            price = unitPrice;
+            expiry = expiryDate;
 
 
             // Call the method UpdateOwnerInterface_Load to initalise the Window.
@@ -54,18 +54,15 @@ namespace PawfectCareLimited
                 var appointmentTableInterface = new AppointmentTableInterface();
 
                 // Update owner ID in Label
-                UpdateDetailsLabel.Text = "Updating Details for Appointment ID : " + appointmentId;
+                UpdateDetailsLabel.Text = "Updating Details for Medication ID : " + id;
 
                 // Populate the current values to be updated.
-                updatedServiceType.Text = appointmentServiceType;
-                updatedAppointmentDate.Value = appointmentDate;
-                updatedStatus.Text = appointmentStatus;
-                updatedLocation.Text = appointmentLocation;
-                updatedVetName.Text = appointmentVetId;
-                //currentFirstNameValue.Text = ownerFirstName;
-                //currentLastNameValue.Text = ownerLastName;
+                updatedMedicationName.Text = name;
+                updatedExpiryDate.Value = expiry;
+                updatedStockQuantity.Text = quanity;
+                updatedPrice.Text = price;
+                updatedCategory.Text = category;
 
-                //!!!!!!!! THE REST OF THE CODE TO BE WRITTEN WHEN THE API ENDPOINT WORKS.
             }
             catch (Exception ex)
             {
@@ -74,23 +71,23 @@ namespace PawfectCareLimited
             }
         }
 
-        private async void updateAppointmentButton_Click(object sender, EventArgs e)
+        private async void updateMedicationButton_Click(object sender, EventArgs e)
         {
             using (HttpClient client = new HttpClient())
             {
-                string baseUrl = "https://localhost:7038/api/appointment";
+                string baseUrl = "https://localhost:7038/api/medication";
                 var fieldsToUpdate = new List<(string fieldName, string newValue, bool isFK, string referencedTable)>
                 {
-                    ("ServiceType", updatedServiceType.Text, false, null),
-                    ("ApptDate", updatedAppointmentDate.Text, false, null),
-                    ("Status", updatedStatus.Text, false, null),
-                    ("LocationID", updatedLocation.Text, false, null),
-                    ("VetID", updatedVetName.Text, true, "Vet")
+                    ("MedicationName", updatedMedicationName.Text, false, null),
+                    ("ExpiryDate", updatedExpiryDate.Text, false, null),
+                    ("StockQuantity", updatedStockQuantity.Text, false, null),
+                    ("UnitPrice", updatedPrice.Text, false, null),
+                    ("Category", updatedCategory.Text, false, null)
                 };
 
                 foreach (var field in fieldsToUpdate)
                 {
-                    string url = $"{baseUrl}?appointmentId={appointmentId}" +
+                    string url = $"{baseUrl}?medicationId={id}" +
                                  $"&fieldName={field.fieldName}" +
                                  $"&newValue={field.newValue}" +
                                  $"&isForeignKey={field.isFK}" +
@@ -122,16 +119,6 @@ namespace PawfectCareLimited
         private void AppointmentUpdateForm_Load_1(object sender, EventArgs e)
         {
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Create and show the MainForm
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-
-            // Hide or close the current form
-            this.Hide(); 
         }
     }
 }

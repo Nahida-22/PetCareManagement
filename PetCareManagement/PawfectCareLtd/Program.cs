@@ -259,46 +259,46 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //ownerCrud.UpdateOperationForOwner("O00001", "PhoneNo", "59999999");
                 //ownerCrud.ReadOperationForOwner("OwnerID", "O00001");
 
-                var crud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
+                //var crud = scope.ServiceProvider.GetRequiredService<AppointmentCRUD>();
 
-                // 1. READ before any changes
-                crud.ReadOperationForAppointment("AppointmentID", "A10000");
+                //// 1. READ before any changes
+                //crud.ReadOperationForAppointment("AppointmentID", "A10000");
 
-                // 2. DELETE Appointment if it exists
-                crud.DeleteAppointmentById("A10000");
+                //// 2. DELETE Appointment if it exists
+                //crud.DeleteAppointmentById("A10000");
 
-                // 3. INSERT new Appointment
-                var appointmentData = new Dictionary<string, object>
-                {
-                    { "AppointmentID", "A10000" },
-                    { "PetID", "P08628" },
-                    { "VetID", "V1007" },
-                    { "ServiceType", "Checkup" },
-                    { "ApptDate", DateTime.Parse("2025-03-09") },
-                    { "Status", "Scheduled" },
-                    { "LocationID", "L002" }
-                };
+                //// 3. INSERT new Appointment
+                //var appointmentData = new Dictionary<string, object>
+                //{
+                //    { "AppointmentID", "A10000" },
+                //    { "PetID", "P08628" },
+                //    { "VetID", "V1007" },
+                //    { "ServiceType", "Checkup" },
+                //    { "ApptDate", DateTime.Parse("2025-03-09") },
+                //    { "Status", "Scheduled" },
+                //    { "LocationID", "L002" }
+                //};
 
-                crud.InsertOperationForAppointment(
-                    fieldValues: appointmentData,
-                    primaryKeyName: "AppointmentID",
-                    primaryKeyFormat: @"^A\d{5}$",
-                    foreignKeys: new List<(string, string)>
-                    {
-                        ("PetID", "Pet"),
-                        ("VetID", "Vet"),
-                        ("LocationID", "Location")
-                    }
-                );
+                //crud.InsertOperationForAppointment(
+                //    fieldValues: appointmentData,
+                //    primaryKeyName: "AppointmentID",
+                //    primaryKeyFormat: @"^A\d{5}$",
+                //    foreignKeys: new List<(string, string)>
+                //    {
+                //        ("PetID", "Pet"),
+                //        ("VetID", "Vet"),
+                //        ("LocationID", "Location")
+                //    }
+                //);
 
-                // 4. READ after insert
-                crud.ReadOperationForAppointment("AppointmentID", "A10000");
+                //// 4. READ after insert
+                //crud.ReadOperationForAppointment("AppointmentID", "A10000");
 
-                // 5. UPDATE status to "Completed"
-                crud.UpdateOperationForAppointment("A10000", "Status", "Completed");
+                //// 5. UPDATE status to "Completed"
+                //crud.UpdateOperationForAppointment("A10000", "Status", "Completed");
 
-                // 6. READ after update
-                crud.ReadOperationForAppointment("AppointmentID", "A10000");
+                //// 6. READ after update
+                //crud.ReadOperationForAppointment("AppointmentID", "A10000");
 
                 //var crud = scope.ServiceProvider.GetRequiredService<LocationCRUD>();
 
@@ -447,45 +447,45 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
                 //                // 5. UPDATE status to "Completed"
                 //                crud.UpdateOperationForOrder("O10003", "OrderStatus", "aler dow");
-//                var paymentCrud = scope.ServiceProvider.GetRequiredService<PaymentCRUD>();
+                var paymentCrud = scope.ServiceProvider.GetRequiredService<PaymentCRUD>();
 
-//                // READ test before inserting
+                // READ test before inserting
 
-//                paymentCrud.DeletePaymentById("B10001");
+                paymentCrud.DeletePaymentById("B10001");
 
-//                // INSERT test
-               
-
-               
-//                var prescriptionData = new Dictionary<string, object>
-//                                                {
-//                                                    { "BillID", "B10001" },
-//                        { "AppointmentID", "A10013" },
-//                        { "TotalAmount",100.00 },
-//                        { "PaymentDate",  DateTime.Parse("2025-03-09") },
-//                        { "PaymentStatus", "Completed" }
-
-//                                                };
-
-//                paymentCrud.InsertOperationForPayment(
-//                    fieldValues: prescriptionData,
-//                    primaryKeyName: "BillID",
-//                    primaryKeyFormat: @"^B\d{5}$"
-
-//,
-//                    foreignKeys: new List<(string, string)>
-//                    {
-//                                                        ("AppointmentID", "Appointment")
+                // INSERT test
 
 
-//                    }
-//                );
+
+                var prescriptionData = new Dictionary<string, object>
+                                                {
+                                                    { "BillID", "B10001" },
+                        { "AppointmentID", "A10013" },
+                        { "TotalAmount",100.00 },
+                        { "PaymentDate",  DateTime.Parse("2025-03-09") },
+                        { "PaymentStatus", "Completed" }
+
+                                                };
+
+                paymentCrud.InsertOperationForPayment(
+                    fieldValues: prescriptionData,
+                    primaryKeyName: "BillID",
+                    primaryKeyFormat: @"^B\d{5}$"
+
+,
+                    foreignKeys: new List<(string, string)>
+                    {
+                                                        ("AppointmentID", "Appointment")
 
 
-//                // UPDATE test
-//                paymentCrud.UpdateOperationForPayment("B10002", "PaymentStatus", "tchombo");
+                    }
+                );
 
-                
+
+                // UPDATE test
+                paymentCrud.UpdateOperationForPayment("B10002", "PaymentStatus", "tchombo");
+
+
 
 
 

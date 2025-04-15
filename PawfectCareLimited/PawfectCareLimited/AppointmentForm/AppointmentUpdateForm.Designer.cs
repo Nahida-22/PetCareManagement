@@ -201,6 +201,7 @@
             button1.TabIndex = 22;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // panel1
             // 

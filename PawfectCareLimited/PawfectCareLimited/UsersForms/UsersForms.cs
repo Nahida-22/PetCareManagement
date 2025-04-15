@@ -63,10 +63,20 @@ namespace PawfectCareLimited
             public string Password { get; set; }
         }
 
+
         private void button1_Click(object sender, EventArgs e)
         {
-            // Close the current form and return to the previous form
-            this.Close();
+            // Create and show the MainForm
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+
+            // Hide or close the current form
+            this.Hide();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

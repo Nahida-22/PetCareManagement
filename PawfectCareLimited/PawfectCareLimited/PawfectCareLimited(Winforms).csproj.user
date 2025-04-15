@@ -13,16 +13,34 @@
     <Compile Update="HomeForms\HomeForms.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="LocationForm\LocationTableInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="LoginForms\loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MainMenuForms\MainMenuForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MedicationForms\MedicationInsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MedicationForms\MedicationInterfaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MedicationForms\MedicationUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="OwnerForms\OwnerTableInterface.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="OwnerForms\UpdateOwnerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RegisterForms\RegisterInterfaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SignUpForms\SignUpForms.cs">

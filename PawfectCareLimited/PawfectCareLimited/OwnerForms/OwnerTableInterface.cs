@@ -101,22 +101,32 @@ namespace PawfectCareLimited
         {
 
         }
-    }
 
-    public class Owner
-    {
-        public string OwnerID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string PhoneNo { get; set; }
-        public string Email { get; set; }
-        public string Address { get; set; }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Create and show the MainForm
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
 
-    }
-    public class OwnerApiResponse
-    {
-        public bool success { get; set; }
-        public string message { get; set; }
-        public List<Owner> data { get; set; }
+            // Hide or close the current form
+            this.Hide();
+        }
+
+        public class Owner
+        {
+            public string OwnerID { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string PhoneNo { get; set; }
+            public string Email { get; set; }
+            public string Address { get; set; }
+
+        }
+        public class OwnerApiResponse
+        {
+            public bool success { get; set; }
+            public string message { get; set; }
+            public List<Owner> data { get; set; }
+        }
     }
 }

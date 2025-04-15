@@ -4,36 +4,33 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.Http.Json;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-
 namespace PawfectCareLimited
 {
-    public partial class AppointmentTableInterface : Form
-    {
+    public partial class LocationTableInterface : Form
+{
         // Initialise an instance of HttpClient for API calls.
         private readonly HttpClient _httpClient = new HttpClient();
 
         // Constructor.
-        public AppointmentTableInterface()
+        public LocationTableInterface()
         {
             InitializeComponent();
-            this.Load += new EventHandler(this.AppointmentTableInterface_Load);
+            this.Load += new EventHandler(this.LocationTableInterface_Load);
         }
 
 
         // Method to initialise the Owner Windoe.
-        private async void AppointmentTableInterface_Load(object sender, EventArgs e)
+        private async void LocationTableInterface_Load(object sender, EventArgs e)
         {
             try
             {
-                // Call LoadAppointments 
-                await Task.Run(() => LoadAppointments());
+                // Call LoadLocations 
+                await Task.Run(() => LoadLocations());
             }
             catch (Exception ex)
             {
@@ -41,27 +38,27 @@ namespace PawfectCareLimited
             }
         }
 
-        private async Task LoadAppointments()
+        private async Task LoadLocations()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    string apiUrl = "https://localhost:7038/api/Appointment/all";
+                    string apiUrl = "https://localhost:7038/api/Location/all";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        ApiResponse apiResponse = JsonConvert.DeserializeObject<ApiResponse>(json);
+                        LocationApiResponse apiResponse = JsonConvert.DeserializeObject<LocationApiResponse>(json);
 
                         if (apiResponse.success)
                         {
                             // Binding to the grid
-                            appointmentTableDataGridView.Invoke(() =>
+                            locationTableDataGridView.Invoke(() =>
                             {
-                                appointmentTableDataGridView.AutoGenerateColumns = true;
-                                appointmentTableDataGridView.DataSource = apiResponse.data;
+                                locationTableDataGridView.AutoGenerateColumns = true;
+                                locationTableDataGridView.DataSource = apiResponse.data;
                             });
                         }
                         else
@@ -82,28 +79,27 @@ namespace PawfectCareLimited
         }
 
         // Event Listener for when the UPDATE button is clicked.
-        private void appointmentUpdateButton_Click(object sender, EventArgs e)
+        private void locationUpdateButton_Click(object sender, EventArgs e)
         {
             // Check if a row is selected.
-            if (appointmentTableDataGridView.CurrentRow != null)
+            if (locationTableDataGridView.CurrentRow != null)
             {
                 // Get values from selected row
-                string id = appointmentTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
-                string vetId = appointmentTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
-                string serviceType = appointmentTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
-                DateTime appointmentDate = Convert.ToDateTime(appointmentTableDataGridView.CurrentRow.Cells[4].Value);
-                string status = appointmentTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
-                string locationId = appointmentTableDataGridView.CurrentRow.Cells[6].Value?.ToString();
+                string id = locationTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+                string Name = locationTableDataGridView.CurrentRow.Cells[1].Value?.ToString();
+                string Address = locationTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
+                string Phone = locationTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
+                string Email = locationTableDataGridView.CurrentRow.Cells[4].Value?.ToString();
 
 
                 // Call the UPDATE Window and pass the values of the selected row in its constructor.
-                var appointmentUpdateInterface = new AppointmentUpdateForm(id, vetId, serviceType, appointmentDate, status, locationId);
+                var locationUpdateInterface = new LocationUpdateForm(id, Name, Address, Phone,Email);
 
                 // Subscribe to the event
-                appointmentUpdateInterface.AppointmentUpdated += (s, args) => LoadAppointments();
+                locationUpdateInterface.LocationUpdated += (s, args) => LoadLocations();
 
                 // Show the window.
-                appointmentUpdateInterface.ShowDialog();
+                locationUpdateInterface.ShowDialog();
             }
             else
             {
@@ -112,22 +108,22 @@ namespace PawfectCareLimited
             }
         }
 
-        private async void appointmentDeleteButton_Click(object sender, EventArgs e)
+        private async void locationDeleteButton_Click(object sender, EventArgs e)
         {
             // Confirm deletion
-            var confirmResult = MessageBox.Show("Are you sure to delete this appointment?",
+            var confirmResult = MessageBox.Show("Are you sure to delete this branch?",
                                                 "Confirm Delete",
                                                 MessageBoxButtons.YesNo);
             if (confirmResult != DialogResult.Yes)
                 return;
 
             // Get the id of the selected row.
-            string id = appointmentTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+            string id = locationTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
 
             // Check if the a row is selected.
             if (string.IsNullOrEmpty(id))
             {
-                MessageBox.Show("Please select a valid appointment.");
+                MessageBox.Show("Please select a valid location.");
                 return;
             }
 
@@ -136,23 +132,23 @@ namespace PawfectCareLimited
             {
                 try
                 {
-                    string baseUrl = "https://localhost:7038/api/appointment"; // Endpoint for deletion.
-                    string deleteUrl = $"{baseUrl}?appointmentId={id}";
+                    string baseUrl = "https://localhost:7038/api/location"; // Endpoint for deletion.
+                    string deleteUrl = $"{baseUrl}?locationId={id}";
 
                     HttpResponseMessage response = await client.DeleteAsync(deleteUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Appointment deleted successfully.");
+                        MessageBox.Show("Location deleted successfully.");
 
                         // Refresh the table.
-                        await Task.Run(() => LoadAppointments());
+                        await Task.Run(() => LoadLocations());
                     }
                     else
                     {
                         // Show error message.
                         string error = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Failed to delete appointment. Server says: {error}");
+                        MessageBox.Show($"Failed to delete location. Server says: {error}");
                     }
                 }
                 catch (Exception ex)
@@ -178,7 +174,7 @@ namespace PawfectCareLimited
             {
                 try
                 {
-                    string baseUrl = "https://localhost:7038/api/appointment";
+                    string baseUrl = "https://localhost:7038/api/location";
                     string fullUrl = $"{baseUrl}?fieldName={fieldName}&fieldValue={fieldValue}";
 
                     HttpResponseMessage response = await client.GetAsync(fullUrl);
@@ -193,12 +189,12 @@ namespace PawfectCareLimited
                             var dataList = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(result.data.ToString());
 
                             DataTable dt = ConvertToDataTable(dataList);
-                            appointmentTableDataGridView.DataSource = dt;
+                            locationTableDataGridView.DataSource = dt;
                         }
                         else
                         {
                             MessageBox.Show(result.message);
-                            appointmentTableDataGridView.DataSource = null;
+                            locationTableDataGridView.DataSource = null;
                         }
                     }
                     else
@@ -259,60 +255,45 @@ namespace PawfectCareLimited
         private async void viewAllButton_Click(object sender, EventArgs e)
         {
             // Reset the table. 
-            await Task.Run(() => LoadAppointments());
+            await Task.Run(() => LoadLocations());
         }
 
-        private void appointmentInsertButton_Click(object sender, EventArgs e)
+        private void locationInsertButton_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void appointmentLabel_Click(object sender, EventArgs e)
+        private void locationLabel_Click(object sender, EventArgs e)
         {
 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Create and show the MainForm
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-
-            // Hide or close the current form
-            this.Hide(); 
-        }
-
-        private void AppointmentTableInterface_Load_1(object sender, EventArgs e)
-        {
 
         }
     }
 
-    public class OperationResult
-    {
-        public bool success { get; set; }
-        public string message { get; set; }
-        public object data { get; set; }
-    }
+   
 
-    public class Appointment
+    public class Location
     {
-        public string AppointmentID { get; set; }
-        public string PetID { get; set; }
-        public string VetID { get; set; }
-        public string ServiceType { get; set; }
-        public DateTime ApptDate { get; set; }
-        public string Status { get; set; }
         public string LocationID { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        
+        public string Email { get; set; }
+     
     }
 
-    public class ApiResponse
+    public class LocationApiResponse
     {
         public bool success { get; set; }
         public string message { get; set; }
-        public List<Appointment> data { get; set; }
+        public List<Location> data { get; set; }
     }
-
 
 
 }
+

@@ -4,36 +4,33 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.Http.Json;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-
 namespace PawfectCareLimited
 {
-    public partial class AppointmentTableInterface : Form
+    public partial class MedicationInterfaceForm : Form
     {
         // Initialise an instance of HttpClient for API calls.
         private readonly HttpClient _httpClient = new HttpClient();
 
         // Constructor.
-        public AppointmentTableInterface()
+        public MedicationInterfaceForm()
         {
             InitializeComponent();
-            this.Load += new EventHandler(this.AppointmentTableInterface_Load);
+            this.Load += new EventHandler(this.MedicationTableInterface_Load);
         }
 
 
         // Method to initialise the Owner Windoe.
-        private async void AppointmentTableInterface_Load(object sender, EventArgs e)
+        private async void MedicationTableInterface_Load(object sender, EventArgs e)
         {
             try
             {
-                // Call LoadAppointments 
-                await Task.Run(() => LoadAppointments());
+                // Call LoadMedications 
+                await Task.Run(() => LoadMedications());
             }
             catch (Exception ex)
             {
@@ -41,27 +38,27 @@ namespace PawfectCareLimited
             }
         }
 
-        private async Task LoadAppointments()
+        private async Task LoadMedications()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    string apiUrl = "https://localhost:7038/api/Appointment/all";
+                    string apiUrl = "https://localhost:7038/api/medication/all";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        ApiResponse apiResponse = JsonConvert.DeserializeObject<ApiResponse>(json);
+                        MedicationApiResponse apiResponse = JsonConvert.DeserializeObject<MedicationApiResponse>(json);
 
                         if (apiResponse.success)
                         {
                             // Binding to the grid
-                            appointmentTableDataGridView.Invoke(() =>
+                            medicationTableDataGridView.Invoke(() =>
                             {
-                                appointmentTableDataGridView.AutoGenerateColumns = true;
-                                appointmentTableDataGridView.DataSource = apiResponse.data;
+                                medicationTableDataGridView.AutoGenerateColumns = true;
+                                medicationTableDataGridView.DataSource = apiResponse.data;
                             });
                         }
                         else
@@ -85,22 +82,22 @@ namespace PawfectCareLimited
         private void appointmentUpdateButton_Click(object sender, EventArgs e)
         {
             // Check if a row is selected.
-            if (appointmentTableDataGridView.CurrentRow != null)
+            if (medicationTableDataGridView.CurrentRow != null)
             {
                 // Get values from selected row
-                string id = appointmentTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
-                string vetId = appointmentTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
-                string serviceType = appointmentTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
-                DateTime appointmentDate = Convert.ToDateTime(appointmentTableDataGridView.CurrentRow.Cells[4].Value);
-                string status = appointmentTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
-                string locationId = appointmentTableDataGridView.CurrentRow.Cells[6].Value?.ToString();
+                string id = medicationTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+                string medicationName= medicationTableDataGridView.CurrentRow.Cells[1].Value?.ToString();
+                string stockQuantity = medicationTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
+                DateTime expiryDate = Convert.ToDateTime(medicationTableDataGridView.CurrentRow.Cells[6].Value);
+                string category = medicationTableDataGridView.CurrentRow.Cells[4].Value?.ToString();
+                string unitPrice = medicationTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
 
 
                 // Call the UPDATE Window and pass the values of the selected row in its constructor.
-                var appointmentUpdateInterface = new AppointmentUpdateForm(id, vetId, serviceType, appointmentDate, status, locationId);
+                var appointmentUpdateInterface = new MedicationUpdateForm(id, medicationName, stockQuantity, expiryDate, category, unitPrice);
 
                 // Subscribe to the event
-                appointmentUpdateInterface.AppointmentUpdated += (s, args) => LoadAppointments();
+                appointmentUpdateInterface.AppointmentUpdated += (s, args) => LoadMedications();
 
                 // Show the window.
                 appointmentUpdateInterface.ShowDialog();
@@ -115,19 +112,19 @@ namespace PawfectCareLimited
         private async void appointmentDeleteButton_Click(object sender, EventArgs e)
         {
             // Confirm deletion
-            var confirmResult = MessageBox.Show("Are you sure to delete this appointment?",
+            var confirmResult = MessageBox.Show("Are you sure to delete this medication?",
                                                 "Confirm Delete",
                                                 MessageBoxButtons.YesNo);
             if (confirmResult != DialogResult.Yes)
                 return;
 
             // Get the id of the selected row.
-            string id = appointmentTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+            string id = medicationTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
 
             // Check if the a row is selected.
             if (string.IsNullOrEmpty(id))
             {
-                MessageBox.Show("Please select a valid appointment.");
+                MessageBox.Show("Please select a valid medication.");
                 return;
             }
 
@@ -136,23 +133,23 @@ namespace PawfectCareLimited
             {
                 try
                 {
-                    string baseUrl = "https://localhost:7038/api/appointment"; // Endpoint for deletion.
-                    string deleteUrl = $"{baseUrl}?appointmentId={id}";
+                    string baseUrl = "https://localhost:7038/api/medication"; // Endpoint for deletion.
+                    string deleteUrl = $"{baseUrl}?medicationId={id}";
 
                     HttpResponseMessage response = await client.DeleteAsync(deleteUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Appointment deleted successfully.");
+                        MessageBox.Show("Medication deleted successfully.");
 
                         // Refresh the table.
-                        await Task.Run(() => LoadAppointments());
+                        await Task.Run(() => LoadMedications());
                     }
                     else
                     {
                         // Show error message.
                         string error = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Failed to delete appointment. Server says: {error}");
+                        MessageBox.Show($"Failed to delete medication. Server says: {error}");
                     }
                 }
                 catch (Exception ex)
@@ -178,7 +175,7 @@ namespace PawfectCareLimited
             {
                 try
                 {
-                    string baseUrl = "https://localhost:7038/api/appointment";
+                    string baseUrl = "https://localhost:7038/api/medication";
                     string fullUrl = $"{baseUrl}?fieldName={fieldName}&fieldValue={fieldValue}";
 
                     HttpResponseMessage response = await client.GetAsync(fullUrl);
@@ -193,12 +190,12 @@ namespace PawfectCareLimited
                             var dataList = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(result.data.ToString());
 
                             DataTable dt = ConvertToDataTable(dataList);
-                            appointmentTableDataGridView.DataSource = dt;
+                            medicationTableDataGridView.DataSource = dt;
                         }
                         else
                         {
                             MessageBox.Show(result.message);
-                            appointmentTableDataGridView.DataSource = null;
+                            medicationTableDataGridView.DataSource = null;
                         }
                     }
                     else
@@ -234,7 +231,7 @@ namespace PawfectCareLimited
                 var row = table.NewRow();
                 foreach (var kvp in dict)
                 {
-                    if (kvp.Key == "ApptDate" && kvp.Value != null)
+                    if (kvp.Key == "ExpiryDate" && kvp.Value != null)
                     {
                         if (DateTime.TryParse(kvp.Value.ToString(), out DateTime date))
                         {
@@ -259,60 +256,45 @@ namespace PawfectCareLimited
         private async void viewAllButton_Click(object sender, EventArgs e)
         {
             // Reset the table. 
-            await Task.Run(() => LoadAppointments());
+            await Task.Run(() => LoadMedications());
         }
 
         private void appointmentInsertButton_Click(object sender, EventArgs e)
         {
+            using (HttpClient client = new HttpClient())
+            {
+                var medicationInsertForm = new MedicationInsertForm();
+                medicationInsertForm.ShowDialog();
 
+            }
         }
 
-        private void appointmentLabel_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Create and show the MainForm
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-
-            // Hide or close the current form
-            this.Hide(); 
-        }
-
-        private void AppointmentTableInterface_Load_1(object sender, EventArgs e)
-        {
 
         }
     }
 
-    public class OperationResult
+    public class Medication
+    {
+        public string MedicationID { get; set; }
+        public string MedicationName { get; set; }
+        public string SupplierID { get; set; }
+        public string StockQuantity { get; set; }
+        public string Category { get; set; }
+        public string UnitPrice { get; set; }
+        public DateTime ExpiryDate { get; set; }
+
+    }
+
+    public class MedicationApiResponse
     {
         public bool success { get; set; }
         public string message { get; set; }
-        public object data { get; set; }
+        public List<Medication> data { get; set; }
     }
-
-    public class Appointment
-    {
-        public string AppointmentID { get; set; }
-        public string PetID { get; set; }
-        public string VetID { get; set; }
-        public string ServiceType { get; set; }
-        public DateTime ApptDate { get; set; }
-        public string Status { get; set; }
-        public string LocationID { get; set; }
-    }
-
-    public class ApiResponse
-    {
-        public bool success { get; set; }
-        public string message { get; set; }
-        public List<Appointment> data { get; set; }
-    }
-
-
 
 }
+
