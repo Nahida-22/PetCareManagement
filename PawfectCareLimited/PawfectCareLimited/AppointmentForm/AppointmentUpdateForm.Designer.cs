@@ -44,6 +44,8 @@
             updatedAppointmentDate = new DateTimePicker();
             button1 = new Button();
             panel1 = new Panel();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // apppointmentUpdateLabel
@@ -208,12 +210,22 @@
             panel1.Size = new Size(298, 1);
             panel1.TabIndex = 23;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
+            pictureBox1.Location = new Point(-2, -1);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(134, 114);
+            pictureBox1.TabIndex = 24;
+            pictureBox1.TabStop = false;
+            // 
             // AppointmentUpdateForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(700, 386);
+            Controls.Add(pictureBox1);
             Controls.Add(panel1);
             Controls.Add(button1);
             Controls.Add(updatedAppointmentDate);
@@ -235,6 +247,7 @@
             Name = "AppointmentUpdateForm";
             Text = "UpdateOwnerForm";
             Load += AppointmentUpdateForm_Load_1;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -257,5 +270,6 @@
         private DateTimePicker updatedAppointmentDate;
         private Button button1;
         private Panel panel1;
+        private PictureBox pictureBox1;
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace PawfectCareLimited
@@ -37,27 +39,51 @@ namespace PawfectCareLimited
             }
 
             // Check if the user already exists in the file
-            if (File.Exists(filePath))
+            try
             {
-                var existingUsers = File.ReadAllLines(filePath);
-                foreach (string user in existingUsers)
+                if (File.Exists(filePath))
                 {
-                    if (user.Split(':')[0] == username)
+                    var existingUsers = File.ReadAllLines(filePath);
+                    foreach (string user in existingUsers)
                     {
-                        MessageBox.Show("Username already exists. Please choose a different one.", "Username Taken", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        if (user.Split(':')[0] == username)
+                        {
+                            MessageBox.Show("Username already exists. Please choose a different one.", "Username Taken", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
                 }
             }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Error reading the user data file: {ex.Message}", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // Save the new user (username:password) to the file
-            string userData = $"{username}:{password}";
-            File.AppendAllLines(filePath, new[] { userData });
+            // Hash the password before saving
+            string hashedPassword = HashPassword(password);
+
+            // Save the new user (username:hashedPassword) to the file
+            try
+            {
+                string userData = $"{username}:{hashedPassword}";
+                File.AppendAllLines(filePath, new[] { userData });
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show($"Error saving user data: {ex.Message}", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // Notify the user about successful signup
             MessageBox.Show("Signup successful! You can now login.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
- 
+            // Hide the current sign-up form
+            this.Hide();
+
+            // Create and show the login form after signup
+            loginForm loginForm = new loginForm();
+            loginForm.Show();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -73,6 +99,21 @@ namespace PawfectCareLimited
         {
             // Close the form when "Exit" link is clicked
             this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // Method to hash the password using SHA256
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            }
         }
     }
 }
