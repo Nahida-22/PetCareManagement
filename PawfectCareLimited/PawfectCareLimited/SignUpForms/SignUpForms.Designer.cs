@@ -201,11 +201,11 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.image_7;
-            pictureBox1.Location = new Point(81, -20);
+            pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
+            pictureBox1.Location = new Point(85, -26);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(114, 99);
-            pictureBox1.TabIndex = 17;
+            pictureBox1.Size = new Size(126, 105);
+            pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // SignUpForms

@@ -73,20 +73,10 @@ namespace PawfectCareLimited_Winforms_ {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap image_7 {
+        internal static System.Drawing.Bitmap logoPawfectCare {
             get {
-                object obj = ResourceManager.GetObject("image 7", resourceCulture);
+                object obj = ResourceManager.GetObject("logoPawfectCare", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] logo {
-            get {
-                object obj = ResourceManager.GetObject("logo", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
