@@ -12,7 +12,7 @@ using PawfectCareLtd.Data;
 namespace PawfectCareLtd.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250411163215_AllTablesMigration")]
+    [Migration("20250415113616_AllTablesMigration")]
     partial class AllTablesMigration
     {
         /// <inheritdoc />

@@ -447,43 +447,43 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
                 //                // 5. UPDATE status to "Completed"
                 //                crud.UpdateOperationForOrder("O10003", "OrderStatus", "aler dow");
-                var paymentCrud = scope.ServiceProvider.GetRequiredService<PaymentCRUD>();
+//                var paymentCrud = scope.ServiceProvider.GetRequiredService<PaymentCRUD>();
 
-                // READ test before inserting
+//                // READ test before inserting
 
-                paymentCrud.DeletePaymentById("B10001");
+//                paymentCrud.DeletePaymentById("B10001");
 
-                // INSERT test
+//                // INSERT test
                
 
                
-                var prescriptionData = new Dictionary<string, object>
-                                                {
-                                                    { "BillID", "B10001" },
-                        { "AppointmentID", "A10013" },
-                        { "TotalAmount",100.00 },
-                        { "PaymentDate",  DateTime.Parse("2025-03-09") },
-                        { "PaymentStatus", "Completed" }
+//                var prescriptionData = new Dictionary<string, object>
+//                                                {
+//                                                    { "BillID", "B10001" },
+//                        { "AppointmentID", "A10013" },
+//                        { "TotalAmount",100.00 },
+//                        { "PaymentDate",  DateTime.Parse("2025-03-09") },
+//                        { "PaymentStatus", "Completed" }
 
-                                                };
+//                                                };
 
-                paymentCrud.InsertOperationForPayment(
-                    fieldValues: prescriptionData,
-                    primaryKeyName: "BillID",
-                    primaryKeyFormat: @"^B\d{5}$"
+//                paymentCrud.InsertOperationForPayment(
+//                    fieldValues: prescriptionData,
+//                    primaryKeyName: "BillID",
+//                    primaryKeyFormat: @"^B\d{5}$"
 
-,
-                    foreignKeys: new List<(string, string)>
-                    {
-                                                        ("AppointmentID", "Appointment")
-
-
-                    }
-                );
+//,
+//                    foreignKeys: new List<(string, string)>
+//                    {
+//                                                        ("AppointmentID", "Appointment")
 
 
-                // UPDATE test
-                paymentCrud.UpdateOperationForPayment("B10002", "PaymentStatus", "tchombo");
+//                    }
+//                );
+
+
+//                // UPDATE test
+//                paymentCrud.UpdateOperationForPayment("B10002", "PaymentStatus", "tchombo");
 
                 
 
