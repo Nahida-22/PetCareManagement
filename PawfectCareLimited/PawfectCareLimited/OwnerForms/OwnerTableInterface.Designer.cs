@@ -34,83 +34,104 @@
             OwnerDeleteButton = new Button();
             SearchBarTextBox = new TextBox();
             SearchButton = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)OwnerTableDataGridView).BeginInit();
             SuspendLayout();
             // 
             // OwnerLabel
             // 
             OwnerLabel.AutoSize = true;
-            OwnerLabel.Font = new Font("Segoe UI", 18F);
-            OwnerLabel.Location = new Point(10, 7);
+            OwnerLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            OwnerLabel.ForeColor = Color.DarkCyan;
+            OwnerLabel.Location = new Point(275, 14);
             OwnerLabel.Name = "OwnerLabel";
-            OwnerLabel.Size = new Size(146, 32);
+            OwnerLabel.Size = new Size(190, 28);
             OwnerLabel.TabIndex = 0;
-            OwnerLabel.Text = "Owner Table";
+            OwnerLabel.Text = "OWNER TABLE";
             OwnerLabel.Click += OwnerLabel_Click;
             // 
             // OwnerTableDataGridView
             // 
             OwnerTableDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            OwnerTableDataGridView.Location = new Point(10, 40);
+            OwnerTableDataGridView.Location = new Point(28, 101);
             OwnerTableDataGridView.Margin = new Padding(3, 2, 3, 2);
             OwnerTableDataGridView.Name = "OwnerTableDataGridView";
             OwnerTableDataGridView.RowHeadersWidth = 51;
-            OwnerTableDataGridView.Size = new Size(666, 237);
+            OwnerTableDataGridView.Size = new Size(669, 236);
             OwnerTableDataGridView.TabIndex = 1;
             // 
             // OwnerUpdateButton
             // 
-            OwnerUpdateButton.Location = new Point(98, 281);
+            OwnerUpdateButton.BackColor = Color.ForestGreen;
+            OwnerUpdateButton.Location = new Point(223, 361);
             OwnerUpdateButton.Margin = new Padding(3, 2, 3, 2);
             OwnerUpdateButton.Name = "OwnerUpdateButton";
-            OwnerUpdateButton.Size = new Size(82, 22);
+            OwnerUpdateButton.Size = new Size(100, 45);
             OwnerUpdateButton.TabIndex = 3;
-            OwnerUpdateButton.Text = "Update";
-            OwnerUpdateButton.UseVisualStyleBackColor = true;
+            OwnerUpdateButton.Text = "UPDATE";
+            OwnerUpdateButton.UseVisualStyleBackColor = false;
             OwnerUpdateButton.Click += OwnerUpdateButton_Click;
             // 
             // OwnerDeleteButton
             // 
-            OwnerDeleteButton.Location = new Point(10, 281);
+            OwnerDeleteButton.BackColor = Color.IndianRed;
+            OwnerDeleteButton.Location = new Point(406, 361);
             OwnerDeleteButton.Margin = new Padding(3, 2, 3, 2);
             OwnerDeleteButton.Name = "OwnerDeleteButton";
-            OwnerDeleteButton.Size = new Size(82, 22);
+            OwnerDeleteButton.Size = new Size(105, 45);
             OwnerDeleteButton.TabIndex = 4;
-            OwnerDeleteButton.Text = "Delete";
-            OwnerDeleteButton.UseVisualStyleBackColor = true;
+            OwnerDeleteButton.Text = "DELETE";
+            OwnerDeleteButton.UseVisualStyleBackColor = false;
             // 
             // SearchBarTextBox
             // 
-            SearchBarTextBox.Location = new Point(176, 9);
+            SearchBarTextBox.Location = new Point(165, 56);
             SearchBarTextBox.Margin = new Padding(3, 2, 3, 2);
             SearchBarTextBox.Name = "SearchBarTextBox";
-            SearchBarTextBox.Size = new Size(110, 23);
+            SearchBarTextBox.Size = new Size(356, 23);
             SearchBarTextBox.TabIndex = 5;
             // 
             // SearchButton
             // 
-            SearchButton.Location = new Point(290, 8);
+            SearchButton.BackColor = Color.DarkCyan;
+            SearchButton.Location = new Point(527, 48);
             SearchButton.Margin = new Padding(3, 2, 3, 2);
             SearchButton.Name = "SearchButton";
-            SearchButton.Size = new Size(82, 22);
+            SearchButton.Size = new Size(91, 36);
             SearchButton.TabIndex = 6;
-            SearchButton.Text = "Search";
-            SearchButton.UseVisualStyleBackColor = true;
+            SearchButton.Text = "SEARCH";
+            SearchButton.UseVisualStyleBackColor = false;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.DarkCyan;
+            button1.Location = new Point(28, 432);
+            button1.Name = "button1";
+            button1.Size = new Size(76, 43);
+            button1.TabIndex = 7;
+            button1.Text = "BACK";
+            button1.UseVisualStyleBackColor = false;
             // 
             // OwnerTableInterface
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(700, 338);
+            BackColor = Color.White;
+            ClientSize = new Size(727, 487);
+            Controls.Add(button1);
             Controls.Add(SearchButton);
             Controls.Add(SearchBarTextBox);
             Controls.Add(OwnerDeleteButton);
             Controls.Add(OwnerUpdateButton);
             Controls.Add(OwnerTableDataGridView);
             Controls.Add(OwnerLabel);
+            Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ForeColor = Color.White;
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OwnerTableInterface";
             Text = "OwnerTableInterface";
+            Load += OwnerTableInterface_Load_1;
             ((System.ComponentModel.ISupportInitialize)OwnerTableDataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -124,5 +145,6 @@
         private Button OwnerDeleteButton;
         private TextBox SearchBarTextBox;
         private Button SearchButton;
+        private Button button1;
     }
 }

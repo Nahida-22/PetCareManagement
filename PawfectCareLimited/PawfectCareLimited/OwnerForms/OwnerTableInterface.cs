@@ -96,6 +96,11 @@ namespace PawfectCareLimited
         {
 
         }
+
+        private void OwnerTableInterface_Load_1(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class Owner
