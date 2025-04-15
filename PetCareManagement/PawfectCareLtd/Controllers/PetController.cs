@@ -30,8 +30,20 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Pet API.
         [HttpPost]
-        public IActionResult CreatePet([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreatePet([FromBody] PetDTO petDto)
         {
+
+            // Create a dictionary is to hold the field names and their corresponding values for a Pet.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "PetID", petDto.PetID },
+                { "OwnerID", petDto.OwnerID },
+                { "PetName", petDto.PetName },
+                { "PetType", petDto.PetType },
+                { "Breed", petDto.Breed },
+                { "Age", petDto.Age }
+            };
+
             // Define the primary key for the Pet Table.
             var primaryKeyName = "PetID";
 
@@ -125,6 +137,31 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
+        }
+
+
+
+
+        // Class to represent data transfer object for pet.
+        public class PetDTO
+        {
+            // Property to store the pet unique identifier.
+            public string PetID { get; set; }
+
+            // Property to store the Owner unique identifier.
+            public string OwnerID { get; set; }
+
+            // Property to store the name of the pet.
+            public string PetName { get; set; }
+
+            // Property to store type of the pet.
+            public string PetType { get; set; }
+
+            // Property to store the bread of the pet.
+            public string Breed { get; set; }
+
+            // Property to store the age of the pet.
+            public int Age { get; set; }
         }
     }
 }
