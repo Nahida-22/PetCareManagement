@@ -49,191 +49,238 @@
             bookAppointmentButton = new Button();
             appointmentIdBooking = new Label();
             appointmentIdValue = new TextBox();
+            button1 = new Button();
             SuspendLayout();
             // 
             // bookAppointmentLabel
             // 
             bookAppointmentLabel.AutoSize = true;
-            bookAppointmentLabel.Font = new Font("Segoe UI", 18F);
-            bookAppointmentLabel.Location = new Point(12, 9);
+            bookAppointmentLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            bookAppointmentLabel.ForeColor = Color.DarkCyan;
+            bookAppointmentLabel.Location = new Point(224, 9);
             bookAppointmentLabel.Name = "bookAppointmentLabel";
-            bookAppointmentLabel.Size = new Size(310, 41);
+            bookAppointmentLabel.Size = new Size(255, 28);
             bookAppointmentLabel.TabIndex = 0;
-            bookAppointmentLabel.Text = "Book an Appointment";
+            bookAppointmentLabel.Text = "Book an appointment";
             // 
             // ownerDetailsLabel
             // 
             ownerDetailsLabel.AutoSize = true;
-            ownerDetailsLabel.Font = new Font("Segoe UI", 12F);
-            ownerDetailsLabel.Location = new Point(22, 78);
+            ownerDetailsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ownerDetailsLabel.ForeColor = Color.DarkCyan;
+            ownerDetailsLabel.Location = new Point(19, 58);
             ownerDetailsLabel.Name = "ownerDetailsLabel";
-            ownerDetailsLabel.Size = new Size(133, 28);
+            ownerDetailsLabel.Size = new Size(117, 21);
             ownerDetailsLabel.TabIndex = 1;
             ownerDetailsLabel.Text = "Owner Details";
             // 
             // ownerFirstNameValue
             // 
-            ownerFirstNameValue.Location = new Point(121, 119);
+            ownerFirstNameValue.Location = new Point(106, 89);
+            ownerFirstNameValue.Margin = new Padding(3, 2, 3, 2);
             ownerFirstNameValue.Name = "ownerFirstNameValue";
-            ownerFirstNameValue.Size = new Size(125, 27);
+            ownerFirstNameValue.Size = new Size(154, 23);
             ownerFirstNameValue.TabIndex = 2;
             // 
             // firstNameLabel
             // 
             firstNameLabel.AutoSize = true;
-            firstNameLabel.Location = new Point(24, 122);
+            firstNameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            firstNameLabel.ForeColor = Color.DimGray;
+            firstNameLabel.Location = new Point(21, 92);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(91, 20);
+            firstNameLabel.Size = new Size(76, 15);
             firstNameLabel.TabIndex = 3;
             firstNameLabel.Text = "First Name : ";
             // 
             // lastNameValue
             // 
             lastNameValue.AutoSize = true;
-            lastNameValue.Location = new Point(22, 162);
+            lastNameValue.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lastNameValue.ForeColor = Color.DimGray;
+            lastNameValue.Location = new Point(19, 122);
             lastNameValue.Name = "lastNameValue";
-            lastNameValue.Size = new Size(90, 20);
+            lastNameValue.Size = new Size(74, 15);
             lastNameValue.TabIndex = 4;
             lastNameValue.Text = "Last Name : ";
             // 
             // ownerLastNameValue
             // 
-            ownerLastNameValue.Location = new Point(119, 162);
+            ownerLastNameValue.Location = new Point(106, 116);
+            ownerLastNameValue.Margin = new Padding(3, 2, 3, 2);
             ownerLastNameValue.Name = "ownerLastNameValue";
-            ownerLastNameValue.Size = new Size(125, 27);
+            ownerLastNameValue.Size = new Size(154, 23);
             ownerLastNameValue.TabIndex = 5;
             // 
             // petDetailsLabel
             // 
             petDetailsLabel.AutoSize = true;
-            petDetailsLabel.Font = new Font("Segoe UI", 12F);
-            petDetailsLabel.Location = new Point(22, 232);
+            petDetailsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            petDetailsLabel.ForeColor = Color.DarkCyan;
+            petDetailsLabel.Location = new Point(19, 174);
             petDetailsLabel.Name = "petDetailsLabel";
-            petDetailsLabel.Size = new Size(103, 28);
+            petDetailsLabel.Size = new Size(92, 21);
             petDetailsLabel.TabIndex = 6;
             petDetailsLabel.Text = "Pet Details";
             // 
             // petNameLabel
             // 
             petNameLabel.AutoSize = true;
-            petNameLabel.Location = new Point(24, 274);
+            petNameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            petNameLabel.ForeColor = SystemColors.ControlDarkDark;
+            petNameLabel.Location = new Point(21, 206);
             petNameLabel.Name = "petNameLabel";
-            petNameLabel.Size = new Size(84, 20);
+            petNameLabel.Size = new Size(71, 15);
             petNameLabel.TabIndex = 7;
             petNameLabel.Text = "Pet Name : ";
             // 
             // petIdValue
             // 
-            petIdValue.Location = new Point(121, 274);
+            petIdValue.Location = new Point(106, 198);
+            petIdValue.Margin = new Padding(3, 2, 3, 2);
             petIdValue.Name = "petIdValue";
-            petIdValue.Size = new Size(125, 27);
+            petIdValue.Size = new Size(154, 23);
             petIdValue.TabIndex = 8;
             // 
             // appointmentDetailsLabel
             // 
             appointmentDetailsLabel.AutoSize = true;
-            appointmentDetailsLabel.Font = new Font("Segoe UI", 12F);
-            appointmentDetailsLabel.Location = new Point(347, 62);
+            appointmentDetailsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            appointmentDetailsLabel.ForeColor = Color.DarkCyan;
+            appointmentDetailsLabel.Location = new Point(304, 58);
             appointmentDetailsLabel.Name = "appointmentDetailsLabel";
-            appointmentDetailsLabel.Size = new Size(193, 28);
+            appointmentDetailsLabel.Size = new Size(169, 21);
             appointmentDetailsLabel.TabIndex = 9;
             appointmentDetailsLabel.Text = "Appointment Details";
             // 
             // appointmentDateBooking
             // 
             appointmentDateBooking.AutoSize = true;
-            appointmentDateBooking.Location = new Point(347, 122);
+            appointmentDateBooking.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            appointmentDateBooking.ForeColor = Color.DimGray;
+            appointmentDateBooking.Location = new Point(304, 92);
             appointmentDateBooking.Name = "appointmentDateBooking";
-            appointmentDateBooking.Size = new Size(144, 20);
+            appointmentDateBooking.Size = new Size(120, 15);
             appointmentDateBooking.TabIndex = 10;
             appointmentDateBooking.Text = "Appointment Date : ";
             // 
             // appointmentDateValue
             // 
-            appointmentDateValue.Location = new Point(497, 117);
+            appointmentDateValue.Location = new Point(435, 88);
+            appointmentDateValue.Margin = new Padding(3, 2, 3, 2);
             appointmentDateValue.Name = "appointmentDateValue";
-            appointmentDateValue.Size = new Size(250, 27);
+            appointmentDateValue.Size = new Size(219, 23);
             appointmentDateValue.TabIndex = 11;
             // 
             // serviceTypeBooking
             // 
             serviceTypeBooking.AutoSize = true;
-            serviceTypeBooking.Location = new Point(347, 169);
+            serviceTypeBooking.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            serviceTypeBooking.ForeColor = Color.DimGray;
+            serviceTypeBooking.Location = new Point(304, 127);
             serviceTypeBooking.Name = "serviceTypeBooking";
-            serviceTypeBooking.Size = new Size(102, 20);
+            serviceTypeBooking.Size = new Size(87, 15);
             serviceTypeBooking.TabIndex = 12;
             serviceTypeBooking.Text = "Service Type : ";
             // 
             // serviceTypeBookingValue
             // 
-            serviceTypeBookingValue.Location = new Point(497, 162);
+            serviceTypeBookingValue.Location = new Point(435, 122);
+            serviceTypeBookingValue.Margin = new Padding(3, 2, 3, 2);
             serviceTypeBookingValue.Name = "serviceTypeBookingValue";
-            serviceTypeBookingValue.Size = new Size(125, 27);
+            serviceTypeBookingValue.Size = new Size(219, 23);
             serviceTypeBookingValue.TabIndex = 13;
             // 
             // locationBookingLabel
             // 
             locationBookingLabel.AutoSize = true;
-            locationBookingLabel.Location = new Point(347, 217);
+            locationBookingLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            locationBookingLabel.ForeColor = Color.DimGray;
+            locationBookingLabel.Location = new Point(304, 163);
             locationBookingLabel.Name = "locationBookingLabel";
-            locationBookingLabel.Size = new Size(77, 20);
+            locationBookingLabel.Size = new Size(63, 15);
             locationBookingLabel.TabIndex = 14;
             locationBookingLabel.Text = "Location : ";
             // 
             // locationIdBookingValue
             // 
-            locationIdBookingValue.Location = new Point(497, 217);
+            locationIdBookingValue.Location = new Point(435, 155);
+            locationIdBookingValue.Margin = new Padding(3, 2, 3, 2);
             locationIdBookingValue.Name = "locationIdBookingValue";
-            locationIdBookingValue.Size = new Size(125, 27);
+            locationIdBookingValue.Size = new Size(219, 23);
             locationIdBookingValue.TabIndex = 15;
             // 
             // assignedToVetBooking
             // 
             assignedToVetBooking.AutoSize = true;
-            assignedToVetBooking.Location = new Point(347, 270);
+            assignedToVetBooking.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            assignedToVetBooking.ForeColor = Color.DimGray;
+            assignedToVetBooking.Location = new Point(304, 194);
             assignedToVetBooking.Name = "assignedToVetBooking";
-            assignedToVetBooking.Size = new Size(102, 20);
+            assignedToVetBooking.Size = new Size(85, 15);
             assignedToVetBooking.TabIndex = 16;
             assignedToVetBooking.Text = "Assign to Vet :";
             // 
             // assignedToVetIdBookingValue
             // 
-            assignedToVetIdBookingValue.Location = new Point(497, 267);
+            assignedToVetIdBookingValue.Location = new Point(435, 186);
+            assignedToVetIdBookingValue.Margin = new Padding(3, 2, 3, 2);
             assignedToVetIdBookingValue.Name = "assignedToVetIdBookingValue";
-            assignedToVetIdBookingValue.Size = new Size(125, 27);
+            assignedToVetIdBookingValue.Size = new Size(219, 23);
             assignedToVetIdBookingValue.TabIndex = 17;
             // 
             // bookAppointmentButton
             // 
-            bookAppointmentButton.Location = new Point(593, 358);
+            bookAppointmentButton.BackColor = SystemColors.HotTrack;
+            bookAppointmentButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            bookAppointmentButton.ForeColor = Color.White;
+            bookAppointmentButton.Location = new Point(291, 281);
+            bookAppointmentButton.Margin = new Padding(3, 2, 3, 2);
             bookAppointmentButton.Name = "bookAppointmentButton";
-            bookAppointmentButton.Size = new Size(154, 35);
+            bookAppointmentButton.Size = new Size(114, 46);
             bookAppointmentButton.TabIndex = 18;
-            bookAppointmentButton.Text = "Book Appointment";
-            bookAppointmentButton.UseVisualStyleBackColor = true;
+            bookAppointmentButton.Text = "BOOK";
+            bookAppointmentButton.UseVisualStyleBackColor = false;
             bookAppointmentButton.Click += bookAppointmentButton_Click;
             // 
             // appointmentIdBooking
             // 
             appointmentIdBooking.AutoSize = true;
-            appointmentIdBooking.Location = new Point(347, 313);
+            appointmentIdBooking.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            appointmentIdBooking.ForeColor = Color.DimGray;
+            appointmentIdBooking.Location = new Point(304, 227);
             appointmentIdBooking.Name = "appointmentIdBooking";
-            appointmentIdBooking.Size = new Size(127, 20);
+            appointmentIdBooking.Size = new Size(106, 15);
             appointmentIdBooking.TabIndex = 19;
             appointmentIdBooking.Text = "Appointment ID : ";
             // 
             // appointmentIdValue
             // 
-            appointmentIdValue.Location = new Point(497, 313);
+            appointmentIdValue.Location = new Point(435, 219);
+            appointmentIdValue.Margin = new Padding(3, 2, 3, 2);
             appointmentIdValue.Name = "appointmentIdValue";
-            appointmentIdValue.Size = new Size(125, 27);
+            appointmentIdValue.Size = new Size(219, 23);
             appointmentIdValue.TabIndex = 20;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.DarkCyan;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(21, 284);
+            button1.Name = "button1";
+            button1.Size = new Size(76, 43);
+            button1.TabIndex = 21;
+            button1.Text = "BACK";
+            button1.UseVisualStyleBackColor = false;
             // 
             // AppointmentBookingForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.White;
+            ClientSize = new Size(700, 338);
+            Controls.Add(button1);
             Controls.Add(appointmentIdValue);
             Controls.Add(appointmentIdBooking);
             Controls.Add(bookAppointmentButton);
@@ -255,6 +302,8 @@
             Controls.Add(ownerFirstNameValue);
             Controls.Add(ownerDetailsLabel);
             Controls.Add(bookAppointmentLabel);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AppointmentBookingForm";
             Text = "AppointmentInsertForm";
             ResumeLayout(false);
@@ -284,5 +333,6 @@
         private Button bookAppointmentButton;
         private Label appointmentIdBooking;
         private TextBox appointmentIdValue;
+        private Button button1;
     }
 }
