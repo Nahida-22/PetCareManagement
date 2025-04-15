@@ -14,7 +14,7 @@ namespace PawfectCareLimited
     {
         // UPDATE window form.
         // Declare variables.
-        private string appointmentId, appointmentVetId, appointmentServiceType,appointmentStatus, appointmentLocation;
+        private string appointmentId, appointmentVetId, appointmentServiceType, appointmentStatus, appointmentLocation;
         private DateTime appointmentDate;
 
         // Initialise an instance of HttpClient for API calls.
@@ -112,6 +112,16 @@ namespace PawfectCareLimited
 
                 this.Close(); // Close the form.
             }
+        }
+
+        private void AppointmentUpdateForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AppointmentUpdateForm_Load_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

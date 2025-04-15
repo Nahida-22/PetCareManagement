@@ -10,6 +10,9 @@
     <Compile Update="AppointmentForm\AppointmentUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="HomeForms\HomeForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="LoginForms\loginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -23,6 +26,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="SignUpForms\SignUpForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UsersForms\UsersForms.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
