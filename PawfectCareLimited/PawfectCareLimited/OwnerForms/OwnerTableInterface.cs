@@ -65,7 +65,7 @@ namespace PawfectCareLimited
                     MessageBox.Show("Exception: " + ex.Message);
                 }
             }
-                
+
         }
 
         // Event Listener for when the UPDATE button is clicked.
@@ -75,7 +75,7 @@ namespace PawfectCareLimited
             if (OwnerTableDataGridView.CurrentRow != null)
             {
                 // Get values from selected row
-                string id= OwnerTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+                string id = OwnerTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
                 string firstName = OwnerTableDataGridView.CurrentRow.Cells[1].Value?.ToString();
                 string lastName = OwnerTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
 
@@ -92,6 +92,10 @@ namespace PawfectCareLimited
             }
         }
 
+        private void OwnerLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class Owner

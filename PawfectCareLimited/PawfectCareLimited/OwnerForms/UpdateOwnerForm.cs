@@ -16,7 +16,7 @@ namespace PawfectCareLimited
     {
         // Declare variables.
         private string OwnerId, ownerFirstName, ownerLastName;
-        public UpdateOwnerForm(string id,string firstName, string lastName)
+        public UpdateOwnerForm(string id, string firstName, string lastName)
         {
             // Initialise the UI components.
             InitializeComponent();
@@ -57,6 +57,16 @@ namespace PawfectCareLimited
                 // Display error message.
                 MessageBox.Show($"Error loading data: {ex.Message}");
             }
+        }
+
+        private void OwnerUpdateLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateOwnerForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

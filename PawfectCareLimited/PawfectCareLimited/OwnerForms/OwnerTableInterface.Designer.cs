@@ -41,26 +41,29 @@
             // 
             OwnerLabel.AutoSize = true;
             OwnerLabel.Font = new Font("Segoe UI", 18F);
-            OwnerLabel.Location = new Point(12, 9);
+            OwnerLabel.Location = new Point(10, 7);
             OwnerLabel.Name = "OwnerLabel";
-            OwnerLabel.Size = new Size(183, 41);
+            OwnerLabel.Size = new Size(146, 32);
             OwnerLabel.TabIndex = 0;
             OwnerLabel.Text = "Owner Table";
+            OwnerLabel.Click += OwnerLabel_Click;
             // 
             // OwnerTableDataGridView
             // 
             OwnerTableDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            OwnerTableDataGridView.Location = new Point(12, 53);
+            OwnerTableDataGridView.Location = new Point(10, 40);
+            OwnerTableDataGridView.Margin = new Padding(3, 2, 3, 2);
             OwnerTableDataGridView.Name = "OwnerTableDataGridView";
             OwnerTableDataGridView.RowHeadersWidth = 51;
-            OwnerTableDataGridView.Size = new Size(761, 316);
+            OwnerTableDataGridView.Size = new Size(666, 237);
             OwnerTableDataGridView.TabIndex = 1;
             // 
             // OwnerUpdateButton
             // 
-            OwnerUpdateButton.Location = new Point(112, 375);
+            OwnerUpdateButton.Location = new Point(98, 281);
+            OwnerUpdateButton.Margin = new Padding(3, 2, 3, 2);
             OwnerUpdateButton.Name = "OwnerUpdateButton";
-            OwnerUpdateButton.Size = new Size(94, 29);
+            OwnerUpdateButton.Size = new Size(82, 22);
             OwnerUpdateButton.TabIndex = 3;
             OwnerUpdateButton.Text = "Update";
             OwnerUpdateButton.UseVisualStyleBackColor = true;
@@ -68,40 +71,44 @@
             // 
             // OwnerDeleteButton
             // 
-            OwnerDeleteButton.Location = new Point(12, 375);
+            OwnerDeleteButton.Location = new Point(10, 281);
+            OwnerDeleteButton.Margin = new Padding(3, 2, 3, 2);
             OwnerDeleteButton.Name = "OwnerDeleteButton";
-            OwnerDeleteButton.Size = new Size(94, 29);
+            OwnerDeleteButton.Size = new Size(82, 22);
             OwnerDeleteButton.TabIndex = 4;
             OwnerDeleteButton.Text = "Delete";
             OwnerDeleteButton.UseVisualStyleBackColor = true;
             // 
             // SearchBarTextBox
             // 
-            SearchBarTextBox.Location = new Point(201, 12);
+            SearchBarTextBox.Location = new Point(176, 9);
+            SearchBarTextBox.Margin = new Padding(3, 2, 3, 2);
             SearchBarTextBox.Name = "SearchBarTextBox";
-            SearchBarTextBox.Size = new Size(125, 27);
+            SearchBarTextBox.Size = new Size(110, 23);
             SearchBarTextBox.TabIndex = 5;
             // 
             // SearchButton
             // 
-            SearchButton.Location = new Point(332, 11);
+            SearchButton.Location = new Point(290, 8);
+            SearchButton.Margin = new Padding(3, 2, 3, 2);
             SearchButton.Name = "SearchButton";
-            SearchButton.Size = new Size(94, 29);
+            SearchButton.Size = new Size(82, 22);
             SearchButton.TabIndex = 6;
             SearchButton.Text = "Search";
             SearchButton.UseVisualStyleBackColor = true;
             // 
             // OwnerTableInterface
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(700, 338);
             Controls.Add(SearchButton);
             Controls.Add(SearchBarTextBox);
             Controls.Add(OwnerDeleteButton);
             Controls.Add(OwnerUpdateButton);
             Controls.Add(OwnerTableDataGridView);
             Controls.Add(OwnerLabel);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "OwnerTableInterface";
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)OwnerTableDataGridView).EndInit();
