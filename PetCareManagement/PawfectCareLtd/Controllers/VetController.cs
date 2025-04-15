@@ -31,8 +31,20 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Vet API.
         [HttpPost]
-        public IActionResult CreateVet([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateVet([FromBody] VetDTO vetDto)
         {
+
+            // Create a dictionary is to hold the field names and their corresponding values for a Suppplier.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "VetID", vetDto.VetID },
+                { "VetName", vetDto.VetName },
+                { "Specialisation", vetDto.Specialisation },
+                { "PhoneNo", vetDto.PhoneNo },
+                { "Email", vetDto.Email },
+                { "Address", vetDto.Address }
+            };
+
             // Define the primary key for the Vet Table.
             var primaryKeyName = "VetID";
 
@@ -109,5 +121,31 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
         }
+
+
+
+
+        // Class to represent data transfer object for veterinarian.
+        public class VetDTO
+        {
+            // Property to store the unique identifier for the vet.
+            public string VetID { get; set; }
+
+            // Property to store the vet's full name.
+            public string VetName { get; set; }
+
+            // Property to store the vet's specialisation.
+            public string Specialisation { get; set; }
+
+            // Property to store the vet's phone number.
+            public string PhoneNo { get; set; }
+
+            // Property to store the vet's email address.
+            public string Email { get; set; }
+
+            // Property to store the vet's address.
+            public string Address { get; set; }
+        }
+
     }
 }

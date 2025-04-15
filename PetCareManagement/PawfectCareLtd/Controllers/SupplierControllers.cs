@@ -31,8 +31,18 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Supplier API.
         [HttpPost]
-        public IActionResult CreateSupplier([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateSupplier([FromBody] SupplierDTO supplierDto)
         {
+            // Create a dictionary is to hold the field names and their corresponding values for a Suppplier.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "SupplierID", supplierDto.SupplierID },
+                { "SupplierName", supplierDto.SupplierName },
+                { "PhoneNumber", supplierDto.PhoneNumber },
+                { "Address", supplierDto.Address },
+                { "Email", supplierDto.Email }
+            };
+
             // Define the primary key for the Supplier Table.
             var primaryKeyName = "SupplierID";
 
@@ -124,5 +134,28 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
         }
+
+
+
+
+        // Class to represent data transfer object for supplier.
+        public class SupplierDTO
+        {
+            // Property to store the unique identifier for the supplier.
+            public string SupplierID { get; set; }
+
+            // Property to store the name of the supplier.
+            public string SupplierName { get; set; }
+
+            // Property to store the supplier's phone number.
+            public string PhoneNumber { get; set; }
+
+            // Property to store the supplier's address.
+            public string Address { get; set; }
+
+            // Property to store the supplier's email address.
+            public string Email { get; set; }
+        }
+
     }
 }

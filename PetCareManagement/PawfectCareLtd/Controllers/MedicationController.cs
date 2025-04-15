@@ -31,8 +31,20 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Medication API.
         [HttpPost]
-        public IActionResult CreateMedication([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateMedication([FromBody] MedicationDTO medicationDto)
         {
+            // Create a dictionary is to hold the field names and their corresponding values for a Medication.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "MedicationID", medicationDto.MedicationID },
+                { "MedicationName", medicationDto.MedicationName },
+                { "SupplierID", medicationDto.SupplierID },
+                { "StockQuantity", medicationDto.StockQuantity },
+                { "Category", medicationDto.Category },
+                { "UnitPrice", medicationDto.UnitPrice },
+                { "ExpiryDate", medicationDto.ExpiryDate }
+            };
+
             // Define the primary key for the Medication Table.
             var primaryKeyName = "MedicationID";
 
@@ -126,6 +138,34 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
+        }
+
+
+
+
+        // Class to represent data transfer object for medication.
+        public class MedicationDTO
+        {
+            // Property to store the unique identifier for the medication.
+            public string MedicationID { get; set; }
+
+            // Property to store the name of the medication.
+            public string MedicationName { get; set; }
+
+            // Property to store the unique identifier of the supplier.
+            public string SupplierID { get; set; }
+
+            // Property to store the stock quantity.
+            public int StockQuantity { get; set; }
+
+            // Property to store the category of the medication.
+            public string Category { get; set; }
+
+            // Property to store the unit price of the medication.
+            public decimal UnitPrice { get; set; }
+
+            // Property to store the expiry date of the medication.
+            public DateTime ExpiryDate { get; set; }
         }
     }
 }

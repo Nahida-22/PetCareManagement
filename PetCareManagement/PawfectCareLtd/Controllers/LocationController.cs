@@ -31,8 +31,18 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Appointment API.
         [HttpPost]
-        public IActionResult CreateLocation([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateLocation([FromBody] LocationDTO locationDto)
         {
+            // Create a dictionary is to hold the field names and their corresponding values for a Location.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "LocationID", locationDto.LocationID },
+                { "Name", locationDto.Name },
+                { "Address", locationDto.Address },
+                { "Phone", locationDto.Phone },
+                { "Email", locationDto.Email }
+            };
+
             // Define the primary key for the Location Table.
             var primaryKeyName = "LocationID";
 
@@ -123,6 +133,28 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
+        }
+
+
+
+
+        // Class to represent data transfer object for location.
+        public class LocationDTO
+        {
+            // Property to store the location's unique identifier.
+            public string LocationID { get; set; }
+
+            // Property to store the name of the location.
+            public string Name { get; set; }
+
+            // Property to store the address of the location.
+            public string Address { get; set; }
+
+            // Property to store the phone number of the location.
+            public string Phone { get; set; }
+
+            // Property to store the email of the location.
+            public string Email { get; set; }
         }
     }
 }

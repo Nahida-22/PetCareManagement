@@ -31,8 +31,19 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Order API.
         [HttpPost]
-        public IActionResult CreateOrder([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateOrder([FromBody] OrderDTO orderDto)
         {
+            // Create a dictionary is to hold the field names and their corresponding values for an Order.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "OrderID", orderDto.OrderID },
+                { "MedicationID", orderDto.MedicationID },
+                { "Quantity", orderDto.Quantity },
+                { "OrderDate", orderDto.OrderDate },
+                { "OrderStatus", orderDto.OrderStatus }
+            };
+
+
             // Define the primary key for the Order Table.
             var primaryKeyName = "OrderID";
 
@@ -125,5 +136,28 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
         }
+
+
+
+
+        // Class to represent data transfer object for medication orders.
+        public class OrderDTO
+        {
+            // Property to store the unique identifier for the order.
+            public string OrderID { get; set; }
+
+            // Property to store the medication's unique identifier.
+            public string MedicationID { get; set; }
+
+            // Property to store the quantity of medication ordered.
+            public int Quantity { get; set; }
+
+            // Property to store the date the order was placed.
+            public DateTime OrderDate { get; set; }
+
+            // Property to store the status of the order.
+            public string OrderStatus { get; set; }
+        }
+
     }
 }

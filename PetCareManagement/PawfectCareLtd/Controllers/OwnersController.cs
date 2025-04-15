@@ -34,7 +34,7 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
         public IActionResult CreateOwner([FromBody] OwnerDTO ownerDto)
         {
 
-            // Create a dictionary is to hold the field names and their corresponding values for a Pet.
+            // Create a dictionary is to hold the field names and their corresponding values for a Owner.
             var fieldValues = new Dictionary<string, object>
             {
                 { "OwnerID", ownerDto.OwnerID },

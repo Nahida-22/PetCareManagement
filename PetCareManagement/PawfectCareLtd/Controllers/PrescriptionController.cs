@@ -31,8 +31,20 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Prescription API.
         [HttpPost]
-        public IActionResult CreatePrescription([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreatePrescription([FromBody] PrescriptionDTO prescriptionDto)
         {
+            // Create a dictionary is to hold the field names and their corresponding values for a Prescription.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "PrescriptionID", prescriptionDto.PrescriptionID },
+                { "PetID", prescriptionDto.PetID },
+                { "VetID", prescriptionDto.VetID },
+                { "Diagnosis", prescriptionDto.Diagnosis },
+                { "Dosage", prescriptionDto.Dosage },
+                { "DateIssued", prescriptionDto.DateIssued },
+                { "MedicationID", prescriptionDto.MedicationID }
+            };
+
             // Define the primary key for the Prescription Table.
             var primaryKeyName = "PrescriptionID";
 
@@ -127,6 +139,34 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
+        }
+
+
+
+
+        // Class to represent data transfer object for prescription.
+        public class PrescriptionDTO
+        {
+            // Property to store the unique prescription identifier.
+            public string PrescriptionID { get; set; }
+
+            // Property to store the pet's unique identifier.
+            public string PetID { get; set; }
+
+            // Property to store the vet's unique identifier.
+            public string VetID { get; set; }
+
+            // Property to store the diagnosis.
+            public string Diagnosis { get; set; }
+
+            // Property to store the dosage instructions.
+            public string Dosage { get; set; }
+
+            // Property to store the date the prescription was issued.
+            public DateTime DateIssued { get; set; }
+
+            // Property to store the prescribed medication's ID.
+            public string MedicationID { get; set; }
         }
     }
 }

@@ -31,8 +31,21 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Appointment API.
         [HttpPost]
-        public IActionResult CreateAppointment([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateAppointment([FromBody] AppointmentDTO appointmentDto)
         {
+            // Create a dictionary is to hold the field names and their corresponding values for a Appointment.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "AppointmentID", appointmentDto.AppointmentID },
+                { "PetID", appointmentDto.PetID },
+                { "VetID", appointmentDto.VetID },
+                { "ServiceType", appointmentDto.ServiceType },
+                { "ApptDate", appointmentDto.ApptDate },
+                { "Status", appointmentDto.Status },
+                { "LocationID", appointmentDto.LocationID }
+            };
+
+
             // Define the primary key for the Appointment Table.
             var primaryKeyName = "AppointmentID";
 
@@ -128,6 +141,34 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
+        }
+
+
+
+
+        // Class to represent data transfer object for appointment.
+        public class AppointmentDTO
+        {
+            // Property to store the unique appointment identifier.
+            public string AppointmentID { get; set; }
+
+            // Property to store the pet's unique identifier.
+            public string PetID { get; set; }
+
+            // Property to store the vet's unique identifier.
+            public string VetID { get; set; }
+
+            // Property to store the type of service for the appointment.
+            public string ServiceType { get; set; }
+
+            // Property to store the date of the appointment.
+            public DateTime ApptDate { get; set; }
+
+            // Property to store the status of the appointment.
+            public string Status { get; set; }
+
+            // Property to store the location's unique identifier.
+            public string LocationID { get; set; }
         }
     }
 }

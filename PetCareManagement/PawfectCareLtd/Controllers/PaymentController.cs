@@ -31,10 +31,20 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Payment API.
         [HttpPost]
-        public IActionResult CreatePayment([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreatePayment([FromBody] PaymentDTO paymentDto)
         {
+            // Create a dictionary is to hold the field names and their corresponding values for a Payment.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "BillID", paymentDto.BillID },
+                { "AppointmentID", paymentDto.AppointmentID },
+                { "Total_amt", paymentDto.Total_amt },
+                { "Payment_Date", paymentDto.Payment_Date },
+                { "Payment_Status", paymentDto.Payment_Status }
+            };
+
             // Define the primary key for the Payment Table.
-            var primaryKeyName = "PaymentID";
+            var primaryKeyName = "BillID";
 
             // Regex for the format that the primary key needs to follow.
             var primaryKeyFormat = @"^B\d{5}$";
@@ -126,6 +136,28 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
+        }
+
+
+
+
+        // Class to represent data transfer object for payment.
+        public class PaymentDTO
+        {
+            // Property to store the unique identifier for the bill.
+            public string BillID { get; set; }
+
+            // Property to store the related appointment ID.
+            public string AppointmentID { get; set; }
+
+            // Property to store the total amount for the payment.
+            public decimal Total_amt { get; set; }
+
+            // Property to store the date of payment. Nullable for pending payments.
+            public DateTime? Payment_Date { get; set; }
+
+            // Property to store the status of the payment.
+            public string Payment_Status { get; set; }
         }
     }
 }
