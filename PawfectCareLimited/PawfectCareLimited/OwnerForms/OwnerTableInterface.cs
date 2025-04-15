@@ -8,6 +8,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace PawfectCareLimited
 {
@@ -27,21 +28,44 @@ namespace PawfectCareLimited
         // Method to initialise the Owner Windoe.
         private async void OwnerTableInterface_Load(object sender, EventArgs e)
         {
-            try
+            // Initialise client.
+            using (HttpClient client = new HttpClient())
             {
-                // Get all table records from the API.
-                var owners = await _httpClient.GetFromJsonAsync<List<OwnerDto>>("https://localhost:7038/api/Owners");
+                try
+                {
+                    string apiUrl = "https://localhost:7038/api/owner/all";
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
 
-                OwnerTableDataGridView.AutoGenerateColumns = true;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        OwnerApiResponse apiResponse = JsonConvert.DeserializeObject<OwnerApiResponse>(json);
 
-                // Populate the DataGridView with the retrieved data.
-                OwnerTableDataGridView.DataSource = owners;
+                        if (apiResponse.success)
+                        {
+                            // Binding to the grid
+                            OwnerTableDataGridView.Invoke(() =>
+                            {
+                                OwnerTableDataGridView.AutoGenerateColumns = true;
+                                OwnerTableDataGridView.DataSource = apiResponse.data;
+                            });
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error: " + apiResponse.message);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Failed to fetch data. Status code: " + response.StatusCode);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Exception: " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                // Show error message.
-                MessageBox.Show($"Error loading data: {ex.Message}");
-            }
+                
         }
 
         // Event Listener for when the UPDATE button is clicked.
@@ -68,5 +92,22 @@ namespace PawfectCareLimited
             }
         }
 
+    }
+
+    public class Owner
+    {
+        public string OwnerID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNo { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+
+    }
+    public class OwnerApiResponse
+    {
+        public bool success { get; set; }
+        public string message { get; set; }
+        public List<Owner> data { get; set; }
     }
 }

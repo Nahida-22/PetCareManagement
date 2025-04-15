@@ -35,6 +35,21 @@ namespace PawfectCareLimited
                 // Show the window.
                 ownerTableInterface.ShowDialog();
             }
+            else if (selected == "Appointment")
+            {
+                // Create an object of the type AppointmentTableInterface.
+                var appointmentTableInterface = new AppointmentTableInterface();
+
+                // Show the window.
+                appointmentTableInterface.ShowDialog();
+            }
+        }
+
+        private void bookAppointmentButton_Click(object sender, EventArgs e)
+        {
+            // Call the INSERT Form.
+            var appointmentInsertForm = new AppointmentBookingForm();
+            appointmentInsertForm.ShowDialog(); // Show the window.
         }
     }
 

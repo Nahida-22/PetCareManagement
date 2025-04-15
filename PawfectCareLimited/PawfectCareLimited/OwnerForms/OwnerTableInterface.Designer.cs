@@ -53,7 +53,7 @@
             OwnerTableDataGridView.Location = new Point(12, 53);
             OwnerTableDataGridView.Name = "OwnerTableDataGridView";
             OwnerTableDataGridView.RowHeadersWidth = 51;
-            OwnerTableDataGridView.Size = new Size(449, 316);
+            OwnerTableDataGridView.Size = new Size(761, 316);
             OwnerTableDataGridView.TabIndex = 1;
             // 
             // OwnerUpdateButton
