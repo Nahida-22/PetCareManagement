@@ -1,31 +1,36 @@
 ﻿namespace PawfectCareLimited
 {
     partial class SignUpForms
-{
-    /// <summary>
-    /// Required designer variable.
-    /// </summary>
-    private System.ComponentModel.IContainer components = null;
-
-    /// <summary>
-    /// Clean up any resources being used.
-    /// </summary>
-    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-    protected override void Dispose(bool disposing)
     {
-        if (disposing && (components != null))
+        private System.ComponentModel.IContainer components = null;
+
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private PictureBox pictureBox4;
+        private PictureBox pictureBox5;
+        private LinkLabel linkLabel1;
+        private Label label1;
+        private Button button1;
+        private LinkLabel linkLabel2;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Panel panel4;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox textBox3;
+        private TextBox textBox4;
+        private PictureBox pictureBox1;
+
+        protected override void Dispose(bool disposing)
         {
-            components.Dispose();
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
         }
-        base.Dispose(disposing);
-    }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             pictureBox2 = new PictureBox();
@@ -82,7 +87,7 @@
             // pictureBox5
             // 
             pictureBox5.Image = PawfectCareLimited_Winforms_.Resource1.passwordPAw;
-            pictureBox5.Location = new Point(16, 282);
+            pictureBox5.Location = new Point(16, 280);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(22, 24);
             pictureBox5.TabIndex = 4;
@@ -91,7 +96,7 @@
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
-            linkLabel1.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkLabel1.Font = new Font("Arial Rounded MT Bold", 9F);
             linkLabel1.LinkColor = Color.Teal;
             linkLabel1.Location = new Point(203, 320);
             linkLabel1.Name = "linkLabel1";
@@ -99,11 +104,12 @@
             linkLabel1.TabIndex = 7;
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Clear fields";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Britannic Bold", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Britannic Bold", 14.25F);
             label1.ForeColor = Color.DarkCyan;
             label1.Location = new Point(105, 82);
             label1.Name = "label1";
@@ -114,7 +120,7 @@
             // button1
             // 
             button1.BackColor = Color.DarkCyan;
-            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             button1.ForeColor = Color.White;
             button1.Location = new Point(80, 356);
             button1.Name = "button1";
@@ -122,11 +128,12 @@
             button1.TabIndex = 9;
             button1.Text = "SIGN UP";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // linkLabel2
             // 
             linkLabel2.AutoSize = true;
-            linkLabel2.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            linkLabel2.Font = new Font("Arial Rounded MT Bold", 9F);
             linkLabel2.LinkColor = Color.Teal;
             linkLabel2.Location = new Point(129, 393);
             linkLabel2.Name = "linkLabel2";
@@ -134,6 +141,7 @@
             linkLabel2.TabIndex = 10;
             linkLabel2.TabStop = true;
             linkLabel2.Text = "EXIT";
+            linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
             // panel1
             // 
@@ -186,7 +194,7 @@
             // textBox3
             // 
             textBox3.ForeColor = SystemColors.WindowFrame;
-            textBox3.Location = new Point(38, 229);
+            textBox3.Location = new Point(38, 230);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(238, 23);
             textBox3.TabIndex = 15;
@@ -194,7 +202,7 @@
             // textBox4
             // 
             textBox4.ForeColor = SystemColors.WindowFrame;
-            textBox4.Location = new Point(38, 282);
+            textBox4.Location = new Point(38, 280);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(238, 23);
             textBox4.TabIndex = 16;
@@ -202,10 +210,10 @@
             // pictureBox1
             // 
             pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
-            pictureBox1.Location = new Point(85, -26);
+            pictureBox1.Location = new Point(82, -26);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(126, 105);
-            pictureBox1.TabIndex = 0;
+            pictureBox1.Size = new Size(116, 105);
+            pictureBox1.TabIndex = 17;
             pictureBox1.TabStop = false;
             // 
             // SignUpForms
@@ -213,7 +221,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(290, 436);
+            ClientSize = new Size(292, 431);
             Controls.Add(pictureBox1);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
@@ -232,7 +240,10 @@
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
             FormBorderStyle = FormBorderStyle.None;
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "SignUpForms";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "SignUpForms";
             Load += SignUpForms_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -243,24 +254,5 @@
             ResumeLayout(false);
             PerformLayout();
         }
-
-        #endregion
-        private PictureBox pictureBox2;
-    private PictureBox pictureBox3;
-    private PictureBox pictureBox4;
-    private PictureBox pictureBox5;
-    private LinkLabel linkLabel1;
-    private Label label1;
-    private Button button1;
-    private LinkLabel linkLabel2;
-    private Panel panel1;
-    private Panel panel2;
-    private Panel panel3;
-    private Panel panel4;
-    private TextBox textBox1;
-    private TextBox textBox2;
-    private TextBox textBox3;
-    private TextBox textBox4;
-    private PictureBox pictureBox1;
-}
+    }
 }

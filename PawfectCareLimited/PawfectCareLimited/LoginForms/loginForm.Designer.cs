@@ -1,4 +1,6 @@
-﻿namespace PawfectCareLimited
+﻿using System.IO;
+
+namespace PawfectCareLimited
 {
     partial class loginForm
 {
@@ -54,7 +56,7 @@
             label1.Size = new Size(61, 21);
             label1.TabIndex = 1;
             label1.Text = "LOGIN";
-            label1.Click += label1_Click;
+           
             // 
             // pictureBox2
             // 
@@ -113,6 +115,7 @@
             button1.TabIndex = 7;
             button1.Text = "LOGIN";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // linkLabel2
             // 
