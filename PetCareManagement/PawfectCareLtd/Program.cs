@@ -49,6 +49,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
             builder.Services.AddScoped<SupplierCRUD>();
             builder.Services.AddScoped<MedicationCRUD>();
             builder.Services.AddScoped<OrderCRUD>();
+            builder.Services.AddScoped<PaymentCRUD>();
 
 
 
@@ -409,46 +410,85 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
                 //                // 6. READ after update
                 //                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
-                var crud = scope.ServiceProvider.GetRequiredService<OrderCRUD>();
+                //                var crud = scope.ServiceProvider.GetRequiredService<OrderCRUD>();
 
-                // 1. READ before any changes
-                crud.ReadOperationForOrder("OrderID", "O10003");
+                //                // 1. READ before any changes
+                //                crud.ReadOperationForOrder("OrderID", "O10003");
 
-                // 2. DELETE Appointment if it exists
-                crud.DeleteOrderById("O10003");
+                //                // 2. DELETE Appointment if it exists
+                //                crud.DeleteOrderById("O10003");
 
-                // 3. INSERT new Appointment
+                //                // 3. INSERT new Appointment
+                //                var prescriptionData = new Dictionary<string, object>
+                //                                {
+                //                                    { "OrderID", "O10003" },
+                //                                    { "MedicationID", "M10085" },
+                //                                    { "Quantity", "100" },
+                //                                    { "OrderDate", DateTime.Parse("2025-03-09")},
+                //                     { "OrderStatus", "Delivered" },
+
+                //                                };
+
+                //                crud.InsertOperationForOrder(
+                //                    fieldValues: prescriptionData,
+                //                    primaryKeyName: "OrderID",
+                //                    primaryKeyFormat: @"^O\d{5}$"
+
+                //,
+                //                    foreignKeys: new List<(string, string)>
+                //                    {
+                //                                        ("MedicationID", "Medication")
+
+
+                //                    }
+                //                );
+
+                //                // 4. READ after insert
+                //                crud.ReadOperationForOrder("OrderID", "O10003");
+
+                //                // 5. UPDATE status to "Completed"
+                //                crud.UpdateOperationForOrder("O10003", "OrderStatus", "aler dow");
+                var paymentCrud = scope.ServiceProvider.GetRequiredService<PaymentCRUD>();
+
+                // READ test before inserting
+
+                paymentCrud.DeletePaymentById("B10001");
+
+                // INSERT test
+               
+
+               
                 var prescriptionData = new Dictionary<string, object>
-                                {
-                                    { "OrderID", "O10003" },
-                                    { "MedicationID", "M10085" },
-                                    { "Quantity", "100" },
-                                    { "OrderDate", DateTime.Parse("2025-03-09")},
-                     { "OrderStatus", "Delivered" },
+                                                {
+                                                    { "BillID", "B10001" },
+                        { "AppointmentID", "A10013" },
+                        { "TotalAmount",100.00 },
+                        { "PaymentDate",  DateTime.Parse("2025-03-09") },
+                        { "PaymentStatus", "Completed" }
 
-                                };
+                                                };
 
-                crud.InsertOperationForOrder(
+                paymentCrud.InsertOperationForPayment(
                     fieldValues: prescriptionData,
-                    primaryKeyName: "OrderID",
-                    primaryKeyFormat: @"^O\d{5}$"
+                    primaryKeyName: "BillID",
+                    primaryKeyFormat: @"^B\d{5}$"
 
 ,
                     foreignKeys: new List<(string, string)>
                     {
-                                        ("MedicationID", "Medication")
-                                       
+                                                        ("AppointmentID", "Appointment")
+
 
                     }
                 );
 
-                // 4. READ after insert
-                crud.ReadOperationForOrder("OrderID", "O10003");
 
-                // 5. UPDATE status to "Completed"
-                crud.UpdateOperationForOrder("O10003", "OrderStatus", "aler dow");
+                // UPDATE test
+                paymentCrud.UpdateOperationForPayment("B10002", "PaymentStatus", "tchombo");
 
-             
+                
+
+
 
             }
 
