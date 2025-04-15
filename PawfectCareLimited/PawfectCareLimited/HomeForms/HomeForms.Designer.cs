@@ -1,4 +1,4 @@
-﻿namespace PawfectCareLimited(Winforms).HomeForms
+﻿namespace PawfectCareLimited
 {
     partial class HomeForms
 {
