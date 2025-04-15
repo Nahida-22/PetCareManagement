@@ -61,12 +61,12 @@ namespace PawfectCareLimited_Winforms_ {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] emailPaw {
+        internal static System.Drawing.Bitmap emailPaw {
             get {
                 object obj = ResourceManager.GetObject("emailPaw", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -91,22 +91,22 @@ namespace PawfectCareLimited_Winforms_ {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] passwordPAw {
+        internal static System.Drawing.Bitmap passwordPAw {
             get {
                 object obj = ResourceManager.GetObject("passwordPAw", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static byte[] usernamePaw {
+        internal static System.Drawing.Bitmap usernamePaw {
             get {
                 object obj = ResourceManager.GetObject("usernamePaw", resourceCulture);
-                return ((byte[])(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
