@@ -78,25 +78,32 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 }
             }
 
-            // Create a new record.
+            // Add fields to a new record.
             var newRecord = new Record();
-
-            // Add each field form the inputed dictionary into the record.
             foreach (var field in fieldValues)
-            {
                 newRecord[field.Key] = field.Value;
-            }
 
-            // Try inserting the new record into the Appointment table.
             try
             {
-                // Insert the data into the in memory database.
+                // Insert into in-memory database.
                 appointmentTable.Insert(newRecord, skipDb: true);
+
+                // Insert into SQL database.
+                var newAppointment = new Appointment();
+                foreach (var field in fieldValues)
+                {
+                    var property = typeof(Appointment).GetProperty(field.Key);
+                    if (property != null)
+                        property.SetValue(newAppointment, Convert.ChangeType(field.Value, property.PropertyType));
+                }
+                _dbContext.Appointments.Add(newAppointment);
+                _dbContext.SaveChanges();
+
                 return new OperationResult { success = true, message = "Record inserted successfully into Appointment table." };
             }
-            catch (Exception ex) // Catch any errors.
+            catch (Exception ex)
             {
-                return new OperationResult { success = true, message = $"Failed to insert record: {ex.Message}" };
+                return new OperationResult { success = false, message = $"Failed to insert record: {ex.Message}" };
             }
         }
 
