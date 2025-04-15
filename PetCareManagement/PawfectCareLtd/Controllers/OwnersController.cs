@@ -31,8 +31,20 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
         // Post Owner API.
         [HttpPost]
-        public IActionResult CreateOwner([FromBody] Dictionary<string, object> fieldValues)
+        public IActionResult CreateOwner([FromBody] OwnerDTO ownerDto)
         {
+
+            // Create a dictionary is to hold the field names and their corresponding values for a Pet.
+            var fieldValues = new Dictionary<string, object>
+            {
+                { "OwnerID", ownerDto.OwnerID },
+                { "FirstName", ownerDto.FirstName },
+                { "LastName", ownerDto.LastName },
+                { "PhoneNo", ownerDto.PhoneNo },
+                { "Email", ownerDto.Email },
+                { "Address", ownerDto.Address }
+            };
+
             // Define the primary key for the Owner Table.
             var primaryKeyName = "OwnerID";
 
@@ -123,6 +135,31 @@ namespace PawfectCareLtd.Controllers // Define the namespace for the application
 
             // Return status 200 to the operation has been a success and the result of the operation.
             return Ok(result);
+        }
+
+
+
+
+        // Class to represent data transfer object for owner.
+        public class OwnerDTO
+        {
+            // Property to store the Owner unique identifier.
+            public string OwnerID { get; set; }
+
+            // Property to store the owner's first name.
+            public string FirstName { get; set; }
+
+            // Property to store the owner's last name.
+            public string LastName { get; set; }
+
+            // Property to store the owner's phone number.
+            public string PhoneNo { get; set; }
+
+            // Property to store the owner's email address.
+            public string Email { get; set; }
+
+            // Property to store the owner's physical address.
+            public string Address { get; set; }
         }
     }
 }
