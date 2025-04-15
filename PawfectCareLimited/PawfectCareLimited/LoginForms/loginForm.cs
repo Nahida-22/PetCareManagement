@@ -15,7 +15,7 @@ namespace PawfectCareLimited
 
         private void loginForm_Load(object sender, EventArgs e)
         {
-            // Optional: set placeholder text
+           
             textBox1.PlaceholderText = "Username";
             textBox2.PlaceholderText = "Password";
             textBox2.PasswordChar = '*';
@@ -27,12 +27,14 @@ namespace PawfectCareLimited
             string password = textBox2.Text.Trim();
             string filePath = "users.txt";
 
+            // error message if fields are empty
             if (username == "" || password == "")
             {
                 MessageBox.Show("Please enter both username and password.", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            // checking for users.txt and its content
             if (!File.Exists(filePath))
             {
                 MessageBox.Show("No users found. Please sign up first.", "File Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -55,7 +57,7 @@ namespace PawfectCareLimited
                     return;
                 }
             }
-
+            // error message to alert the user for incorrect inputs
             MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 

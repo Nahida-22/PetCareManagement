@@ -37,99 +37,140 @@
             SearchFieldComboBox = new ComboBox();
             viewAllButton = new Button();
             appointmentInsertButton = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)appointmentTableDataGridView).BeginInit();
             SuspendLayout();
             // 
             // appointmentLabel
             // 
             appointmentLabel.AutoSize = true;
-            appointmentLabel.Font = new Font("Segoe UI", 18F);
-            appointmentLabel.Location = new Point(12, 9);
+            appointmentLabel.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            appointmentLabel.ForeColor = Color.DarkCyan;
+            appointmentLabel.Location = new Point(242, 18);
             appointmentLabel.Name = "appointmentLabel";
-            appointmentLabel.Size = new Size(271, 41);
+            appointmentLabel.Size = new Size(230, 29);
             appointmentLabel.TabIndex = 0;
             appointmentLabel.Text = "Appointment Table";
+            appointmentLabel.Click += appointmentLabel_Click;
             // 
             // appointmentTableDataGridView
             // 
             appointmentTableDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            appointmentTableDataGridView.Location = new Point(12, 53);
+            appointmentTableDataGridView.Location = new Point(12, 110);
+            appointmentTableDataGridView.Margin = new Padding(3, 2, 3, 2);
             appointmentTableDataGridView.Name = "appointmentTableDataGridView";
             appointmentTableDataGridView.RowHeadersWidth = 51;
-            appointmentTableDataGridView.Size = new Size(776, 316);
+            appointmentTableDataGridView.Size = new Size(676, 304);
             appointmentTableDataGridView.TabIndex = 1;
             // 
             // appointmentUpdateButton
             // 
-            appointmentUpdateButton.Location = new Point(112, 389);
+            appointmentUpdateButton.BackColor = Color.Orange;
+            appointmentUpdateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            appointmentUpdateButton.ForeColor = Color.White;
+            appointmentUpdateButton.Location = new Point(288, 444);
+            appointmentUpdateButton.Margin = new Padding(3, 2, 3, 2);
             appointmentUpdateButton.Name = "appointmentUpdateButton";
-            appointmentUpdateButton.Size = new Size(94, 29);
+            appointmentUpdateButton.Size = new Size(106, 43);
             appointmentUpdateButton.TabIndex = 3;
-            appointmentUpdateButton.Text = "Update";
-            appointmentUpdateButton.UseVisualStyleBackColor = true;
+            appointmentUpdateButton.Text = "UPDATE";
+            appointmentUpdateButton.UseVisualStyleBackColor = false;
             appointmentUpdateButton.Click += appointmentUpdateButton_Click;
             // 
             // appointmentDeleteButton
             // 
-            appointmentDeleteButton.Location = new Point(12, 389);
+            appointmentDeleteButton.BackColor = Color.IndianRed;
+            appointmentDeleteButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            appointmentDeleteButton.ForeColor = Color.White;
+            appointmentDeleteButton.Location = new Point(176, 444);
+            appointmentDeleteButton.Margin = new Padding(3, 2, 3, 2);
             appointmentDeleteButton.Name = "appointmentDeleteButton";
-            appointmentDeleteButton.Size = new Size(94, 29);
+            appointmentDeleteButton.Size = new Size(106, 43);
             appointmentDeleteButton.TabIndex = 4;
-            appointmentDeleteButton.Text = "Delete";
-            appointmentDeleteButton.UseVisualStyleBackColor = true;
+            appointmentDeleteButton.Text = "DELETE";
+            appointmentDeleteButton.UseVisualStyleBackColor = false;
             appointmentDeleteButton.Click += appointmentDeleteButton_Click;
             // 
             // SearchBarTextBox
             // 
-            SearchBarTextBox.Location = new Point(279, 20);
+            SearchBarTextBox.Location = new Point(71, 74);
+            SearchBarTextBox.Margin = new Padding(3, 2, 3, 2);
             SearchBarTextBox.Name = "SearchBarTextBox";
-            SearchBarTextBox.Size = new Size(182, 27);
+            SearchBarTextBox.Size = new Size(265, 23);
             SearchBarTextBox.TabIndex = 5;
             // 
             // SearchButton
             // 
-            SearchButton.Location = new Point(467, 19);
+            SearchButton.BackColor = Color.DarkCyan;
+            SearchButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            SearchButton.ForeColor = Color.White;
+            SearchButton.Location = new Point(342, 64);
+            SearchButton.Margin = new Padding(3, 2, 3, 2);
             SearchButton.Name = "SearchButton";
-            SearchButton.Size = new Size(94, 29);
+            SearchButton.Size = new Size(96, 39);
             SearchButton.TabIndex = 6;
-            SearchButton.Text = "Search";
-            SearchButton.UseVisualStyleBackColor = true;
+            SearchButton.Text = "SEARCH";
+            SearchButton.UseVisualStyleBackColor = false;
             SearchButton.Click += SearchButton_Click;
             // 
             // SearchFieldComboBox
             // 
             SearchFieldComboBox.FormattingEnabled = true;
             SearchFieldComboBox.Items.AddRange(new object[] { "AppointmentID", "PetID", "VetID", "ServiceType", "ApptDate", "Status", "LocationID" });
-            SearchFieldComboBox.Location = new Point(567, 19);
+            SearchFieldComboBox.Location = new Point(444, 74);
+            SearchFieldComboBox.Margin = new Padding(3, 2, 3, 2);
             SearchFieldComboBox.Name = "SearchFieldComboBox";
-            SearchFieldComboBox.Size = new Size(151, 28);
+            SearchFieldComboBox.Size = new Size(133, 23);
             SearchFieldComboBox.TabIndex = 7;
             // 
             // viewAllButton
             // 
-            viewAllButton.Location = new Point(694, 389);
+            viewAllButton.BackColor = Color.DarkCyan;
+            viewAllButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            viewAllButton.ForeColor = Color.White;
+            viewAllButton.Location = new Point(601, 418);
+            viewAllButton.Margin = new Padding(3, 2, 3, 2);
             viewAllButton.Name = "viewAllButton";
-            viewAllButton.Size = new Size(94, 29);
+            viewAllButton.Size = new Size(87, 30);
             viewAllButton.TabIndex = 8;
             viewAllButton.Text = "View All";
-            viewAllButton.UseVisualStyleBackColor = true;
+            viewAllButton.UseVisualStyleBackColor = false;
             viewAllButton.Click += viewAllButton_Click;
             // 
             // appointmentInsertButton
             // 
-            appointmentInsertButton.Location = new Point(212, 389);
+            appointmentInsertButton.BackColor = Color.ForestGreen;
+            appointmentInsertButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            appointmentInsertButton.ForeColor = Color.White;
+            appointmentInsertButton.Location = new Point(400, 444);
+            appointmentInsertButton.Margin = new Padding(3, 2, 3, 2);
             appointmentInsertButton.Name = "appointmentInsertButton";
-            appointmentInsertButton.Size = new Size(94, 29);
+            appointmentInsertButton.Size = new Size(106, 43);
             appointmentInsertButton.TabIndex = 9;
-            appointmentInsertButton.Text = "Insert";
-            appointmentInsertButton.UseVisualStyleBackColor = true;
+            appointmentInsertButton.Text = "INSERT";
+            appointmentInsertButton.UseVisualStyleBackColor = false;
             appointmentInsertButton.Click += appointmentInsertButton_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.DarkCyan;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(12, 498);
+            button1.Name = "button1";
+            button1.Size = new Size(76, 43);
+            button1.TabIndex = 10;
+            button1.Text = "BACK";
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // AppointmentTableInterface
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            BackColor = Color.White;
+            ClientSize = new Size(700, 553);
+            Controls.Add(button1);
             Controls.Add(appointmentInsertButton);
             Controls.Add(viewAllButton);
             Controls.Add(SearchFieldComboBox);
@@ -139,6 +180,8 @@
             Controls.Add(appointmentUpdateButton);
             Controls.Add(appointmentTableDataGridView);
             Controls.Add(appointmentLabel);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AppointmentTableInterface";
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)appointmentTableDataGridView).EndInit();
@@ -157,5 +200,6 @@
         private ComboBox SearchFieldComboBox;
         private Button viewAllButton;
         private Button appointmentInsertButton;
+        private Button button1;
     }
 }
