@@ -1,9 +1,7 @@
-﻿//Import dependencies.
+﻿//Import depen//Import dependencies.
 using Microsoft.AspNetCore.Mvc; // Import ASP.Net Core MVC.
 using PawfectCareLtd.CRUD; // Import CRUD Operation
 using PawfectCareLtd.Data.DataRetrieval; // Import the custom in memory database.
-using PawfectCareLtd.Models;
-using PawfectCareLtd.Models.DTO; // Import the Data-Transfer-Object.
 using PawfectCareLtd.Services; // Import services layer logic.
 
 

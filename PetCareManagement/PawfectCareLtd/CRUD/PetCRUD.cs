@@ -1,12 +1,12 @@
 ﻿// Import dependencies.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using PawfectCareLtd.Controllers;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.Models;
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
+using PawfectCareLtd.Models;  // Import the custom in memory database.
+
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
@@ -17,12 +17,16 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
+
+
         // Constructor to initialise the class with instances of the databases.
         public PetCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
             _dbContext = dbContext;
         }
+
+
 
         // Method to insert data into the Pet table.
         public OperationResult InsertOperationForPet(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
@@ -82,9 +86,12 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method to read the data from the Pet table.
         public OperationResult ReadOperationForPet(string fieldName, string fieldValue)
         {
+            // Get the Pet table and get record base on the required criteria.
             var petTable = _inMemoryDatabase.GetTable("Pet");
             var matchingRecords = petTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
             var matchingData = matchingRecords.Select(r => r.Fields).ToList();
@@ -95,6 +102,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
             return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
+
+
 
         // Method to update data in the Pet table.
         public OperationResult UpdateOperationForPet(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
@@ -143,6 +152,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method to delete a pet record.
         public OperationResult DeletePetById(string petId)
         {
@@ -176,10 +187,15 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method to get all the pet records.
         public OperationResult GetAllPetRecord()
         {
+            // Get all of the record from Pet table.
             var table = _inMemoryDatabase.GetTable("Pet");
+
+            // Get all of the record from Pet table.
             var allPetRecord = table.GetAll().Select(record => record.Fields).ToList();
 
             return new OperationResult { success = true, message = "Operation was successed", data = allPetRecord };

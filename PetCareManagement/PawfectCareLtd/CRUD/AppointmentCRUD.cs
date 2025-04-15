@@ -1,24 +1,23 @@
 ﻿// Import dependencies.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using PawfectCareLtd.Controllers;
-using PawfectCareLtd.Data;
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
 using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
-using PawfectCareLtd.Controllers;
 using PawfectCareLtd.Models;  // Import the custom in memory database.
-
 
 
 namespace PawfectCareLtd.CRUD// Define the namespace for the application.
 {
-
     // Class the encapsulate all of the CRUD operation for the Appointment table.
     public class AppointmentCRUD
     {
         // Define a field to store a reference to the in memory database.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
+
+
 
         // Constructor to initialise the class with an instance of the in memory database.
         public AppointmentCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
@@ -27,6 +26,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             _dbContext = dbContext;
 
         }
+
 
 
         // Method to insert data into the Appointment table.
@@ -101,6 +101,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
         }
 
 
+
         // Method to read the data from the Appointment table.
         public OperationResult ReadOperationForAppointment(string fieldName, string fieldValue)
         {
@@ -118,6 +119,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 
             }
             var matchingData = matchingRecords.Select(r => r.Fields).ToList();
+
             // If there are not any matches, tell the user that are not any matches.
 
             if (matchingRecords.Count == 0)
@@ -129,6 +131,9 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             // If there are any matches, tell the user what record are.
             return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
+
+
+
         // Method to update data from the Owner table.
         public OperationResult UpdateOperationForAppointment(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
         {
@@ -191,7 +196,6 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
 
 
 
-
         public OperationResult DeleteAppointmentById(string appointmentId)
         {
             var appointmentTable = _inMemoryDatabase.GetTable("Appointment");
@@ -218,8 +222,10 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 Console.WriteLine($"Appointment with ID {appointmentId} not found in SQL database.");
             }
 
+            // Return a success status.
             return new OperationResult { success = true, message = $"Appointment with ID {appointmentId} deleted from in-memory database." };
         }
+
 
 
         // Method to get all the appointments record.
@@ -229,10 +235,10 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             var table = _inMemoryDatabase.GetTable("Appointment");
 
             // Get all of the record from Appointment table.
-            var allAppointmentRecord = table.GetAll();
+            var allAppointmentRecord = table.GetAll().Select(record => record.Fields).ToList();
 
+            // Return a success status.
             return new OperationResult { success = true, message = "Operation was successed", data = allAppointmentRecord };
         }
-
     }
 }

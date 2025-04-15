@@ -1,23 +1,23 @@
 ﻿// Import dependencies.
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using PawfectCareLtd.Data;
-
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
 using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
-using PawfectCareLtd.Controllers;
 using PawfectCareLtd.Models;  // Import the custom in memory database.
-
 
 
 namespace PawfectCareLtd.CRUD// Define the namespace for the application.
 {
-
     // Class the encapsulate all of the CRUD operation for the Location table.
     public class LocationCRUD
     {
         // Define a field to store a reference to the in memory database.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
+
+
 
         // Constructor to initialise the class with an instance of the in memory database.
         public LocationCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
@@ -26,6 +26,8 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             _dbContext = dbContext;
 
         }
+
+
 
         // Method to insert data into the Location table.
         public OperationResult InsertOperationForLocation(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
@@ -98,6 +100,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
         }
 
 
+
         // Method to read the data from the Location table.
         public OperationResult ReadOperationForLocation(string fieldName, string fieldValue)
         {
@@ -121,6 +124,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             // If there are any matches, tell the user what record are.
             return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
+
 
 
         // Method to update data from the Location table.
@@ -184,6 +188,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
         }
 
 
+
         // Method to delete data from the Location table.
         public OperationResult DeleteLocationtbyId(string locationId)
         {
@@ -211,6 +216,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
                 Console.WriteLine($"Location with ID {locationId} not found in SQL database.");
             }
 
+            // Return a success status.
             return new OperationResult { success = true, message = $"Location with ID {locationId} deleted from in-memory database." };
         }
 
@@ -225,6 +231,7 @@ namespace PawfectCareLtd.CRUD// Define the namespace for the application.
             // Get all of the record from Locationn table.
             var allLocationRecord = table.GetAll().Select(record => record.Fields).ToList();
 
+            // Return a success status.
             return new OperationResult { success = true, message = "Operation was successed", data = allLocationRecord };
         }
 
