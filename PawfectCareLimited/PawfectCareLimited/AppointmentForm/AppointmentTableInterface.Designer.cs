@@ -196,6 +196,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "AppointmentTableInterface";
             Text = "OwnerTableInterface";
+            Load += AppointmentTableInterface_Load_1;
             ((System.ComponentModel.ISupportInitialize)appointmentTableDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

@@ -116,7 +116,7 @@
             label1.Size = new Size(78, 21);
             label1.TabIndex = 8;
             label1.Text = "SIGN UP";
-            label1.Click += label1_Click;
+           
             // 
             // button1
             // 

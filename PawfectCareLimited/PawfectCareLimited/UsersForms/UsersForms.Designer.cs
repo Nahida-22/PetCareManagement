@@ -52,6 +52,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(511, 361);
             dataGridView1.TabIndex = 26;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // apppointmentUpdateLabel
             // 
@@ -75,6 +76,7 @@
             button1.TabIndex = 28;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // UsersForms
             // 

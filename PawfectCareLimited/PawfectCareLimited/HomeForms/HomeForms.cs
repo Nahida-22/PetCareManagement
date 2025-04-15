@@ -34,7 +34,19 @@ namespace PawfectCareLimited
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Confirm logout
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+            if (result == DialogResult.Yes)
+            {
+                // Show the login form again
+                loginForm login = new loginForm();
+                login.Show();
+
+                // Close the HomeForms window
+                this.Close();
+            }
         }
+
     }
 }

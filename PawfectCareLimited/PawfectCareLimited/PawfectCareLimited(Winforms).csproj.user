@@ -19,6 +19,9 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MainMenuForms\MainMenuForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="OwnerForms\OwnerTableInterface.cs">
       <SubType>Form</SubType>
     </Compile>

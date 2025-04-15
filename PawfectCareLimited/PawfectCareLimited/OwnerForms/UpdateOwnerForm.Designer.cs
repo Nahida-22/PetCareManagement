@@ -48,6 +48,7 @@
             textBox3 = new TextBox();
             textBox4 = new TextBox();
             button1 = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
             // OwnerUpdateLabel
@@ -254,12 +255,26 @@
             button1.Text = "UPDATE";
             button1.UseVisualStyleBackColor = false;
             // 
+            // button2
+            // 
+            button2.BackColor = Color.DarkCyan;
+            button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button2.ForeColor = Color.White;
+            button2.Location = new Point(12, 283);
+            button2.Name = "button2";
+            button2.Size = new Size(76, 43);
+            button2.TabIndex = 20;
+            button2.Text = "BACK";
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
             // UpdateOwnerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(700, 338);
+            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(textBox4);
             Controls.Add(textBox3);
@@ -310,5 +325,6 @@
         private TextBox textBox3;
         private TextBox textBox4;
         private Button button1;
+        private Button button2;
     }
 }

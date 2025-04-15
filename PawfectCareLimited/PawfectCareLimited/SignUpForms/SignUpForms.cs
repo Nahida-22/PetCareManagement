@@ -8,6 +8,8 @@ namespace PawfectCareLimited
 {
     public partial class SignUpForms : Form
     {
+        private string filePath = Path.Combine(Application.StartupPath, "users.txt");
+
         public SignUpForms()
         {
             InitializeComponent();
@@ -15,30 +17,28 @@ namespace PawfectCareLimited
 
         private void SignUpForms_Load(object sender, EventArgs e)
         {
-            // Initialize placeholder text for the fields
-            textBox1.PlaceholderText = "Username"; // Username field
-            textBox2.PlaceholderText = "Email"; // Email field
-            textBox3.PlaceholderText = "Full Name"; // Full Name field
-            textBox4.PlaceholderText = "Password"; // Password field
-            textBox4.PasswordChar = '*'; // Hide password characters
+            textBox1.PlaceholderText = "Username";
+            textBox2.PlaceholderText = "Email";
+            textBox3.PlaceholderText = "Full Name";
+            textBox4.PlaceholderText = "Password";
+            textBox4.PasswordChar = '*';
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string username = textBox1.Text.Trim();  // Username from textBox1
-            string email = textBox2.Text.Trim();  // Email from textBox2
-            string fullName = textBox3.Text.Trim();  // Full name from textBox3
-            string password = textBox4.Text.Trim();  // Password from textBox4
-            string filePath = "users.txt"; // Path to save user data
+            string username = textBox1.Text.Trim();
+            string email = textBox2.Text.Trim();
+            string fullName = textBox3.Text.Trim();
+            string password = textBox4.Text.Trim();
 
-            // Validate the input fields
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            // Validation
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) ||
+                string.IsNullOrEmpty(email) || string.IsNullOrEmpty(fullName))
             {
-                MessageBox.Show("Please fill in both username and password.", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please fill in all fields.", "Missing Fields", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Check if the user already exists in the file
             try
             {
                 if (File.Exists(filePath))
@@ -46,49 +46,35 @@ namespace PawfectCareLimited
                     var existingUsers = File.ReadAllLines(filePath);
                     foreach (string user in existingUsers)
                     {
-                        if (user.Split(':')[0] == username)
+                        string[] parts = user.Split(':');
+                        if (parts.Length >= 1 && parts[0] == username)
                         {
                             MessageBox.Show("Username already exists. Please choose a different one.", "Username Taken", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
                     }
                 }
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show($"Error reading the user data file: {ex.Message}", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
 
-            // Hash the password before saving
-            string hashedPassword = HashPassword(password);
-
-            // Save the new user (username:hashedPassword) to the file
-            try
-            {
-                string userData = $"{username}:{hashedPassword}";
+                string hashedPassword = HashPassword(password);
+                string userData = $"{username}:{hashedPassword}:{email}:{fullName}";
                 File.AppendAllLines(filePath, new[] { userData });
+
+                MessageBox.Show("Signup successful! You can now log in.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Redirect to login form
+                this.Hide();
+                loginForm login = new loginForm();
+                login.Show();
             }
             catch (IOException ex)
             {
-                MessageBox.Show($"Error saving user data: {ex.Message}", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show($"File error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            // Notify the user about successful signup
-            MessageBox.Show("Signup successful! You can now login.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            // Hide the current sign-up form
-            this.Hide();
-
-            // Create and show the login form after signup
-            loginForm loginForm = new loginForm();
-            loginForm.Show();
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Clear the fields when "Clear fields" link is clicked
+            // Clear fields
             textBox1.Clear();
             textBox2.Clear();
             textBox3.Clear();
@@ -97,21 +83,12 @@ namespace PawfectCareLimited
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Show the login form without signing up
-            loginForm loginForm = new loginForm();
-            loginForm.Show();
-
-            // Hide or close the current form
+            // Go back to login without signing up
+            loginForm login = new loginForm();
+            login.Show();
             this.Hide();
-
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        // Method to hash the password using SHA256
         private string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
