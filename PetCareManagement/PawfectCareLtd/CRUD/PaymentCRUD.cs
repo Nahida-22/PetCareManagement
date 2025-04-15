@@ -1,11 +1,12 @@
 ﻿// Import dependencies.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using PawfectCareLtd.Controllers;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.Models;
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
+using PawfectCareLtd.Models;  // Import the custom in memory database.
+
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
@@ -16,6 +17,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
+
+
         // Constructor to initialize the class with an instance of the in-memory database.
         public PaymentCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
@@ -23,8 +26,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             _dbContext = dbContext;
         }
 
+
         // Method to insert data into the Payment table.
-       
         public OperationResult InsertOperationForPayment(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
         {
             // Get the payment table from the in-memory database.
@@ -98,6 +101,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method to read data from the Payment table.
         public OperationResult ReadOperationForPayment(string fieldName, string fieldValue)
         {
@@ -120,8 +125,10 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             return new OperationResult { success = true, message = "Operation was successful", data = matchingData };
         }
 
+
+
         // Method to update data in the Payment table.
-        public OperationResult UpdateOperationForPayment(string primaryKeyValue, string fieldName, string newValue)
+        public OperationResult UpdateOperationForPayment(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
         {
             // Get the Payment table from the in-memory database.
             var paymentTable = _inMemoryDatabase.GetTable("Payment");
@@ -159,9 +166,12 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method for API delete.
         public OperationResult DeletePaymentById(string paymentId)
         {
+            // Get the Payment Table.
             var paymentTable = _inMemoryDatabase.GetTable("Payment");
 
             // Try to delete from in-memory database.
@@ -186,8 +196,11 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 Console.WriteLine($"Payment with ID {paymentId} not found in SQL database.");
             }
 
+            // Return a success status.
             return new OperationResult { success = true, message = $"Payment with ID {paymentId} deleted from in-memory database." };
         }
+
+
 
         // Method to get all the payment records.
         public OperationResult GetAllPaymentRecord()

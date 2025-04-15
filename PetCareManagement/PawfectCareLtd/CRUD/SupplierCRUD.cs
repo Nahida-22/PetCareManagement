@@ -1,21 +1,23 @@
 ﻿// Import dependencies.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using PawfectCareLtd.Controllers;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.Models;
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
+using PawfectCareLtd.Models;  // Import the custom in memory database.
+
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
     // Class to encapsulate all of the CRUD operations for the Supplier table.
     public class SupplierCRUD
     {
-
         // Define a field to store a reference to the in memory database.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
+
+
 
         // Constructor to initialise the class with an instance of the in memory database.
         public SupplierCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
@@ -23,8 +25,11 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             _inMemoryDatabase = inMemoryDatabase;
             _dbContext = dbContext;
         }
+
+
+
         // Method to insert data into the Supplier table.
-        public OperationResult InsertOperationForSupplier(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat)
+        public OperationResult InsertOperationForSupplier(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string, string)> foreignKeys)
         {
             var supplierTable = _inMemoryDatabase.GetTable("Supplier");
 
@@ -85,18 +90,20 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         public OperationResult ReadOperationForSupplier(string fieldName, string fieldValue)
         {
-
             // Get the supplier table form the in memory database.
             var supplierTable = _inMemoryDatabase.GetTable("Supplier");
 
             // Check if there are any record that matches the search critria.
             var matchingRecords = supplierTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
+
             // Transform the record into a file that can be read into the database.
             var matchingData = matchingRecords.Select(r => r.Fields).ToList();
-            // If there are not any matches, tell the user that are not any matches.
 
+            // If there are not any matches, tell the user that are not any matches.
             if (matchingRecords.Count == 0)
             {
                 return new OperationResult { success = false, message = $"No records found in table '{supplierTable.Name}' where {fieldName} = '{fieldValue}'." };
@@ -106,6 +113,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             // If there are any matches, tell the user what record are.
             return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
+
+
 
         // Method to update data from the Owner table.
         public OperationResult UpdateOperationForSupplier(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
@@ -137,6 +146,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                     return new OperationResult { success = false, message = $"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table." };
                 }
             }
+
             // Try updating the data into the Supplier table.
             try
             {
@@ -169,7 +179,6 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
 
 
-
         //Method for API delete 
         public OperationResult DeleteSupplierById(string supplierId)
         {
@@ -199,6 +208,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
             return new OperationResult { success = true, message = $"Supplier with ID {supplierId} deleted from in-memory database." };
         }
+
+
 
         // Method to get all the appointments record.
         public OperationResult GetAllSupplierRecord()

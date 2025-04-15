@@ -1,12 +1,12 @@
 ﻿// Import dependencies.
-using Microsoft.EntityFrameworkCore;
-using PawfectCareLtd.Controllers;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
+using PawfectCareLtd.Models;  // Import the custom in memory database.
+
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
@@ -16,12 +16,16 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
+
+
         // Constructor to initialise the class with instances of the databases.
         public PrescriptionCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
             _dbContext = dbContext;
         }
+
+
 
         // Method to insert a prescription record.
         public OperationResult InsertOperationForPrescription(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string, string)> foreignKeys)
@@ -84,9 +88,12 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method to read a prescription record by a specific field.
         public OperationResult ReadOperationForPrescription(string fieldName, string fieldValue)
         {
+            // Get the Prescription table and get record base on the required criteria.
             var table = _inMemoryDatabase.GetTable("Prescription");
             var matchingRecords = table.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
             var matchingData = matchingRecords.Select(r => r.Fields).ToList();
@@ -99,8 +106,10 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
 
+
+
         // Method to update a prescription record field.
-        public OperationResult UpdateOperationForPrescription(string primaryKeyValue, string fieldName, string newValue)
+        public OperationResult UpdateOperationForPrescription(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
         {
             var table = _inMemoryDatabase.GetTable("Prescription");
             object newValueToObject = newValue;
@@ -134,6 +143,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method to delete a prescription record by ID.
         public OperationResult DeletePrescriptionById(string id)
         {
@@ -160,9 +171,12 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             }
         }
 
+
+
         // Method to get all the prescription records.
         public OperationResult GetAllPrescriptionRecord()
         {
+            // Method to get all the Prescription record.
             var table = _inMemoryDatabase.GetTable("Prescription");
 
             // Collect all records.

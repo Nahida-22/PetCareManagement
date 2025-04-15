@@ -1,24 +1,22 @@
 ﻿// Import dependencies.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using PawfectCareLtd.Controllers;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.Models;
-
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
+using PawfectCareLtd.Models;  // Import the custom in memory database.
 
 
 namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 {
-
     // Class the encapsulate all of the CRUD operation for the Owner table.
     public class OwnerCRUD
     {
-
         // Define a field to store a reference to the in memory database.
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
+
 
 
         // Constructor to initialise the class with an instance of the in memory database.
@@ -29,10 +27,10 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
         }
 
 
+
         // Method to insert data into the Owner table.
         public OperationResult InsertOperationForOwner(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
         {
-
             // Get the Owner table from the in memory database.
             var ownerTable = _inMemoryDatabase.GetTable("Owner");
 
@@ -111,19 +109,20 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
         }
 
 
+
         // Method to read the data from the Owner table.
         public OperationResult ReadOperationForOwner(string fieldName, string fieldValue)
         {
-
             // Get the Owner table form the in memory database.
             var ownerTable = _inMemoryDatabase.GetTable("Owner");
 
             // Check if there are any record that matches the search critria.
             var matchingRecords = ownerTable.GetAll().Where(record => record.Fields.ContainsKey(fieldName) && record[fieldName]?.ToString() == fieldValue).ToList();
+
             // Transform the record into a file that can be read into the database.
             var matchingData = matchingRecords.Select(r => r.Fields).ToList();
+
             // If there are not any matches, tell the user that are not any matches.
-           
             if (matchingRecords.Count == 0)
             {
                 return new OperationResult { success = false, message = $"No records found in table '{ownerTable.Name}' where {fieldName} = '{fieldValue}'." };
@@ -133,6 +132,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             // If there are any matches, tell the user what record are.
             return new OperationResult { success = true, message = "Operation was successed", data = matchingData };
         }
+
 
 
         // Method to update data from the Owner table.
@@ -165,6 +165,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                     return new OperationResult { success = false, message = $"Foreign key value '{newValueToObject}' does not exist in the '{referencedTableName}' table." };
                 }
             }
+
             // Try updating the data into the Owner table.
             try
             {
@@ -198,7 +199,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
 
 
-        //Method for API delete (e.g https://localhost:7038/api/Owners/O00001).
+        //Method for API delete.
         public OperationResult DeleteOwnerById(string ownerId)
         {
             var ownerTable = _inMemoryDatabase.GetTable("Owner");
@@ -225,8 +226,11 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 Console.WriteLine($"Owner with ID {ownerId} not found in SQL database.");
             }
 
+            // Return a success status.
             return new OperationResult { success = true, message = $"Owner with ID {ownerId} deleted from in-memory database." };
         }
+
+
 
         // Method to get all the appointments record.
         public OperationResult GetAllOwnerRecord()
@@ -237,8 +241,8 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
             // Get all of the record from Appointment table.
             var allOwnerRecord = table.GetAll().Select(record => record.Fields).ToList();
 
+            // Return a success status.
             return new OperationResult { success = true, message = "Operation was successed", data = allOwnerRecord };
         }
-
     }
 }

@@ -1,12 +1,12 @@
 ﻿// Import dependencies.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using PawfectCareLtd.Controllers;
-using PawfectCareLtd.Data;
-using PawfectCareLtd.Data.DataRetrieval;
-using PawfectCareLtd.Models;
+using System; // Import the System namespace which includes fundamental classes and base classes.
+using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
+using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
+using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
+using PawfectCareLtd.Models;  // Import the custom in memory database.
+
 
 namespace PawfectCareLtd.CRUD
 {
@@ -17,12 +17,16 @@ namespace PawfectCareLtd.CRUD
         private readonly Database _inMemoryDatabase;
         private readonly DatabaseContext _dbContext;
 
+
+
         // Constructor to initialize the class with instances of the in-memory and SQL Server databases.
         public MedicationCRUD(Database inMemoryDatabase, DatabaseContext dbContext)
         {
             _inMemoryDatabase = inMemoryDatabase;
             _dbContext = dbContext;
         }
+
+
 
         // Method to insert data into the Medication table.
         public OperationResult InsertOperationForMedication(Dictionary<string, object> fieldValues, string primaryKeyName, string primaryKeyFormat, List<(string ForeignKeyField, string ReferencedTableName)> foreignKeys)
@@ -70,10 +74,12 @@ namespace PawfectCareLtd.CRUD
                 }
             }
 
+            // Get the record form each field.
             var newRecord = new Record();
             foreach (var field in fieldValues)
                 newRecord[field.Key] = field.Value;
 
+            //  Try inserting into memory.
             try
             {
                 // Insert into in-memory table.
@@ -98,6 +104,8 @@ namespace PawfectCareLtd.CRUD
             }
         }
 
+
+
         // Method to read a record from the Medication table by a specific field.
         public OperationResult ReadOperationForMedication(string fieldName, string fieldValue)
         {
@@ -117,6 +125,8 @@ namespace PawfectCareLtd.CRUD
             var matchingData = matchingRecords.Select(r => r.Fields).ToList();
             return new OperationResult { success = true, message = "Operation was successful", data = matchingData };
         }
+
+
 
         // Method to update a field in a Medication record.
         public OperationResult UpdateOperationForMedication(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
@@ -176,6 +186,8 @@ namespace PawfectCareLtd.CRUD
             }
         }
 
+
+
         // Method to delete a Medication record by ID.
         public OperationResult DeleteMedicationById(string medicationId)
         {
@@ -204,8 +216,11 @@ namespace PawfectCareLtd.CRUD
                 Console.WriteLine($"Medication with ID {medicationId} not found in SQL database.");
             }
 
+            // Return a success status.
             return new OperationResult { success = true, message = $"Medication with ID {medicationId} deleted from in-memory database." };
         }
+
+
 
         // Method to retrieve all Medication records.
         public OperationResult GetAllMedicationRecord()
@@ -214,8 +229,9 @@ namespace PawfectCareLtd.CRUD
             var table = _inMemoryDatabase.GetTable("Medication");
 
             // Retrieve all records.
-            var allMedicationRecords = table.GetAll();
+            var allMedicationRecords = table.GetAll().Select(record => record.Fields).ToList();
 
+            // Return a success status.
             return new OperationResult { success = true, message = "Operation was successful", data = allMedicationRecords };
         }
     }
