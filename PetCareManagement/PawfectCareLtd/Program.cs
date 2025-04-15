@@ -48,6 +48,7 @@ namespace PawfectCareLtd // Define the namespace for the application.
             builder.Services.AddScoped<VetCRUD>();
             builder.Services.AddScoped<SupplierCRUD>();
             builder.Services.AddScoped<MedicationCRUD>();
+            builder.Services.AddScoped<OrderCRUD>();
 
 
 
@@ -185,42 +186,42 @@ namespace PawfectCareLtd // Define the namespace for the application.
                 //                petCrud.ReadOperationForPet("PetID", "P00002");
 
 
-                var vetCrud = scope.ServiceProvider.GetRequiredService<VetCRUD>();
+                //var vetCrud = scope.ServiceProvider.GetRequiredService<VetCRUD>();
 
-                // READ test before inserting
-                var readBeforeInsert = vetCrud.ReadOperationForVet("VetID", "V1002");
-                Console.WriteLine(readBeforeInsert.message);
+                //// READ test before inserting
+                //var readBeforeInsert = vetCrud.ReadOperationForVet("VetID", "V1002");
+                //Console.WriteLine(readBeforeInsert.message);
 
-                // INSERT test
-                var vetData = new Dictionary<string, object>
-                    {
-                        { "VetID", "V1052" },
-                        { "VetName", "Dr. Emma Stone" },
-                        { "Specialisation", "Dermatology" },
-                        { "PhoneNo", "02055667788" },
-                        { "Email", "emma.stone@pawfectcare.com" },
-                        { "Address", "12 Bark Street, Woofville" }
-                    };
+                //// INSERT test
+                //var vetData = new Dictionary<string, object>
+                //    {
+                //        { "VetID", "V1052" },
+                //        { "VetName", "Dr. Emma Stone" },
+                //        { "Specialisation", "Dermatology" },
+                //        { "PhoneNo", "02055667788" },
+                //        { "Email", "emma.stone@pawfectcare.com" },
+                //        { "Address", "12 Bark Street, Woofville" }
+                //    };
 
-                var insertResult = vetCrud.InsertOperationForVet(vetData, "VetID", @"^V\d{4}$", new List<(string, string)>());
-                Console.WriteLine(insertResult.message);
+                //var insertResult = vetCrud.InsertOperationForVet(vetData, "VetID", @"^V\d{4}$", new List<(string, string)>());
+                //Console.WriteLine(insertResult.message);
 
-                // READ after insert
-                var readAfterInsert = vetCrud.ReadOperationForVet("VetID", "V1052");
-                Console.WriteLine(readAfterInsert.message);
+                //// READ after insert
+                //var readAfterInsert = vetCrud.ReadOperationForVet("VetID", "V1052");
+                //Console.WriteLine(readAfterInsert.message);
 
-                // UPDATE test
-                var updateResult = vetCrud.UpdateOperationForVet("V1002", "PhoneNo", "03009998877");
-                Console.WriteLine(updateResult.message);
+                //// UPDATE test
+                //var updateResult = vetCrud.UpdateOperationForVet("V1002", "PhoneNo", "03009998877");
+                //Console.WriteLine(updateResult.message);
 
-                // READ to confirm update
-                var readAfterUpdate = vetCrud.ReadOperationForVet("VetID", "V1002");
-                Console.WriteLine(readAfterUpdate.message);
+                //// READ to confirm update
+                //var readAfterUpdate = vetCrud.ReadOperationForVet("VetID", "V1002");
+                //Console.WriteLine(readAfterUpdate.message);
 
 
-                // FINAL READ to confirm deletion
-                var finalRead = vetCrud.ReadOperationForVet("VetID", "V1002");
-                Console.WriteLine(finalRead.message);
+                //// FINAL READ to confirm deletion
+                //var finalRead = vetCrud.ReadOperationForVet("VetID", "V1002");
+                //Console.WriteLine(finalRead.message);
 
 
                 //// 2. Delete the pet
@@ -332,82 +333,122 @@ namespace PawfectCareLtd // Define the namespace for the application.
 
                 //// 6. READ after update
                 //crud.ReadOperationForLocation("LocationID", "L001");
-                var crud = scope.ServiceProvider.GetRequiredService<MedicationCRUD>();
+                //                var crud = scope.ServiceProvider.GetRequiredService<MedicationCRUD>();
+
+                //                // 1. READ before any changes
+                //                crud.ReadOperationForMedication("MedicationID", "M10004");
+
+                //                // 2. DELETE Appointment if it exists
+                //                crud.DeleteMedicationById("M10004");
+
+                //                // 3. INSERT new Appointment
+                //                var prescriptionData = new Dictionary<string, object>
+                //{
+                //    { "MedicationID", "M10004" },          // Ensure this matches your primary key format
+                //    { "MedicationName", "Panadol" },
+                //    { "SupplierID", "S10007" },            // Check that this SupplierID exists in the Supplier table
+                //    { "StockQuantity", 90 },
+                //    { "Category", "Antiseptic" },
+                //    { "UnitPrice", 25.31 },                // Ensure the data type matches the database column
+                //    { "ExpiryDate", DateTime.Parse("2025-03-09") }  // Check the format for ExpiryDate
+                //};
+
+                //                crud.InsertOperationForMedication(
+                //                    fieldValues: prescriptionData,
+                //                    primaryKeyName: "MedicationID",         // Primary key field
+                //                    primaryKeyFormat: @"^M\d{5}$",          // Validate MedicationID format
+                //                    foreignKeys: new List<(string, string)>
+                //                    {
+                //        ("SupplierID", "Supplier")         // Ensure SupplierID exists in the Supplier table
+                //                    }
+                //                );
+
+                //                // 4. READ after insert
+                //                crud.ReadOperationForMedication("MedicationID", "M10004");
+
+                //                // 5. UPDATE status to "Completed"
+                //                crud.UpdateOperationForMedication("M10004", "StockQuantity", "100");
+
+                //                var crud = scope.ServiceProvider.GetRequiredService<PrescriptionCRUD>();
+
+                //                // 1. READ before any changes
+                //                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
+
+                //                // 2. DELETE Appointment if it exists
+                //                crud.DeletePrescriptionById( "PR20000");
+
+                //                // 3. INSERT new Appointment
+                //                var prescriptionData = new Dictionary<string, object>
+                //                {
+                //                    { "PrescriptionID", "PR20000" },
+                //                    { "PetID", "P08628" },
+                //                    { "VetID", "V1007" },
+                //                    { "Diagnosis", "Severe Infection" },
+                //                    { "Dosage","1 time a day"},
+                //                    { "DateIssued", DateTime.Parse("2025-03-09")}
+                //                };
+
+                //                crud.InsertOperationForPrescription(
+                //                    fieldValues: prescriptionData,
+                //                    primaryKeyName: "PrescriptionID",
+                //                    primaryKeyFormat: @"^PR\d{5}$"
+                //,
+                //                    foreignKeys: new List<(string, string)>
+                //                    {
+                //                        ("PetID", "Pet"),
+                //                        ("VetID", "Vet")
+
+                //                    }
+                //                );
+
+                //                // 4. READ after insert
+                //                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
+
+                //                // 5. UPDATE status to "Completed"
+                //                crud.UpdateOperationForPrescription("PR20000", "Diagnosis", "Nutritional Deficiency");
+
+                //                // 6. READ after update
+                //                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
+                var crud = scope.ServiceProvider.GetRequiredService<OrderCRUD>();
 
                 // 1. READ before any changes
-                crud.ReadOperationForMedication("MedicationID", "M10004");
+                crud.ReadOperationForOrder("OrderID", "O10003");
 
                 // 2. DELETE Appointment if it exists
-                crud.DeleteMedicationById("M10004");
+                crud.DeleteOrderById("O10003");
 
                 // 3. INSERT new Appointment
                 var prescriptionData = new Dictionary<string, object>
-{
-    { "MedicationID", "M10004" },          // Ensure this matches your primary key format
-    { "MedicationName", "Panadol" },
-    { "SupplierID", "S10007" },            // Check that this SupplierID exists in the Supplier table
-    { "StockQuantity", 90 },
-    { "Category", "Antiseptic" },
-    { "UnitPrice", 25.31 },                // Ensure the data type matches the database column
-    { "ExpiryDate", DateTime.Parse("2025-03-09") }  // Check the format for ExpiryDate
-};
+                                {
+                                    { "OrderID", "O10003" },
+                                    { "MedicationID", "M10085" },
+                                    { "Quantity", "100" },
+                                    { "OrderDate", DateTime.Parse("2025-03-09")},
+                     { "OrderStatus", "Delivered" },
 
-                crud.InsertOperationForMedication(
+                                };
+
+                crud.InsertOperationForOrder(
                     fieldValues: prescriptionData,
-                    primaryKeyName: "MedicationID",         // Primary key field
-                    primaryKeyFormat: @"^M\d{5}$",          // Validate MedicationID format
+                    primaryKeyName: "OrderID",
+                    primaryKeyFormat: @"^O\d{5}$"
+
+,
                     foreignKeys: new List<(string, string)>
                     {
-        ("SupplierID", "Supplier")         // Ensure SupplierID exists in the Supplier table
+                                        ("MedicationID", "Medication")
+                                       
+
                     }
                 );
 
                 // 4. READ after insert
-                crud.ReadOperationForMedication("MedicationID", "M10004");
+                crud.ReadOperationForOrder("OrderID", "O10003");
 
                 // 5. UPDATE status to "Completed"
-                crud.UpdateOperationForMedication("M10004", "StockQuantity", "100");
+                crud.UpdateOperationForOrder("O10003", "OrderStatus", "aler dow");
 
-//                var crud = scope.ServiceProvider.GetRequiredService<PrescriptionCRUD>();
-
-//                // 1. READ before any changes
-//                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
-
-//                // 2. DELETE Appointment if it exists
-//                crud.DeletePrescriptionById( "PR20000");
-
-//                // 3. INSERT new Appointment
-//                var prescriptionData = new Dictionary<string, object>
-//                {
-//                    { "PrescriptionID", "PR20000" },
-//                    { "PetID", "P08628" },
-//                    { "VetID", "V1007" },
-//                    { "Diagnosis", "Severe Infection" },
-//                    { "Dosage","1 time a day"},
-//                    { "DateIssued", DateTime.Parse("2025-03-09")}
-//                };
-
-//                crud.InsertOperationForPrescription(
-//                    fieldValues: prescriptionData,
-//                    primaryKeyName: "PrescriptionID",
-//                    primaryKeyFormat: @"^PR\d{5}$"
-//,
-//                    foreignKeys: new List<(string, string)>
-//                    {
-//                        ("PetID", "Pet"),
-//                        ("VetID", "Vet")
-                       
-//                    }
-//                );
-
-//                // 4. READ after insert
-//                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
-
-//                // 5. UPDATE status to "Completed"
-//                crud.UpdateOperationForPrescription("PR20000", "Diagnosis", "Nutritional Deficiency");
-
-//                // 6. READ after update
-//                crud.ReadOperationForPrescription("PrescriptionID", "PR20000");
+             
 
             }
 
