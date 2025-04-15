@@ -97,8 +97,13 @@ namespace PawfectCareLimited
 
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            // Close the form when "Exit" link is clicked
-            this.Close();
+            // Show the login form without signing up
+            loginForm loginForm = new loginForm();
+            loginForm.Show();
+
+            // Hide or close the current form
+            this.Hide();
+
         }
 
         private void label1_Click(object sender, EventArgs e)

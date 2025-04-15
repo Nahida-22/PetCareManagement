@@ -20,20 +20,44 @@
         base.Dispose(disposing);
     }
 
-    #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-    private void InitializeComponent()
-    {
-        this.components = new System.ComponentModel.Container();
-        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(800, 450);
-        this.Text = "HomeForms";
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            SuspendLayout();
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.White;
+            pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
+            pictureBox1.Location = new Point(-1, -2);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(134, 114);
+            pictureBox1.TabIndex = 26;
+            pictureBox1.TabStop = false;
+            // 
+            // HomeForms
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
+            ClientSize = new Size(800, 450);
+            Controls.Add(pictureBox1);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "HomeForms";
+            Text = "HomeForms";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private PictureBox pictureBox1;
     }
-
-    #endregion
-}
 }

@@ -136,12 +136,12 @@
             linkLabel2.AutoSize = true;
             linkLabel2.Font = new Font("Arial Rounded MT Bold", 9F);
             linkLabel2.LinkColor = Color.Teal;
-            linkLabel2.Location = new Point(129, 393);
+            linkLabel2.Location = new Point(123, 393);
             linkLabel2.Name = "linkLabel2";
-            linkLabel2.Size = new Size(34, 14);
+            linkLabel2.Size = new Size(47, 14);
             linkLabel2.TabIndex = 10;
             linkLabel2.TabStop = true;
-            linkLabel2.Text = "EXIT";
+            linkLabel2.Text = "LOGIN";
             linkLabel2.LinkClicked += linkLabel2_LinkClicked;
             // 
             // panel1
