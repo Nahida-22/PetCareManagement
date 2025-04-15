@@ -28,7 +28,6 @@
     /// </summary>
     private void InitializeComponent()
     {
-        pictureBox1 = new PictureBox();
         label1 = new Label();
         pictureBox2 = new PictureBox();
         pictureBox3 = new PictureBox();
@@ -39,19 +38,11 @@
         linkLabel2 = new LinkLabel();
         textBox1 = new TextBox();
         textBox2 = new TextBox();
-        ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+        pictureBox1 = new PictureBox();
         ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
         ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
         SuspendLayout();
-        // 
-        // pictureBox1
-        // 
-        pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.image_7;
-        pictureBox1.Location = new Point(94, -7);
-        pictureBox1.Name = "pictureBox1";
-        pictureBox1.Size = new Size(118, 114);
-        pictureBox1.TabIndex = 0;
-        pictureBox1.TabStop = false;
         // 
         // label1
         // 
@@ -151,12 +142,22 @@
         textBox2.Size = new Size(238, 23);
         textBox2.TabIndex = 10;
         // 
+        // pictureBox1
+        // 
+        pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.image_7;
+        pictureBox1.Location = new Point(98, -16);
+        pictureBox1.Name = "pictureBox1";
+        pictureBox1.Size = new Size(111, 123);
+        pictureBox1.TabIndex = 11;
+        pictureBox1.TabStop = false;
+        // 
         // loginForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.White;
         ClientSize = new Size(306, 443);
+        Controls.Add(pictureBox1);
         Controls.Add(textBox2);
         Controls.Add(textBox1);
         Controls.Add(linkLabel2);
@@ -167,21 +168,18 @@
         Controls.Add(pictureBox3);
         Controls.Add(pictureBox2);
         Controls.Add(label1);
-        Controls.Add(pictureBox1);
         FormBorderStyle = FormBorderStyle.None;
         Name = "loginForm";
         Text = "loginForm";
         Load += loginForm_Load;
-        ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
         ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
         ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+        ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
         ResumeLayout(false);
         PerformLayout();
     }
 
     #endregion
-
-    private PictureBox pictureBox1;
     private Label label1;
     private PictureBox pictureBox2;
     private PictureBox pictureBox3;
@@ -192,5 +190,6 @@
     private LinkLabel linkLabel2;
     private TextBox textBox1;
     private TextBox textBox2;
+    private PictureBox pictureBox1;
 }
 }
