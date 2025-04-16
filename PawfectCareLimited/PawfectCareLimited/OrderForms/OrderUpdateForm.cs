@@ -12,7 +12,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 namespace PawfectCareLimited
 {
     public partial class OrderUpdateForm : Form
-       {
+    {
         // UPDATE window form.
         // Declare variables.
         private string ordId, medId, orderId, name, quanity, status;
@@ -106,6 +106,16 @@ namespace PawfectCareLimited
 
                 this.Close(); // Close the form.
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Create and show the MainForm
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+
+            // Hide or close the current form
+            this.Hide();
         }
     }
 }

@@ -11,15 +11,20 @@ using System.Windows.Forms;
 namespace PawfectCareLimited
 {
     public partial class MainMenuForms : Form
-{
-    public MainMenuForms()
     {
-        InitializeComponent();
-    }
+        public MainMenuForms()
+        {
+            InitializeComponent();
+        }
 
-    private void MainMenuForms_Load(object sender, EventArgs e)
-    {
+        private void MainMenuForms_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-}
 }

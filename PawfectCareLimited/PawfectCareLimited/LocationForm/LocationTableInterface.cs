@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace PawfectCareLimited
 {
     public partial class LocationTableInterface : Form
-{
+    {
         // Initialise an instance of HttpClient for API calls.
         private readonly HttpClient _httpClient = new HttpClient();
 
@@ -93,7 +93,7 @@ namespace PawfectCareLimited
 
 
                 // Call the UPDATE Window and pass the values of the selected row in its constructor.
-                var locationUpdateInterface = new LocationUpdateForm(id, Name, Address, Phone,Email);
+                var locationUpdateInterface = new LocationUpdateForm(id, Name, Address, Phone, Email);
 
                 // Subscribe to the event
                 locationUpdateInterface.LocationUpdated += (s, args) => LoadLocations();
@@ -270,11 +270,21 @@ namespace PawfectCareLimited
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Create and show the MainForm
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+
+            // Hide or close the current form
+            this.Hide();
+        }
+
+        private void LocationTableInterface_Load_1(object sender, EventArgs e)
+        {
 
         }
     }
 
-   
+
 
     public class Location
     {

@@ -50,7 +50,7 @@
             locationLabel.ForeColor = Color.DarkCyan;
             locationLabel.Location = new Point(242, 18);
             locationLabel.Name = "locationLabel";
-            locationLabel.Size = new Size(230, 29);
+            locationLabel.Size = new Size(182, 29);
             locationLabel.TabIndex = 0;
             locationLabel.Text = "Location Table";
             locationLabel.Click += locationLabel_Click;
@@ -118,7 +118,7 @@
             // SearchFieldComboBox
             // 
             SearchFieldComboBox.FormattingEnabled = true;
-            SearchFieldComboBox.Items.AddRange(new object[] { "LocationID", "Name", "Address", "Phone", "Email"});
+            SearchFieldComboBox.Items.AddRange(new object[] { "LocationID", "Name", "Address", "Phone", "Email" });
             SearchFieldComboBox.Location = new Point(553, 76);
             SearchFieldComboBox.Margin = new Padding(3, 2, 3, 2);
             SearchFieldComboBox.Name = "SearchFieldComboBox";
@@ -196,6 +196,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "LocationTableInterface";
             Text = "LocationTableInterface";
+            Load += LocationTableInterface_Load_1;
             ((System.ComponentModel.ISupportInitialize)locationTableDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
