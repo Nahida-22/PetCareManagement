@@ -23,12 +23,14 @@ namespace PawfectCareLimited
 
             if (result == DialogResult.Yes)
             {
+                // Open the real LoginForm
                 loginForm login = new loginForm();
                 login.Show();
+
+                // Close the current HomeForms screen
                 this.Close();
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
