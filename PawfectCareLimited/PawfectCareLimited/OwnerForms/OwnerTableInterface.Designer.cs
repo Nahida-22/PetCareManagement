@@ -35,6 +35,8 @@
             SearchBarTextBox = new TextBox();
             SearchButton = new Button();
             button1 = new Button();
+            SearchFieldComboBox = new ComboBox();
+            viewAllButton = new Button();
             ((System.ComponentModel.ISupportInitialize)OwnerTableDataGridView).BeginInit();
             SuspendLayout();
             // 
@@ -45,7 +47,7 @@
             OwnerLabel.ForeColor = Color.DarkCyan;
             OwnerLabel.Location = new Point(275, 14);
             OwnerLabel.Name = "OwnerLabel";
-            OwnerLabel.Size = new Size(190, 28);
+            OwnerLabel.Size = new Size(241, 34);
             OwnerLabel.TabIndex = 0;
             OwnerLabel.Text = "OWNER TABLE";
             OwnerLabel.Click += OwnerLabel_Click;
@@ -82,25 +84,27 @@
             OwnerDeleteButton.TabIndex = 4;
             OwnerDeleteButton.Text = "DELETE";
             OwnerDeleteButton.UseVisualStyleBackColor = false;
+            OwnerDeleteButton.Click += OwnerDeleteButton_Click;
             // 
             // SearchBarTextBox
             // 
-            SearchBarTextBox.Location = new Point(165, 56);
+            SearchBarTextBox.Location = new Point(28, 57);
             SearchBarTextBox.Margin = new Padding(3, 2, 3, 2);
             SearchBarTextBox.Name = "SearchBarTextBox";
-            SearchBarTextBox.Size = new Size(356, 23);
+            SearchBarTextBox.Size = new Size(356, 27);
             SearchBarTextBox.TabIndex = 5;
             // 
             // SearchButton
             // 
             SearchButton.BackColor = Color.DarkCyan;
-            SearchButton.Location = new Point(527, 48);
+            SearchButton.Location = new Point(406, 52);
             SearchButton.Margin = new Padding(3, 2, 3, 2);
             SearchButton.Name = "SearchButton";
             SearchButton.Size = new Size(91, 36);
             SearchButton.TabIndex = 6;
             SearchButton.Text = "SEARCH";
             SearchButton.UseVisualStyleBackColor = false;
+            SearchButton.Click += SearchButton_Click;
             // 
             // button1
             // 
@@ -113,12 +117,36 @@
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
             // 
+            // SearchFieldComboBox
+            // 
+            SearchFieldComboBox.FormattingEnabled = true;
+            SearchFieldComboBox.Items.AddRange(new object[] { "OwnerID", "FirstName", "LastName", "PhoneNo", "Email", "Address" });
+            SearchFieldComboBox.Location = new Point(513, 51);
+            SearchFieldComboBox.Name = "SearchFieldComboBox";
+            SearchFieldComboBox.Size = new Size(151, 28);
+            SearchFieldComboBox.TabIndex = 8;
+            // 
+            // viewAllButton
+            // 
+            viewAllButton.BackColor = Color.DarkCyan;
+            viewAllButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            viewAllButton.ForeColor = Color.White;
+            viewAllButton.Location = new Point(579, 363);
+            viewAllButton.Name = "viewAllButton";
+            viewAllButton.Size = new Size(99, 40);
+            viewAllButton.TabIndex = 9;
+            viewAllButton.Text = "View All";
+            viewAllButton.UseVisualStyleBackColor = false;
+            viewAllButton.Click += viewAllButton_Click;
+            // 
             // OwnerTableInterface
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(727, 487);
+            Controls.Add(viewAllButton);
+            Controls.Add(SearchFieldComboBox);
             Controls.Add(button1);
             Controls.Add(SearchButton);
             Controls.Add(SearchBarTextBox);
@@ -127,7 +155,6 @@
             Controls.Add(OwnerTableDataGridView);
             Controls.Add(OwnerLabel);
             Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OwnerTableInterface";
@@ -147,5 +174,7 @@
         private TextBox SearchBarTextBox;
         private Button SearchButton;
         private Button button1;
+        private ComboBox SearchFieldComboBox;
+        private Button viewAllButton;
     }
 }

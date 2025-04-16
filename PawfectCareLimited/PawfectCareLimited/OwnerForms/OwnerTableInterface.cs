@@ -31,7 +31,8 @@ namespace PawfectCareLimited
             try
             {
                 // Call LoadOwners 
-                await Task.Run(() => LoadOwners());
+                await LoadOwners();
+
             }
             catch (Exception ex)
             {
@@ -94,7 +95,7 @@ namespace PawfectCareLimited
                 string address = OwnerTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
 
                 // Call the UPDATE Window and pass the values of the selected row in its constructor.
-                var ownerUpdateInterface = new UpdateOwnerForm(id, firstName, lastName, phoneNumber, email, address);
+                var ownerUpdateInterface = new OwnerUpdateForm(id, firstName, lastName, phoneNumber, email, address);
 
                 // Show the window.
                 ownerUpdateInterface.ShowDialog();
@@ -118,13 +119,158 @@ namespace PawfectCareLimited
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Create and show the MainForm
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
+            //// Create and show the MainForm
+            //MainForm mainForm = new MainForm();
+            //mainForm.Show();
 
             // Hide or close the current form
             this.Hide();
         }
+
+
+        private async void OwnerDeleteButton_Click(object sender, EventArgs e)
+        {
+            // Confirm deletion
+            var confirmResult = MessageBox.Show("Are you sure to delete this medication?",
+                                                "Confirm Delete",
+                                                MessageBoxButtons.YesNo);
+            if (confirmResult != DialogResult.Yes)
+                return;
+
+            // Get the id of the selected row.
+            string id = OwnerTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+
+            // Check if the a row is selected.
+            if (string.IsNullOrEmpty(id))
+            {
+                MessageBox.Show("Please select a valid owner.");
+                return;
+            }
+
+            // Initialise an instance of HttpClient for API calls.
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string baseUrl = "https://localhost:7038/api/owner"; // Endpoint for deletion.
+                    string deleteUrl = $"{baseUrl}?ownerId={id}";
+
+                    HttpResponseMessage response = await client.DeleteAsync(deleteUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Owner deleted successfully.");
+
+                        // Refresh the table.
+                        await Task.Run(() => LoadOwners());
+                    }
+                    else
+                    {
+                        // Show error message.
+                        string error = await response.Content.ReadAsStringAsync();
+                        MessageBox.Show($"Failed to delete medication. Server says: {error}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error during deletion: {ex.Message}");
+                }
+
+            }
+        }
+
+        private async void SearchButton_Click(object sender, EventArgs e)
+        {
+            string fieldName = SearchFieldComboBox.SelectedItem?.ToString();
+            string fieldValue = SearchBarTextBox.Text.Trim();
+
+            if (string.IsNullOrEmpty(fieldName) || string.IsNullOrEmpty(fieldValue))
+            {
+                MessageBox.Show("Please select a field and enter a value.");
+                return;
+            }
+
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string baseUrl = "https://localhost:7038/api/owner";
+                    string fullUrl = $"{baseUrl}?fieldName={fieldName}&fieldValue={fieldValue}";
+
+                    HttpResponseMessage response = await client.GetAsync(fullUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<OperationResult>(json);
+
+                        if (result.success)
+                        {
+                            var dataList = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(result.data.ToString());
+
+                            DataTable dt = ConvertToDataTable(dataList);
+                            OwnerTableDataGridView.DataSource = dt;
+                        }
+                        else
+                        {
+                            MessageBox.Show(result.message);
+                            OwnerTableDataGridView.DataSource = null;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No such record value was found.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+            }
+
+        }
+
+        public static DataTable ConvertToDataTable(List<Dictionary<string, object>> list)
+        {
+            DataTable table = new DataTable();
+
+            if (list == null || list.Count == 0)
+                return table;
+
+            // Create columns
+            foreach (var key in list[0].Keys)
+            {
+                table.Columns.Add(key);
+            }
+
+            // Add rows
+            foreach (var dict in list)
+            {
+                var row = table.NewRow();
+                foreach (var kvp in dict)
+                {
+                    if (kvp.Key == "ExpiryDate" && kvp.Value != null)
+                    {
+                        if (DateTime.TryParse(kvp.Value.ToString(), out DateTime date))
+                        {
+
+                        }
+                        else
+                        {
+                            row[kvp.Key] = DBNull.Value;
+                        }
+                    }
+                    else
+                    {
+                        row[kvp.Key] = kvp.Value ?? DBNull.Value;
+                    }
+                }
+                table.Rows.Add(row);
+            }
+
+            return table;
+        }
+
 
         public class Owner
         {
@@ -141,6 +287,12 @@ namespace PawfectCareLimited
             public bool success { get; set; }
             public string message { get; set; }
             public List<Owner> data { get; set; }
+        }
+
+        private async void viewAllButton_Click(object sender, EventArgs e)
+        {
+            // Reset the table. 
+            await Task.Run(() => LoadOwners());
         }
     }
 }

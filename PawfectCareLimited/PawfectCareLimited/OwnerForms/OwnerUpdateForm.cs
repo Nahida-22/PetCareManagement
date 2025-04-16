@@ -12,7 +12,7 @@ using System.Windows.Forms;
 namespace PawfectCareLimited
 {
     // UPDATE window form.
-    public partial class UpdateOwnerForm : Form
+    public partial class OwnerUpdateForm : Form
     {
         // UPDATE window form.
         // Declare variables.
@@ -21,7 +21,7 @@ namespace PawfectCareLimited
 
         public event EventHandler AppointmentUpdated;
 
-        public UpdateOwnerForm(string ownerId, string ownerFirstName, string ownerLastName, string ownerPhoneNumber, string ownerEmail, string ownerAddress)
+        public OwnerUpdateForm(string ownerId, string ownerFirstName, string ownerLastName, string ownerPhoneNumber, string ownerEmail, string ownerAddress)
         {
             // Initialise the UI components.
             InitializeComponent();
@@ -70,11 +70,11 @@ namespace PawfectCareLimited
             }
         }
 
-        private async void updateMedicationButton_Click(object sender, EventArgs e)
+        private async void updateButton_Click(object sender, EventArgs e)
         {
             using (HttpClient client = new HttpClient())
             {
-                string baseUrl = "https://localhost:7038/api/medication";
+                string baseUrl = "https://localhost:7038/api/owner";
                 var fieldsToUpdate = new List<(string fieldName, string newValue, bool isFK, string referencedTable)>
                 {
                     ("FirstName", updatedFirstName.Text, false, null),

@@ -1,6 +1,6 @@
 ﻿namespace PawfectCareLimited
 {
-    partial class UpdateOwnerForm
+    partial class OwnerUpdateForm
 {
     /// <summary>
     /// Required designer variable.
@@ -41,7 +41,7 @@
             updatedPhoneNumber = new TextBox();
             updatedEmail = new TextBox();
             updatedAddress = new TextBox();
-            button1 = new Button();
+            updateButton = new Button();
             button2 = new Button();
             SuspendLayout();
             // 
@@ -172,17 +172,18 @@
             updatedAddress.Size = new Size(164, 27);
             updatedAddress.TabIndex = 18;
             // 
-            // button1
+            // updateButton
             // 
-            button1.BackColor = Color.DarkCyan;
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(598, 359);
-            button1.Margin = new Padding(3, 4, 3, 4);
-            button1.Name = "button1";
-            button1.Size = new Size(117, 41);
-            button1.TabIndex = 19;
-            button1.Text = "UPDATE";
-            button1.UseVisualStyleBackColor = false;
+            updateButton.BackColor = Color.DarkCyan;
+            updateButton.ForeColor = Color.White;
+            updateButton.Location = new Point(598, 359);
+            updateButton.Margin = new Padding(3, 4, 3, 4);
+            updateButton.Name = "updateButton";
+            updateButton.Size = new Size(117, 41);
+            updateButton.TabIndex = 19;
+            updateButton.Text = "UPDATE";
+            updateButton.UseVisualStyleBackColor = false;
+            updateButton.Click += updateButton_Click;
             // 
             // button2
             // 
@@ -197,14 +198,14 @@
             button2.Text = "BACK";
             button2.UseVisualStyleBackColor = false;
             // 
-            // UpdateOwnerForm
+            // OwnerUpdateForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(800, 451);
             Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(updateButton);
             Controls.Add(updatedAddress);
             Controls.Add(updatedEmail);
             Controls.Add(updatedPhoneNumber);
@@ -218,7 +219,7 @@
             Controls.Add(firstNameLabel);
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(OwnerUpdateLabel);
-            Name = "UpdateOwnerForm";
+            Name = "OwnerUpdateForm";
             Text = "UpdateOwnerForm";
             ResumeLayout(false);
             PerformLayout();
@@ -239,7 +240,7 @@
         private TextBox updatedPhoneNumber;
         private TextBox updatedEmail;
         private TextBox updatedAddress;
-        private Button button1;
+        private Button updateButton;
         private Button button2;
     }
 }

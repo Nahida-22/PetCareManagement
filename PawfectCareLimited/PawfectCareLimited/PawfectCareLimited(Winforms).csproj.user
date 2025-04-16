@@ -46,7 +46,7 @@
     <Compile Update="OwnerForms\OwnerTableInterface.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="OwnerForms\UpdateOwnerForm.cs">
+    <Compile Update="OwnerForms\OwnerUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="RegisterForms\RegisterInterfaceForm.cs">
