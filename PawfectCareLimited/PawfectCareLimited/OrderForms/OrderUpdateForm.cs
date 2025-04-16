@@ -4,39 +4,38 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PawfectCareLimited
 {
-    // UPDATE window form.
-    public partial class UpdateOwnerForm : Form
-    {
+    public partial class OrderUpdateForm : Form
+       {
         // UPDATE window form.
         // Declare variables.
+        private string ordId, medId, orderId, name, quanity, status;
+        private DateTime date;
 
-        private string id, firstName, lastName, phoneNumber, email, address;
+        // Initialise an instance of HttpClient for API calls.
+        private readonly HttpClient _httpClient = new HttpClient();
 
         public event EventHandler AppointmentUpdated;
-
-        public UpdateOwnerForm(string ownerId, string ownerFirstName, string ownerLastName, string ownerPhoneNumber, string ownerEmail, string ownerAddress)
+        public OrderUpdateForm(string orderId, string medicationId, string stockQuantity, DateTime orderDate, string orderStatus)
         {
             // Initialise the UI components.
             InitializeComponent();
 
             // Values retrieved from the table DataGridView.
-            id = ownerId;
-            firstName = ownerFirstName;
-            lastName = ownerLastName;
-            phoneNumber = ownerPhoneNumber;
-            email = ownerEmail;
-            address = ownerAddress;
-
+            ordId = orderId;
+            medId = medicationId;
+            quanity = stockQuantity;
+            date = orderDate;
+            status = orderStatus;
 
             // Call the method UpdateOwnerInterface_Load to initalise the Window.
-            this.Load += new EventHandler(this.UpdateAppointmentInterface_Load);
+            this.Load += new EventHandler(this.UpdateOrderInterface_Load);
         }
 
         /// <summary>
@@ -45,22 +44,22 @@ namespace PawfectCareLimited
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void UpdateAppointmentInterface_Load(object sender, EventArgs e)
+        private async void UpdateOrderInterface_Load(object sender, EventArgs e)
         {
             try
             {
                 // Create an object of type OwnerTableInterface.
-                var appointmentTableInterface = new AppointmentTableInterface();
+                var orderUpdateInterface = new OrderInterfaceForm();
 
                 // Update owner ID in Label
-                UpdateDetailsLabel.Text = "Updating Details for Owner ID : " + id;
+                UpdateDetailsLabel.Text = "Updating Details for Order ID : " + ordId;
 
                 // Populate the current values to be updated.
-                updatedFirstName.Text = firstName;
-                updatedLastName.Text = lastName;
-                updatedPhoneNumber.Text = phoneNumber;
-                updatedEmail.Text = email;
-                updatedAddress.Text = address;
+                updatedMedicationId.Text = medId;
+                updatedQuantity.Text = quanity;
+                updatedOrderStatus.Text = status;
+                updatedOrderDate.Value = date;
+
 
             }
             catch (Exception ex)
@@ -74,19 +73,18 @@ namespace PawfectCareLimited
         {
             using (HttpClient client = new HttpClient())
             {
-                string baseUrl = "https://localhost:7038/api/medication";
+                string baseUrl = "https://localhost:7038/api/order";
                 var fieldsToUpdate = new List<(string fieldName, string newValue, bool isFK, string referencedTable)>
                 {
-                    ("FirstName", updatedFirstName.Text, false, null),
-                    ("LastName", updatedLastName.Text, false, null),
-                    ("PhoneNo", updatedPhoneNumber.Text, false, null),
-                    ("Email", updatedEmail.Text, false, null),
-                    ("Address", updatedAddress.Text, false, null)
+                    ("MedicationID", updatedMedicationId.Text, false, null),
+                    ("Quantity", updatedQuantity.Text, false, null),
+                    ("OrderDate", updatedOrderDate.Text, false, null),
+                    ("OrderStatus", updatedOrderStatus.Text, false, null)
                 };
 
                 foreach (var field in fieldsToUpdate)
                 {
-                    string url = $"{baseUrl}?ownerId={id}" +
+                    string url = $"{baseUrl}?orderId={ordId}" +
                                  $"&fieldName={field.fieldName}" +
                                  $"&newValue={field.newValue}" +
                                  $"&isForeignKey={field.isFK}" +
@@ -100,7 +98,7 @@ namespace PawfectCareLimited
                         return;
                     }
                 }
-                MessageBox.Show("Owner updated successfully!");
+                MessageBox.Show("Order record updated successfully!");
 
                 // Raise the event to refresh the table to show the update changes.
                 AppointmentUpdated?.Invoke(this, EventArgs.Empty);
@@ -109,6 +107,5 @@ namespace PawfectCareLimited
                 this.Close(); // Close the form.
             }
         }
-
     }
 }

@@ -132,7 +132,7 @@
             Margin = new Padding(3, 2, 3, 2);
             Name = "OwnerTableInterface";
             Text = "OwnerTableInterface";
-            Load += OwnerTableInterface_Load_1;
+            Load += OwnerTableInterface_Load;
             ((System.ComponentModel.ISupportInitialize)OwnerTableDataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();

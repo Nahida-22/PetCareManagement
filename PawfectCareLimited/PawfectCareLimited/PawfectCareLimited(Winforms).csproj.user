@@ -22,9 +22,6 @@
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="MainMenuForms\MainMenuForms.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="MedicationForms\MedicationInsertForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -32,6 +29,18 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MedicationForms\MedicationUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MainMenuForms\MainMenuForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OrderForms\OrderInsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OrderForms\OrderInterfaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="OrderForms\OrderUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="OwnerForms\OwnerTableInterface.cs">

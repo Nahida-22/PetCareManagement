@@ -28,7 +28,19 @@ namespace PawfectCareLimited
         // Method to initialise the Owner Windoe.
         private async void OwnerTableInterface_Load(object sender, EventArgs e)
         {
-            // Initialise client.
+            try
+            {
+                // Call LoadOwners 
+                await Task.Run(() => LoadOwners());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading data: {ex.Message}");
+            }
+        }
+
+        private async Task LoadOwners()
+        {
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -65,7 +77,6 @@ namespace PawfectCareLimited
                     MessageBox.Show("Exception: " + ex.Message);
                 }
             }
-
         }
 
         // Event Listener for when the UPDATE button is clicked.
@@ -78,9 +89,12 @@ namespace PawfectCareLimited
                 string id = OwnerTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
                 string firstName = OwnerTableDataGridView.CurrentRow.Cells[1].Value?.ToString();
                 string lastName = OwnerTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
+                string phoneNumber = OwnerTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
+                string email = OwnerTableDataGridView.CurrentRow.Cells[4].Value?.ToString();
+                string address = OwnerTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
 
                 // Call the UPDATE Window and pass the values of the selected row in its constructor.
-                var ownerUpdateInterface = new UpdateOwnerForm(id, firstName, lastName);
+                var ownerUpdateInterface = new UpdateOwnerForm(id, firstName, lastName, phoneNumber, email, address);
 
                 // Show the window.
                 ownerUpdateInterface.ShowDialog();

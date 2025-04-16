@@ -31,22 +31,16 @@
             OwnerUpdateLabel = new Label();
             UpdateDetailsLabel = new Label();
             firstNameLabel = new Label();
-            currentFirstNameValue = new Label();
-            currentValueLabel = new Label();
             changeToValueLabel = new Label();
             updatedFirstName = new TextBox();
             lastNameLabel = new Label();
             phoneNumberLabel = new Label();
             emailLabel = new Label();
             addressLabel = new Label();
-            currentLastNameValue = new Label();
-            currentPhoneNoValue = new Label();
-            currentEmailValue = new Label();
-            currentAddressValue = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            updatedLastName = new TextBox();
+            updatedPhoneNumber = new TextBox();
+            updatedEmail = new TextBox();
+            updatedAddress = new TextBox();
             button1 = new Button();
             button2 = new Button();
             SuspendLayout();
@@ -56,21 +50,20 @@
             OwnerUpdateLabel.AutoSize = true;
             OwnerUpdateLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             OwnerUpdateLabel.ForeColor = Color.DarkCyan;
-            OwnerUpdateLabel.Location = new Point(205, 9);
+            OwnerUpdateLabel.Location = new Point(234, 12);
             OwnerUpdateLabel.Name = "OwnerUpdateLabel";
-            OwnerUpdateLabel.Size = new Size(263, 32);
+            OwnerUpdateLabel.Size = new Size(328, 41);
             OwnerUpdateLabel.TabIndex = 0;
             OwnerUpdateLabel.Text = "Update Owner Details";
-            OwnerUpdateLabel.Click += OwnerUpdateLabel_Click;
             // 
             // UpdateDetailsLabel
             // 
             UpdateDetailsLabel.AutoSize = true;
             UpdateDetailsLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             UpdateDetailsLabel.ForeColor = Color.DarkCyan;
-            UpdateDetailsLabel.Location = new Point(254, 41);
+            UpdateDetailsLabel.Location = new Point(248, 64);
             UpdateDetailsLabel.Name = "UpdateDetailsLabel";
-            UpdateDetailsLabel.Size = new Size(171, 15);
+            UpdateDetailsLabel.Size = new Size(221, 20);
             UpdateDetailsLabel.TabIndex = 1;
             UpdateDetailsLabel.Text = "Updating details for Owner ID: ";
             // 
@@ -79,49 +72,28 @@
             firstNameLabel.AutoSize = true;
             firstNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             firstNameLabel.ForeColor = Color.DarkCyan;
-            firstNameLabel.Location = new Point(130, 117);
+            firstNameLabel.Location = new Point(149, 156);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(73, 15);
+            firstNameLabel.Size = new Size(95, 20);
             firstNameLabel.TabIndex = 2;
             firstNameLabel.Text = "First Name : ";
-            // 
-            // currentFirstNameValue
-            // 
-            currentFirstNameValue.AutoSize = true;
-            currentFirstNameValue.ForeColor = Color.DarkSlateGray;
-            currentFirstNameValue.Location = new Point(278, 117);
-            currentFirstNameValue.Name = "currentFirstNameValue";
-            currentFirstNameValue.Size = new Size(107, 15);
-            currentFirstNameValue.TabIndex = 3;
-            currentFirstNameValue.Text = "Current First Name";
-            // 
-            // currentValueLabel
-            // 
-            currentValueLabel.AutoSize = true;
-            currentValueLabel.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            currentValueLabel.Location = new Point(306, 82);
-            currentValueLabel.Name = "currentValueLabel";
-            currentValueLabel.Size = new Size(51, 14);
-            currentValueLabel.TabIndex = 4;
-            currentValueLabel.Text = "Current";
             // 
             // changeToValueLabel
             // 
             changeToValueLabel.AutoSize = true;
             changeToValueLabel.Font = new Font("Arial Rounded MT Bold", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            changeToValueLabel.Location = new Point(480, 82);
+            changeToValueLabel.Location = new Point(337, 111);
             changeToValueLabel.Name = "changeToValueLabel";
-            changeToValueLabel.Size = new Size(70, 14);
+            changeToValueLabel.Size = new Size(86, 17);
             changeToValueLabel.TabIndex = 5;
             changeToValueLabel.Text = "Change To";
             // 
             // updatedFirstName
             // 
             updatedFirstName.ForeColor = SystemColors.WindowFrame;
-            updatedFirstName.Location = new Point(442, 109);
-            updatedFirstName.Margin = new Padding(3, 2, 3, 2);
+            updatedFirstName.Location = new Point(305, 153);
             updatedFirstName.Name = "updatedFirstName";
-            updatedFirstName.Size = new Size(144, 23);
+            updatedFirstName.Size = new Size(164, 27);
             updatedFirstName.TabIndex = 6;
             // 
             // lastNameLabel
@@ -129,9 +101,9 @@
             lastNameLabel.AutoSize = true;
             lastNameLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             lastNameLabel.ForeColor = Color.DarkCyan;
-            lastNameLabel.Location = new Point(130, 145);
+            lastNameLabel.Location = new Point(149, 193);
             lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new Size(72, 15);
+            lastNameLabel.Size = new Size(92, 20);
             lastNameLabel.TabIndex = 7;
             lastNameLabel.Text = "Last Name : ";
             // 
@@ -140,9 +112,9 @@
             phoneNumberLabel.AutoSize = true;
             phoneNumberLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             phoneNumberLabel.ForeColor = Color.DarkCyan;
-            phoneNumberLabel.Location = new Point(131, 171);
+            phoneNumberLabel.Location = new Point(150, 228);
             phoneNumberLabel.Name = "phoneNumberLabel";
-            phoneNumberLabel.Size = new Size(97, 15);
+            phoneNumberLabel.Size = new Size(126, 20);
             phoneNumberLabel.TabIndex = 8;
             phoneNumberLabel.Text = "Phone Number : ";
             // 
@@ -151,9 +123,9 @@
             emailLabel.AutoSize = true;
             emailLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             emailLabel.ForeColor = Color.DarkCyan;
-            emailLabel.Location = new Point(131, 195);
+            emailLabel.Location = new Point(150, 270);
             emailLabel.Name = "emailLabel";
-            emailLabel.Size = new Size(45, 15);
+            emailLabel.Size = new Size(58, 20);
             emailLabel.TabIndex = 9;
             emailLabel.Text = "Email : ";
             // 
@@ -162,95 +134,52 @@
             addressLabel.AutoSize = true;
             addressLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold);
             addressLabel.ForeColor = Color.DarkCyan;
-            addressLabel.Location = new Point(131, 218);
+            addressLabel.Location = new Point(150, 318);
             addressLabel.Name = "addressLabel";
-            addressLabel.Size = new Size(58, 15);
+            addressLabel.Size = new Size(75, 20);
             addressLabel.TabIndex = 10;
             addressLabel.Text = "Address : ";
             // 
-            // currentLastNameValue
+            // updatedLastName
             // 
-            currentLastNameValue.AutoSize = true;
-            currentLastNameValue.ForeColor = Color.DarkSlateGray;
-            currentLastNameValue.Location = new Point(278, 145);
-            currentLastNameValue.Name = "currentLastNameValue";
-            currentLastNameValue.Size = new Size(106, 15);
-            currentLastNameValue.TabIndex = 11;
-            currentLastNameValue.Text = "Current Last Name";
+            updatedLastName.ForeColor = SystemColors.WindowFrame;
+            updatedLastName.Location = new Point(305, 193);
+            updatedLastName.Name = "updatedLastName";
+            updatedLastName.Size = new Size(164, 27);
+            updatedLastName.TabIndex = 15;
             // 
-            // currentPhoneNoValue
+            // updatedPhoneNumber
             // 
-            currentPhoneNoValue.AutoSize = true;
-            currentPhoneNoValue.ForeColor = Color.DarkSlateGray;
-            currentPhoneNoValue.Location = new Point(278, 171);
-            currentPhoneNoValue.Name = "currentPhoneNoValue";
-            currentPhoneNoValue.Size = new Size(100, 15);
-            currentPhoneNoValue.TabIndex = 12;
-            currentPhoneNoValue.Text = "Current PhoneNo";
+            updatedPhoneNumber.ForeColor = SystemColors.WindowFrame;
+            updatedPhoneNumber.Location = new Point(305, 228);
+            updatedPhoneNumber.Name = "updatedPhoneNumber";
+            updatedPhoneNumber.Size = new Size(164, 27);
+            updatedPhoneNumber.TabIndex = 16;
             // 
-            // currentEmailValue
+            // updatedEmail
             // 
-            currentEmailValue.AutoSize = true;
-            currentEmailValue.ForeColor = Color.DarkSlateGray;
-            currentEmailValue.Location = new Point(278, 195);
-            currentEmailValue.Name = "currentEmailValue";
-            currentEmailValue.Size = new Size(79, 15);
-            currentEmailValue.TabIndex = 13;
-            currentEmailValue.Text = "Current Email";
+            updatedEmail.ForeColor = SystemColors.WindowFrame;
+            updatedEmail.Location = new Point(305, 270);
+            updatedEmail.Name = "updatedEmail";
+            updatedEmail.Size = new Size(164, 27);
+            updatedEmail.TabIndex = 17;
             // 
-            // currentAddressValue
+            // updatedAddress
             // 
-            currentAddressValue.AutoSize = true;
-            currentAddressValue.ForeColor = Color.DarkSlateGray;
-            currentAddressValue.Location = new Point(278, 218);
-            currentAddressValue.Name = "currentAddressValue";
-            currentAddressValue.Size = new Size(92, 15);
-            currentAddressValue.TabIndex = 14;
-            currentAddressValue.Text = "Current Address";
-            // 
-            // textBox1
-            // 
-            textBox1.ForeColor = SystemColors.WindowFrame;
-            textBox1.Location = new Point(442, 136);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(144, 23);
-            textBox1.TabIndex = 15;
-            // 
-            // textBox2
-            // 
-            textBox2.ForeColor = SystemColors.WindowFrame;
-            textBox2.Location = new Point(442, 163);
-            textBox2.Margin = new Padding(3, 2, 3, 2);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(144, 23);
-            textBox2.TabIndex = 16;
-            // 
-            // textBox3
-            // 
-            textBox3.ForeColor = SystemColors.WindowFrame;
-            textBox3.Location = new Point(442, 190);
-            textBox3.Margin = new Padding(3, 2, 3, 2);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(144, 23);
-            textBox3.TabIndex = 17;
-            // 
-            // textBox4
-            // 
-            textBox4.ForeColor = SystemColors.WindowFrame;
-            textBox4.Location = new Point(442, 217);
-            textBox4.Margin = new Padding(3, 2, 3, 2);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(144, 23);
-            textBox4.TabIndex = 18;
+            updatedAddress.ForeColor = SystemColors.WindowFrame;
+            updatedAddress.Location = new Point(305, 318);
+            updatedAddress.Name = "updatedAddress";
+            updatedAddress.Size = new Size(164, 27);
+            updatedAddress.TabIndex = 18;
             // 
             // button1
             // 
             button1.BackColor = Color.DarkCyan;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(294, 270);
+            button1.Location = new Point(598, 359);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(102, 31);
+            button1.Size = new Size(117, 41);
             button1.TabIndex = 19;
             button1.Text = "UPDATE";
             button1.UseVisualStyleBackColor = false;
@@ -260,45 +189,37 @@
             button2.BackColor = Color.DarkCyan;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button2.ForeColor = Color.White;
-            button2.Location = new Point(12, 283);
+            button2.Location = new Point(14, 377);
+            button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
-            button2.Size = new Size(76, 43);
+            button2.Size = new Size(87, 57);
             button2.TabIndex = 20;
             button2.Text = "BACK";
             button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
             // 
             // UpdateOwnerForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(700, 338);
+            ClientSize = new Size(800, 451);
             Controls.Add(button2);
             Controls.Add(button1);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Controls.Add(currentAddressValue);
-            Controls.Add(currentEmailValue);
-            Controls.Add(currentPhoneNoValue);
-            Controls.Add(currentLastNameValue);
+            Controls.Add(updatedAddress);
+            Controls.Add(updatedEmail);
+            Controls.Add(updatedPhoneNumber);
+            Controls.Add(updatedLastName);
             Controls.Add(addressLabel);
             Controls.Add(emailLabel);
             Controls.Add(phoneNumberLabel);
             Controls.Add(lastNameLabel);
             Controls.Add(updatedFirstName);
             Controls.Add(changeToValueLabel);
-            Controls.Add(currentValueLabel);
-            Controls.Add(currentFirstNameValue);
             Controls.Add(firstNameLabel);
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(OwnerUpdateLabel);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "UpdateOwnerForm";
             Text = "UpdateOwnerForm";
-            Load += UpdateOwnerForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -308,22 +229,16 @@
         private Label OwnerUpdateLabel;
         private Label UpdateDetailsLabel;
         private Label firstNameLabel;
-        private Label currentFirstNameValue;
-        private Label currentValueLabel;
         private Label changeToValueLabel;
         private TextBox updatedFirstName;
         private Label lastNameLabel;
         private Label phoneNumberLabel;
         private Label emailLabel;
         private Label addressLabel;
-        private Label currentLastNameValue;
-        private Label currentPhoneNoValue;
-        private Label currentEmailValue;
-        private Label currentAddressValue;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
+        private TextBox updatedLastName;
+        private TextBox updatedPhoneNumber;
+        private TextBox updatedEmail;
+        private TextBox updatedAddress;
         private Button button1;
         private Button button2;
     }

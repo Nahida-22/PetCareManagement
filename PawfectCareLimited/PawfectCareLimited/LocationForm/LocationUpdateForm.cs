@@ -80,8 +80,7 @@ namespace PawfectCareLimited
                 string baseUrl = "https://localhost:7038/api/location";
                 var fieldsToUpdate = new List<(string fieldName, string newValue, bool isFK, string referencedTable)>
                 {
-                    ("BranchName", updatedBranchName.Text, false, null),
-                  
+                    ("Name", updatedBranchName.Text, false, null),   
                     ("Address", updatedAddress.Text, false, null),
                     ("Email", updatedEmail.Text, false, null),
                     ("Phone", updatedPhone.Text, false, null)

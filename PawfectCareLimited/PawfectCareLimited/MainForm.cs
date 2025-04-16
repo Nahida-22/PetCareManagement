@@ -47,6 +47,10 @@ namespace PawfectCareLimited
             {
                 var medicationTableInterface = new MedicationInterfaceForm();
                 medicationTableInterface.ShowDialog();
+
+            } else if (selected == "Order"){
+                var orderTableInterface = new OrderInterfaceForm();
+                orderTableInterface.ShowDialog();   
             }
             else if (selected == "Location")
             {

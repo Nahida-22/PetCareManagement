@@ -110,6 +110,8 @@
             comboBox1.Items.AddRange(new object[] { "Owner", "Pet", "Appointment", "Medication", "Location" });
             comboBox1.Location = new Point(13, 41);
             comboBox1.Margin = new Padding(3, 2, 3, 2);
+            comboBox1.Items.AddRange(new object[] { "Owner", "Pet", "Appointment", "Medication", "Order" });
+            comboBox1.Location = new Point(15, 55);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(133, 23);
             comboBox1.TabIndex = 5;
