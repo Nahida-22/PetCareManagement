@@ -47,7 +47,7 @@
             OwnerLabel.ForeColor = Color.DarkCyan;
             OwnerLabel.Location = new Point(275, 14);
             OwnerLabel.Name = "OwnerLabel";
-            OwnerLabel.Size = new Size(241, 34);
+            OwnerLabel.Size = new Size(190, 28);
             OwnerLabel.TabIndex = 0;
             OwnerLabel.Text = "OWNER TABLE";
             OwnerLabel.Click += OwnerLabel_Click;
@@ -65,6 +65,7 @@
             // OwnerUpdateButton
             // 
             OwnerUpdateButton.BackColor = Color.ForestGreen;
+            OwnerUpdateButton.ForeColor = Color.White;
             OwnerUpdateButton.Location = new Point(223, 361);
             OwnerUpdateButton.Margin = new Padding(3, 2, 3, 2);
             OwnerUpdateButton.Name = "OwnerUpdateButton";
@@ -77,6 +78,7 @@
             // OwnerDeleteButton
             // 
             OwnerDeleteButton.BackColor = Color.IndianRed;
+            OwnerDeleteButton.ForeColor = Color.White;
             OwnerDeleteButton.Location = new Point(406, 361);
             OwnerDeleteButton.Margin = new Padding(3, 2, 3, 2);
             OwnerDeleteButton.Name = "OwnerDeleteButton";
@@ -91,12 +93,13 @@
             SearchBarTextBox.Location = new Point(28, 57);
             SearchBarTextBox.Margin = new Padding(3, 2, 3, 2);
             SearchBarTextBox.Name = "SearchBarTextBox";
-            SearchBarTextBox.Size = new Size(356, 27);
+            SearchBarTextBox.Size = new Size(356, 23);
             SearchBarTextBox.TabIndex = 5;
             // 
             // SearchButton
             // 
             SearchButton.BackColor = Color.DarkCyan;
+            SearchButton.ForeColor = Color.White;
             SearchButton.Location = new Point(406, 52);
             SearchButton.Margin = new Padding(3, 2, 3, 2);
             SearchButton.Name = "SearchButton";
@@ -109,6 +112,7 @@
             // button1
             // 
             button1.BackColor = Color.DarkCyan;
+            button1.ForeColor = Color.White;
             button1.Location = new Point(28, 432);
             button1.Name = "button1";
             button1.Size = new Size(76, 43);
@@ -121,9 +125,9 @@
             // 
             SearchFieldComboBox.FormattingEnabled = true;
             SearchFieldComboBox.Items.AddRange(new object[] { "OwnerID", "FirstName", "LastName", "PhoneNo", "Email", "Address" });
-            SearchFieldComboBox.Location = new Point(513, 51);
+            SearchFieldComboBox.Location = new Point(514, 57);
             SearchFieldComboBox.Name = "SearchFieldComboBox";
-            SearchFieldComboBox.Size = new Size(151, 28);
+            SearchFieldComboBox.Size = new Size(183, 23);
             SearchFieldComboBox.TabIndex = 8;
             // 
             // viewAllButton
@@ -131,9 +135,9 @@
             viewAllButton.BackColor = Color.DarkCyan;
             viewAllButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             viewAllButton.ForeColor = Color.White;
-            viewAllButton.Location = new Point(579, 363);
+            viewAllButton.Location = new Point(623, 342);
             viewAllButton.Name = "viewAllButton";
-            viewAllButton.Size = new Size(99, 40);
+            viewAllButton.Size = new Size(74, 31);
             viewAllButton.TabIndex = 9;
             viewAllButton.Text = "View All";
             viewAllButton.UseVisualStyleBackColor = false;
@@ -141,7 +145,7 @@
             // 
             // OwnerTableInterface
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(727, 487);
