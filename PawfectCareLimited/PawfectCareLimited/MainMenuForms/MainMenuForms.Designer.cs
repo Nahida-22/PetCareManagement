@@ -93,7 +93,7 @@
             button4.Name = "button4";
             button4.Size = new Size(159, 66);
             button4.TabIndex = 4;
-            button4.Text = "USERS";
+            button4.Text = "STAFF";
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 

@@ -59,11 +59,11 @@
             apppointmentUpdateLabel.AutoSize = true;
             apppointmentUpdateLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             apppointmentUpdateLabel.ForeColor = Color.DarkCyan;
-            apppointmentUpdateLabel.Location = new Point(279, 43);
+            apppointmentUpdateLabel.Location = new Point(294, 41);
             apppointmentUpdateLabel.Name = "apppointmentUpdateLabel";
-            apppointmentUpdateLabel.Size = new Size(95, 28);
+            apppointmentUpdateLabel.Size = new Size(88, 28);
             apppointmentUpdateLabel.TabIndex = 27;
-            apppointmentUpdateLabel.Text = "USERS";
+            apppointmentUpdateLabel.Text = "STAFF";
             // 
             // button1
             // 
