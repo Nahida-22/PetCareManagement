@@ -48,9 +48,9 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(152, 66);
+            dataGridView1.Location = new Point(77, 127);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(511, 361);
+            dataGridView1.Size = new Size(523, 262);
             dataGridView1.TabIndex = 26;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -59,7 +59,7 @@
             apppointmentUpdateLabel.AutoSize = true;
             apppointmentUpdateLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             apppointmentUpdateLabel.ForeColor = Color.DarkCyan;
-            apppointmentUpdateLabel.Location = new Point(355, 23);
+            apppointmentUpdateLabel.Location = new Point(279, 43);
             apppointmentUpdateLabel.Name = "apppointmentUpdateLabel";
             apppointmentUpdateLabel.Size = new Size(95, 28);
             apppointmentUpdateLabel.TabIndex = 27;
@@ -83,7 +83,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 491);
+            ClientSize = new Size(674, 491);
             Controls.Add(button1);
             Controls.Add(apppointmentUpdateLabel);
             Controls.Add(dataGridView1);
