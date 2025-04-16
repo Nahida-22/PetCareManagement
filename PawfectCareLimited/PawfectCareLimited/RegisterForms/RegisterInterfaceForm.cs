@@ -47,7 +47,7 @@ namespace PawfectCareLimited
                 string petId = petIdValue.Text;
                 string ownerId = ownerIdValue.Text;
 
-                
+
 
                 // Construct the pet data as a Dictionary
                 var petData = new Dictionary<string, object>
@@ -76,7 +76,7 @@ namespace PawfectCareLimited
                     // Check if owner insert was successful
                     if (petResponse.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Pet details added successfully.");                       
+                        MessageBox.Show("Pet details added successfully.");
                     }
                     else
                     {
@@ -118,7 +118,7 @@ namespace PawfectCareLimited
                 string address = addressValue.Text;
                 string ownerId = ownerIdValue.Text;
 
-                
+
                 // Construct the owner data as a Dictionary
                 var ownerData = new Dictionary<string, object>
                 {
@@ -136,7 +136,7 @@ namespace PawfectCareLimited
                     // Insert the pet and owner data.
                     string ownerApiUrl = "https://localhost:7038/api/owner";
 
-                    
+
                     var ownerJson = System.Text.Json.JsonSerializer.Serialize(ownerData);
                     var ownerContent = new StringContent(ownerJson, Encoding.UTF8, "application/json");
 
@@ -145,7 +145,7 @@ namespace PawfectCareLimited
 
                     // Check if owner insert was successful
                     if (ownerResponse.IsSuccessStatusCode)
-                    {          
+                    {
                         MessageBox.Show("Owner details added successfully.");
                     }
                     else
@@ -161,5 +161,17 @@ namespace PawfectCareLimited
             }
 
         }
+
+        private void RegisterInterfaceForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Hide or close the current form
+            this.Hide();
+        }
+
     }
 }
