@@ -107,6 +107,7 @@
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "HomeForms";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "HomeForms";
             Load += HomeForms_Load_1;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

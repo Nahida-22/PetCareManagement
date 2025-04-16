@@ -223,6 +223,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OrderUpdateForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateOwnerForm";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

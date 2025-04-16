@@ -56,7 +56,6 @@ namespace PawfectCareLimited
             label1.Size = new Size(61, 21);
             label1.TabIndex = 1;
             label1.Text = "LOGIN";
-           
             // 
             // pictureBox2
             // 
@@ -173,6 +172,7 @@ namespace PawfectCareLimited
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "loginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "loginForm";
             Load += loginForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();

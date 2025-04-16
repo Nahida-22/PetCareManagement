@@ -174,6 +174,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OwnerTableInterface";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "OwnerTableInterface";
             Load += OwnerTableInterface_Load;
             ((System.ComponentModel.ISupportInitialize)OwnerTableDataGridView).EndInit();

@@ -194,6 +194,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OrderInterfaceForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)orderTableDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
