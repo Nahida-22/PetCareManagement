@@ -67,13 +67,19 @@ namespace PawfectCareLimited
                     }
 
                     this.Close();
-                    
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"An error occurred: {ex.Message}");
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Hide or close the current form
+            this.Hide();
         }
     }
 }
