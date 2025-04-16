@@ -1,13 +1,14 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace PawfectCareLimited
+﻿namespace PawfectCareLimited
 {
     public partial class MainMenuForms : Form
     {
-        public MainMenuForms()
+        private Form loginForm;
+
+        // Add this constructor
+        public MainMenuForms(Form loginFormRef)
         {
             InitializeComponent();
+            loginForm = loginFormRef; // Store reference to login form
         }
 
         private void MainMenuForms_Load(object sender, EventArgs e)
@@ -46,13 +47,16 @@ namespace PawfectCareLimited
             this.Show();
         }
 
-        private void logoutButton_Click(object sender, EventArgs e)
+        // Add a logout button handler
+        private void buttonLogout_Click(object sender, EventArgs e)
         {
-            var result = MessageBox.Show("Are you sure you want to logout?", "Logout", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
             {
-                this.Close(); // Ends Application.Run(mainMenu)
-                // The loop in Program.cs will trigger login again
+                loginForm.Show(); // Show the original login form again
+                this.Close();     // Close this form completely
             }
         }
     }
