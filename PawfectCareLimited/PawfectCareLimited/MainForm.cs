@@ -68,6 +68,10 @@ namespace PawfectCareLimited
             {
                 var petTableInterface = new PetTableInterface();
                 petTableInterface.ShowDialog();
+            } else if (selected == "Vet")
+            {
+                var vetTableInterface = new VetTableInterfaceForm();
+                vetTableInterface.ShowDialog();
             }
         }
 

@@ -79,6 +79,15 @@
     <Compile Update="UsersForms\UsersForms.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="VetForms\VetInsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="VetForms\VetTableInterfaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="VetForms\VetUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resource1.resx">

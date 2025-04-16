@@ -25,18 +25,25 @@ namespace PawfectCareLimited
 
             if (selected == "Owner")
             {
+                // Create an object of the type OwnerTableInterface.
                 var ownerTableInterface = new OwnerTableInterface();
+
+                // Show the window.
                 ownerTableInterface.ShowDialog();
             }
             else if (selected == "Appointment")
             {
+                // Create an object of the type AppointmentTableInterface.
                 var appointmentTableInterface = new AppointmentTableInterface();
+
+                // Show the window.
                 appointmentTableInterface.ShowDialog();
             }
             else if (selected == "Medication")
             {
                 var medicationTableInterface = new MedicationInterfaceForm();
                 medicationTableInterface.ShowDialog();
+
             }
             else if (selected == "Order")
             {
@@ -57,6 +64,11 @@ namespace PawfectCareLimited
             {
                 var petTableInterface = new PetTableInterface();
                 petTableInterface.ShowDialog();
+            }
+            else if (selected == "Vet")
+            {
+                var vetTableInterface = new VetTableInterfaceForm();
+                vetTableInterface.ShowDialog();
             }
         }
 

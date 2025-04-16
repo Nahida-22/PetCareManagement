@@ -38,7 +38,7 @@ namespace PawfectCareLimited
             }
         }
 
-        private async Task LoadLocations()
+        public async Task LoadLocations()
         {
             using (HttpClient client = new HttpClient())
             {
@@ -260,13 +260,17 @@ namespace PawfectCareLimited
 
         private void locationInsertButton_Click(object sender, EventArgs e)
         {
-            using (HttpClient client = new HttpClient())
-            {
-                var locationInsertForm = new LocationInsertForm();
-                locationInsertForm.ShowDialog();
+            var insertForm = new LocationInsertForm();
 
-            }
+            // Subscribe to the event (if defined in the form)
+            insertForm.LocationInserted += async (s2, e2) =>
+            {
+                await LoadLocations();
+            };
+
+            insertForm.ShowDialog();
         }
+
 
         private void locationLabel_Click(object sender, EventArgs e)
         {
