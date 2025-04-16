@@ -114,7 +114,8 @@ namespace PawfectCareLtd.Migrations
                         name: "FK_Medications_Suppliers_SupplierID",
                         column: x => x.SupplierID,
                         principalTable: "Suppliers",
-                        principalColumn: "SupplierID");
+                        principalColumn: "SupplierID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

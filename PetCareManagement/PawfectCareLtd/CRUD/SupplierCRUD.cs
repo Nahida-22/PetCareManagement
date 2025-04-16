@@ -2,6 +2,7 @@
 using System; // Import the System namespace which includes fundamental classes and base classes.
 using System.Collections.Generic; // Import the System.Collections.Generic namespace for generic collections.
 using System.Linq; // Import the System.Linq namespace for LINQ (Language-Integrated Query) operations on collections.
+using Microsoft.EntityFrameworkCore;
 using PawfectCareLtd.Controllers; // Import the Controllers namespace from the PawfectCareLtd project.
 using PawfectCareLtd.Data; // Import the Data namespace from the PawfectCareLtd project.
 using PawfectCareLtd.Data.DataRetrieval;  // Import the custom in memory database.
@@ -116,7 +117,7 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
 
 
-        // Method to update data from the Owner table.
+        // Method to update data from the Supplier table.
         public OperationResult UpdateOperationForSupplier(string primaryKeyValue, string fieldName, string newValue, bool isForeignKey = false, string referencedTableName = null)
         {
             // Get the Owner table from the in memory database.
@@ -179,12 +180,13 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
 
 
 
-        //Method for API delete 
+        // Method to delete data from the Supplier table.
         public OperationResult DeleteSupplierById(string supplierId)
         {
+            // Get the in mememory database table for the Supplier.
             var supplierTable = _inMemoryDatabase.GetTable("Supplier");
 
-            // Try delete from memory
+            // Try deleting the in memory database.
             try
             {
                 supplierTable.Delete(supplierId);
@@ -194,19 +196,33 @@ namespace PawfectCareLtd.CRUD // Define the namespace for the application.
                 return new OperationResult { success = false, message = $"Supplier with ID {supplierId} not found in in-memory database." };
             }
 
-            // Try delete from SQL Server
-            var supplierEntity = _dbContext.Suppliers.Find(supplierId);
-            if (supplierEntity != null)
+            // If the supplier ID was not found in the in memory table.
+            var supplierEntity = _dbContext.Suppliers.Include(s => s.Medications).ThenInclude(m => m.Orders).FirstOrDefault(s => s.SupplierID == supplierId);
+
+            // If the supplier was not found in the SQL database, return a failure message.
+            if (supplierEntity == null)
             {
-                _dbContext.Suppliers.Remove(supplierEntity);
-                _dbContext.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine($"Owner with ID {supplierId} not found in SQL database.");
+                return new OperationResult { success = false, message = $"Supplier with ID {supplierId} not found in SQL database." };
             }
 
-            return new OperationResult { success = true, message = $"Supplier with ID {supplierId} deleted from in-memory database." };
+            // Check if any of the medications linked to the supplier have existing orders.
+            if (supplierEntity.Medications.Any(m => m.Orders.Any()))
+            {
+                return new OperationResult { success = false,message = "Cannot delete supplier because one or more medications are linked to existing orders." };
+            }
+
+            // Loop through each medication linked to the supplier.
+            foreach (var med in supplierEntity.Medications)
+            {
+                _dbContext.Orders.RemoveRange(med.Orders);
+            }
+
+            // Remove medications manually first.
+            _dbContext.Medications.RemoveRange(supplierEntity.Medications);
+            _dbContext.Suppliers.Remove(supplierEntity);
+            _dbContext.SaveChanges();
+
+            return new OperationResult { success = true, message = $"Supplier with ID {supplierId} and related medications deleted." };
         }
 
 

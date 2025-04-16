@@ -394,7 +394,8 @@ namespace PawfectCareLtd.Migrations
                 {
                     b.HasOne("PawfectCareLtd.Models.Supplier", "Supplier")
                         .WithMany("Medications")
-                        .HasForeignKey("SupplierID");
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Supplier");
                 });

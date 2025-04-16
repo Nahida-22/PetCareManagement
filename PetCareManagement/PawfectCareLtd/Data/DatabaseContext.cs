@@ -61,7 +61,8 @@ namespace PawfectCareLtd.Data // Define the namespace for the application.
             modelBuilder.Entity<Medication>()
                 .HasOne(m => m.Supplier)  // Medication has one Supplier
                 .WithMany(s => s.Medications)  // Supplier has many Medications
-                .HasForeignKey(m => m.SupplierID); // Foreign key in Medication table
+                .HasForeignKey(m => m.SupplierID) // Foreign key in Medication table
+                .OnDelete(DeleteBehavior.Cascade); // Delete all relevant key.
 
 
             // Add precision for Unit Price in Medication table
@@ -81,9 +82,7 @@ namespace PawfectCareLtd.Data // Define the namespace for the application.
                 .WithMany()
                 .HasForeignKey(p => p.VetID);
 
-            /// <summary>
-            /// Configures relationships for the PrescriptionMedication table.
-            /// </summary>
+            // Configures relationships for the PrescriptionMedication table.
             modelBuilder.Entity<PrescriptionMedication>()
                 // Define Composite Primary Key
                 .HasKey(pm => new { pm.PrescriptionID, pm.MedicationID });

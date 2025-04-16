@@ -12,7 +12,7 @@ using PawfectCareLtd.Data;
 namespace PawfectCareLtd.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250416071015_MigrationForAllTables")]
+    [Migration("20250416075409_MigrationForAllTables")]
     partial class MigrationForAllTables
     {
         /// <inheritdoc />
@@ -397,7 +397,8 @@ namespace PawfectCareLtd.Migrations
                 {
                     b.HasOne("PawfectCareLtd.Models.Supplier", "Supplier")
                         .WithMany("Medications")
-                        .HasForeignKey("SupplierID");
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Supplier");
                 });
