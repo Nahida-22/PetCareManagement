@@ -71,7 +71,8 @@ namespace PawfectCareLtd.Repositories.HashTableDatabaseLoader // Define the name
                     ["VetName"] = vet.VetName,
                     ["Specialisation"] = vet.Specialisation,
                     ["PhoneNo"] = vet.PhoneNo,
-                    ["Email"] = vet.Email
+                    ["Email"] = vet.Email,
+                    ["Address"] = vet.Address
                 },
                 dbContext // Pass original DbContext to maintain a reference for syncing with SSMS database.
             );
