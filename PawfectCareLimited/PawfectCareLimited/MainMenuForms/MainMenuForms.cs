@@ -55,8 +55,7 @@
 
             if (result == DialogResult.Yes)
             {
-                loginForm.Show(); // Show the original login form again
-                this.Close();     // Close this form completely
+                Application.Exit();
             }
         }
     }
