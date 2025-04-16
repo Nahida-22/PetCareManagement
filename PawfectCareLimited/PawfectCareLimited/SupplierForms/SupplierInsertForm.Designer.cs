@@ -40,15 +40,17 @@
             emailLabel = new Label();
             emailValue = new TextBox();
             insertButton = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16F);
-            label1.Location = new Point(10, 7);
+            label1.Font = new Font("Arial Rounded MT Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DarkCyan;
+            label1.Location = new Point(198, 23);
             label1.Name = "label1";
-            label1.Size = new Size(286, 30);
+            label1.Size = new Size(299, 24);
             label1.TabIndex = 0;
             label1.Text = "Enter a new Supplier Record";
             label1.Click += label1_Click;
@@ -56,24 +58,28 @@
             // supplierIdLabel
             // 
             supplierIdLabel.AutoSize = true;
-            supplierIdLabel.Location = new Point(10, 58);
+            supplierIdLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            supplierIdLabel.ForeColor = SystemColors.ControlDarkDark;
+            supplierIdLabel.Location = new Point(198, 74);
             supplierIdLabel.Name = "supplierIdLabel";
-            supplierIdLabel.Size = new Size(70, 15);
+            supplierIdLabel.Size = new Size(85, 17);
             supplierIdLabel.TabIndex = 1;
             supplierIdLabel.Text = "Supplier ID :";
             // 
             // supplierNameLabel
             // 
             supplierNameLabel.AutoSize = true;
-            supplierNameLabel.Location = new Point(10, 96);
+            supplierNameLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            supplierNameLabel.ForeColor = SystemColors.ControlDarkDark;
+            supplierNameLabel.Location = new Point(198, 112);
             supplierNameLabel.Name = "supplierNameLabel";
-            supplierNameLabel.Size = new Size(91, 15);
+            supplierNameLabel.Size = new Size(107, 17);
             supplierNameLabel.TabIndex = 2;
             supplierNameLabel.Text = "Supplier Name :";
             // 
             // IdValue
             // 
-            IdValue.Location = new Point(144, 58);
+            IdValue.Location = new Point(332, 74);
             IdValue.Margin = new Padding(3, 2, 3, 2);
             IdValue.Name = "IdValue";
             IdValue.Size = new Size(169, 23);
@@ -82,15 +88,17 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(10, 130);
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            label2.ForeColor = SystemColors.ControlDarkDark;
+            label2.Location = new Point(198, 146);
             label2.Name = "label2";
-            label2.Size = new Size(91, 15);
+            label2.Size = new Size(106, 17);
             label2.TabIndex = 4;
             label2.Text = "Phone Number:";
             // 
             // supplierNameValue
             // 
-            supplierNameValue.Location = new Point(144, 96);
+            supplierNameValue.Location = new Point(332, 112);
             supplierNameValue.Margin = new Padding(3, 2, 3, 2);
             supplierNameValue.Name = "supplierNameValue";
             supplierNameValue.Size = new Size(169, 23);
@@ -98,7 +106,7 @@
             // 
             // PhoneNumberValue
             // 
-            PhoneNumberValue.Location = new Point(144, 128);
+            PhoneNumberValue.Location = new Point(332, 144);
             PhoneNumberValue.Margin = new Padding(3, 2, 3, 2);
             PhoneNumberValue.Name = "PhoneNumberValue";
             PhoneNumberValue.Size = new Size(169, 23);
@@ -107,15 +115,17 @@
             // addressLabel
             // 
             addressLabel.AutoSize = true;
-            addressLabel.Location = new Point(10, 164);
+            addressLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            addressLabel.ForeColor = SystemColors.ControlDarkDark;
+            addressLabel.Location = new Point(198, 180);
             addressLabel.Name = "addressLabel";
-            addressLabel.Size = new Size(55, 15);
+            addressLabel.Size = new Size(65, 17);
             addressLabel.TabIndex = 7;
             addressLabel.Text = "Address :";
             // 
             // AddressValue
             // 
-            AddressValue.Location = new Point(144, 162);
+            AddressValue.Location = new Point(332, 178);
             AddressValue.Margin = new Padding(3, 2, 3, 2);
             AddressValue.Name = "AddressValue";
             AddressValue.Size = new Size(169, 23);
@@ -124,15 +134,17 @@
             // emailLabel
             // 
             emailLabel.AutoSize = true;
-            emailLabel.Location = new Point(10, 201);
+            emailLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
+            emailLabel.ForeColor = SystemColors.ControlDarkDark;
+            emailLabel.Location = new Point(198, 217);
             emailLabel.Name = "emailLabel";
-            emailLabel.Size = new Size(42, 15);
+            emailLabel.Size = new Size(50, 17);
             emailLabel.TabIndex = 9;
             emailLabel.Text = "Email :";
             // 
             // emailValue
             // 
-            emailValue.Location = new Point(144, 199);
+            emailValue.Location = new Point(332, 215);
             emailValue.Margin = new Padding(3, 2, 3, 2);
             emailValue.Name = "emailValue";
             emailValue.Size = new Size(169, 23);
@@ -140,20 +152,36 @@
             // 
             // insertButton
             // 
-            insertButton.Location = new Point(546, 285);
+            insertButton.BackColor = Color.ForestGreen;
+            insertButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            insertButton.ForeColor = Color.White;
+            insertButton.Location = new Point(291, 286);
             insertButton.Margin = new Padding(3, 2, 3, 2);
             insertButton.Name = "insertButton";
-            insertButton.Size = new Size(111, 22);
+            insertButton.Size = new Size(113, 42);
             insertButton.TabIndex = 15;
-            insertButton.Text = "Insert Record";
-            insertButton.UseVisualStyleBackColor = true;
+            insertButton.Text = "INSERT";
+            insertButton.UseVisualStyleBackColor = false;
             insertButton.Click += insertButton_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.DarkCyan;
+            button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(12, 285);
+            button1.Name = "button1";
+            button1.Size = new Size(76, 43);
+            button1.TabIndex = 23;
+            button1.Text = "BACK";
+            button1.UseVisualStyleBackColor = false;
             // 
             // SupplierInsertForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(700, 338);
+            Controls.Add(button1);
             Controls.Add(insertButton);
             Controls.Add(emailValue);
             Controls.Add(emailLabel);
@@ -187,14 +215,16 @@
     private Label emailLabel;
     private TextBox emailValue;
     private Button insertButton;
-    #region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
-  
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
 
-    #endregion
-}
+
+        #endregion
+
+        private Button button1;
+    }
 }
