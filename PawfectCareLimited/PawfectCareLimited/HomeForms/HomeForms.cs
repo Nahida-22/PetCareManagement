@@ -23,7 +23,7 @@ namespace PawfectCareLimited
 
             if (result == DialogResult.Yes)
             {
-                this.Hide();
+                this.Close();
                 // Open the real LoginForm
                 loginForm login = new loginForm();
                 login.Show();
