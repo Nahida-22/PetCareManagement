@@ -12,11 +12,7 @@ namespace PawfectCareLimited
 
         private void TablesForms_Load(object sender, EventArgs e)
         {
-            //Populate the comboBox
-            comboBox1.Items.AddRange(new string[]
-            {
-                "Owner", "Appointment", "Medication", "Order", "Location", "Supplier", "Pet"
-            });
+          
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
