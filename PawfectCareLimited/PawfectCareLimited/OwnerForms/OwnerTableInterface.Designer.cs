@@ -171,7 +171,7 @@
             Controls.Add(OwnerTableDataGridView);
             Controls.Add(OwnerLabel);
             Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OwnerTableInterface";
             Text = "OwnerTableInterface";

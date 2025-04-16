@@ -207,7 +207,7 @@
             Controls.Add(medicationNameLabel);
             Controls.Add(medicationIdLabel);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OrderInsertForm";
             Text = "MedicationInsertForm";

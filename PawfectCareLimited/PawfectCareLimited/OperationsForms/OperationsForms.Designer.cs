@@ -121,7 +121,7 @@
         Controls.Add(label2);
         Controls.Add(label1);
         Controls.Add(pictureBox1);
-        FormBorderStyle = FormBorderStyle.None;
+        FormBorderStyle = FormBorderStyle.FixedSingle;
         Name = "OperationsForms";
         Text = "OperationsForms";
         Load += OperationsForms_Load;

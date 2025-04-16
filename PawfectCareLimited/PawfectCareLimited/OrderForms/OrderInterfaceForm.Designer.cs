@@ -191,7 +191,7 @@
             Controls.Add(orderTableDataGridView);
             Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OrderInterfaceForm";
             Text = "OwnerTableInterface";

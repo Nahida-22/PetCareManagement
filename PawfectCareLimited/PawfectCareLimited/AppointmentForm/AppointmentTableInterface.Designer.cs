@@ -171,7 +171,7 @@
             Controls.Add(appointmentTableDataGridView);
             Controls.Add(appointmentLabel);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "AppointmentTableInterface";
             Text = "OwnerTableInterface";
             Load += AppointmentTableInterface_Load_1;

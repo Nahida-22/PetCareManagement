@@ -203,7 +203,7 @@
             Controls.Add(branchNameLabel);
             Controls.Add(locationIdLabel);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "LocationInsertForm";
             Text = "LocationInsertForm";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

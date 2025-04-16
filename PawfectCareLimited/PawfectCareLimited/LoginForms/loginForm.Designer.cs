@@ -171,7 +171,7 @@ namespace PawfectCareLimited
             Controls.Add(pictureBox3);
             Controls.Add(pictureBox2);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "loginForm";
             Text = "loginForm";
             Load += loginForm_Load;

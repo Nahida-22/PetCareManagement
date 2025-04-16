@@ -196,7 +196,7 @@
             Controls.Add(supplierNameLabel);
             Controls.Add(supplierIdLabel);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "SupplierInsertForm";
             Text = "SupplierInsertForm";

@@ -88,7 +88,7 @@
             Controls.Add(apppointmentUpdateLabel);
             Controls.Add(dataGridView1);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "UsersForms";
             Text = "UsersForms";
             Load += UsersForms_Load;

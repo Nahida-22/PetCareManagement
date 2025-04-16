@@ -171,7 +171,7 @@
             Controls.Add(vetTableDataGridView);
             Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "VetTableInterfaceForm";
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)vetTableDataGridView).EndInit();

@@ -237,7 +237,7 @@
             Controls.Add(firstNameLabel);
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(OwnerUpdateLabel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "OwnerUpdateForm";
             StartPosition = FormStartPosition.CenterScreen;

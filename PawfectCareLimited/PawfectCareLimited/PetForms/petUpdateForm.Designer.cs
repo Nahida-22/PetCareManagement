@@ -220,7 +220,7 @@
             Controls.Add(petNameLabel);
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(apppointmentUpdateLabel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "PetUpdateForm";
             Text = "UpdateOwnerForm";

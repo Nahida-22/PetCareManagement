@@ -105,7 +105,7 @@
         Controls.Add(button1);
         Controls.Add(label1);
         Controls.Add(pictureBox1);
-        FormBorderStyle = FormBorderStyle.None;
+        FormBorderStyle = FormBorderStyle.FixedSingle;
         Name = "HomeForms";
         Text = "HomeForms";
         ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
