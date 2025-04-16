@@ -57,6 +57,11 @@ namespace PawfectCareLimited
                 var locationTableInterface = new LocationTableInterface();
                 locationTableInterface.ShowDialog();
             }
+            else if (selected == "Supplier")
+            {
+                var supplierTableInterface = new SupplierInterfaceForm();
+                supplierTableInterface.ShowDialog();
+            }
         }
 
         private void bookAppointmentButton_Click(object sender, EventArgs e)

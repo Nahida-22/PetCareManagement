@@ -55,6 +55,12 @@
     <Compile Update="SignUpForms\SignUpForms.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="SupplierForms\SupplierInsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SupplierForms\SupplierUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="UsersForms\UsersForms.cs">
       <SubType>Form</SubType>
     </Compile>
