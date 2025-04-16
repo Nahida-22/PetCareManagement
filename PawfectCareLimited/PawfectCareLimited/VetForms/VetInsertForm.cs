@@ -10,18 +10,11 @@ using System.Windows.Forms;
 
 namespace PawfectCareLimited
 {
-    public partial class LocationInsertForm : Form
+    public partial class VetInsertForm : Form
     {
-        public event EventHandler LocationInserted;
-
-        public LocationInsertForm()
+        public VetInsertForm()
         {
             InitializeComponent();
-        }
-
-        private void OnLocationInserted()
-        {
-            LocationInserted?.Invoke(this, EventArgs.Empty);
         }
 
         private async void insertButton_Click(object sender, EventArgs e)
@@ -29,31 +22,30 @@ namespace PawfectCareLimited
             using (HttpClient client = new HttpClient())
             {
                 // Gather data from UI controls
-                string supplierId = locationIdValue.Text;
-                string Name = branchNameValue.Text;
-                string Address = AddressValue.Text;
-                string Phone = phoneNumberValue.Text;
+                string vedId = vetIdValue.Text;
+                string vetName = vetNameValue.Text;
+                string specialisation = specialisationValue.Text;
+                string phoneNo = phoneNoValue.Text;
+                string address = addressValue.Text;
                 string email = emailValue.Text;
 
-
-
                 // Construct the data as a Dictionary
-                var locationData = new Dictionary<string, object>
+                var vetData = new Dictionary<string, object>
                 {
-                    { "LocationID", supplierId },
-                    { "Name", Name },
-                    { "Address", Address },
-                    { "Phone", Phone },
+                    { "VetID", vedId },
+                    { "VetName", vetName },
+                    { "Specialisation", specialisation },
+                    { "PhoneNo", phoneNo },
                     { "Email", email },
-
+                    { "Address", address }
                 };
 
                 try
                 {
-                    string apiUrl = "https://localhost:7038/api/location";
+                    string apiUrl = "https://localhost:7038/api/vet";
 
                     // Convert to JSON
-                    var json = System.Text.Json.JsonSerializer.Serialize(locationData);
+                    var json = System.Text.Json.JsonSerializer.Serialize(vetData);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     // Send POST request
@@ -63,7 +55,7 @@ namespace PawfectCareLimited
                     if (response.IsSuccessStatusCode)
                     {
                         string responseBody = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show("Location Insert successful.");
+                        MessageBox.Show("Vet insert successful.");
                     }
                     else
                     {
@@ -71,10 +63,7 @@ namespace PawfectCareLimited
                         MessageBox.Show($"Error: {error}");
                     }
 
-                    OnLocationInserted();
-
                     this.Close();
-
 
                 }
                 catch (Exception ex)
@@ -83,11 +72,6 @@ namespace PawfectCareLimited
                 }
             }
         }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-        }
-
     }
 }
+

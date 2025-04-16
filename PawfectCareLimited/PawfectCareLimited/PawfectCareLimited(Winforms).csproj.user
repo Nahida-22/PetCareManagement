@@ -37,6 +37,9 @@
     <Compile Update="MainMenuForms\MainMenuForms.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="OperationsForms\OperationsForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="OrderForms\OrderInsertForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +77,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="UsersForms\UsersForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="VetForms\VetInsertForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="VetForms\VetTableInterfaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="VetForms\VetUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
