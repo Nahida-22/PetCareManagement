@@ -61,6 +61,10 @@ namespace PawfectCareLimited
             {
                 var supplierTableInterface = new SupplierInterfaceForm();
                 supplierTableInterface.ShowDialog();
+            } else if (selected == "Pet")
+            {
+                var petTableInterface = new PetTableInterface();
+                petTableInterface.ShowDialog();
             }
         }
 

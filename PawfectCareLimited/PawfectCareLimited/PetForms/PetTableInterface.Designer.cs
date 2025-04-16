@@ -1,11 +1,11 @@
 ﻿namespace PawfectCareLimited
 {
-    partial class AppointmentTableInterface
+    partial class PetTableInterface
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+    /// <summary>
+    /// Required designer variable.
+    /// </summary>
+    private System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -28,66 +28,65 @@
         /// </summary>
         private void InitializeComponent()
         {
-            appointmentLabel = new Label();
-            appointmentTableDataGridView = new DataGridView();
-            appointmentUpdateButton = new Button();
-            appointmentDeleteButton = new Button();
+            tableLabel = new Label();
+            petTableDataGridView = new DataGridView();
+            petUpdateButton = new Button();
+            petDeleteButton = new Button();
             SearchBarTextBox = new TextBox();
             SearchButton = new Button();
             SearchFieldComboBox = new ComboBox();
             viewAllButton = new Button();
             button1 = new Button();
             pictureBox1 = new PictureBox();
-            ((System.ComponentModel.ISupportInitialize)appointmentTableDataGridView).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)petTableDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // appointmentLabel
+            // tableLabel
             // 
-            appointmentLabel.AutoSize = true;
-            appointmentLabel.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            appointmentLabel.ForeColor = Color.DarkCyan;
-            appointmentLabel.Location = new Point(277, 24);
-            appointmentLabel.Name = "appointmentLabel";
-            appointmentLabel.Size = new Size(281, 35);
-            appointmentLabel.TabIndex = 0;
-            appointmentLabel.Text = "Appointment Table";
-            appointmentLabel.Click += appointmentLabel_Click;
+            tableLabel.AutoSize = true;
+            tableLabel.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tableLabel.ForeColor = Color.DarkCyan;
+            tableLabel.Location = new Point(277, 24);
+            tableLabel.Name = "tableLabel";
+            tableLabel.Size = new Size(146, 35);
+            tableLabel.TabIndex = 0;
+            tableLabel.Text = "Pet Table";
             // 
-            // appointmentTableDataGridView
+            // petTableDataGridView
             // 
-            appointmentTableDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            appointmentTableDataGridView.Location = new Point(14, 161);
-            appointmentTableDataGridView.Name = "appointmentTableDataGridView";
-            appointmentTableDataGridView.RowHeadersWidth = 51;
-            appointmentTableDataGridView.Size = new Size(773, 405);
-            appointmentTableDataGridView.TabIndex = 1;
+            petTableDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            petTableDataGridView.Location = new Point(14, 161);
+            petTableDataGridView.Name = "petTableDataGridView";
+            petTableDataGridView.RowHeadersWidth = 51;
+            petTableDataGridView.Size = new Size(773, 405);
+            petTableDataGridView.TabIndex = 1;
             // 
-            // appointmentUpdateButton
+            // petUpdateButton
             // 
-            appointmentUpdateButton.BackColor = Color.Orange;
-            appointmentUpdateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            appointmentUpdateButton.ForeColor = Color.White;
-            appointmentUpdateButton.Location = new Point(329, 607);
-            appointmentUpdateButton.Name = "appointmentUpdateButton";
-            appointmentUpdateButton.Size = new Size(121, 57);
-            appointmentUpdateButton.TabIndex = 3;
-            appointmentUpdateButton.Text = "UPDATE";
-            appointmentUpdateButton.UseVisualStyleBackColor = false;
-            appointmentUpdateButton.Click += appointmentUpdateButton_Click;
+            petUpdateButton.BackColor = Color.Orange;
+            petUpdateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            petUpdateButton.ForeColor = Color.White;
+            petUpdateButton.Location = new Point(329, 607);
+            petUpdateButton.Name = "petUpdateButton";
+            petUpdateButton.Size = new Size(121, 57);
+            petUpdateButton.TabIndex = 3;
+            petUpdateButton.Text = "UPDATE";
+            petUpdateButton.UseVisualStyleBackColor = false;
+            petUpdateButton.Click += petUpdateButton_Click;
             // 
-            // appointmentDeleteButton
+            // petDeleteButton
             // 
-            appointmentDeleteButton.BackColor = Color.IndianRed;
-            appointmentDeleteButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            appointmentDeleteButton.ForeColor = Color.White;
-            appointmentDeleteButton.Location = new Point(201, 607);
-            appointmentDeleteButton.Name = "appointmentDeleteButton";
-            appointmentDeleteButton.Size = new Size(121, 57);
-            appointmentDeleteButton.TabIndex = 4;
-            appointmentDeleteButton.Text = "DELETE";
-            appointmentDeleteButton.UseVisualStyleBackColor = false;
-            appointmentDeleteButton.Click += appointmentDeleteButton_Click;
+            petDeleteButton.BackColor = Color.IndianRed;
+            petDeleteButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            petDeleteButton.ForeColor = Color.White;
+            petDeleteButton.Location = new Point(201, 607);
+            petDeleteButton.Name = "petDeleteButton";
+            petDeleteButton.Size = new Size(121, 57);
+            petDeleteButton.TabIndex = 4;
+            petDeleteButton.Text = "DELETE";
+            petDeleteButton.UseVisualStyleBackColor = false;
+            petDeleteButton.Click += petDeleteButton_Click;
             // 
             // SearchBarTextBox
             // 
@@ -112,7 +111,7 @@
             // SearchFieldComboBox
             // 
             SearchFieldComboBox.FormattingEnabled = true;
-            SearchFieldComboBox.Items.AddRange(new object[] { "AppointmentID", "PetID", "VetID", "ServiceType", "ApptDate", "Status", "LocationID" });
+            SearchFieldComboBox.Items.AddRange(new object[] { "PetID", "OwnerID", "PetName", "PetType", "Breed", "Age" });
             SearchFieldComboBox.Location = new Point(632, 101);
             SearchFieldComboBox.Name = "SearchFieldComboBox";
             SearchFieldComboBox.Size = new Size(151, 28);
@@ -155,7 +154,7 @@
             pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
-            // AppointmentTableInterface
+            // PetTableInterface
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -166,16 +165,15 @@
             Controls.Add(SearchFieldComboBox);
             Controls.Add(SearchButton);
             Controls.Add(SearchBarTextBox);
-            Controls.Add(appointmentDeleteButton);
-            Controls.Add(appointmentUpdateButton);
-            Controls.Add(appointmentTableDataGridView);
-            Controls.Add(appointmentLabel);
+            Controls.Add(petDeleteButton);
+            Controls.Add(petUpdateButton);
+            Controls.Add(petTableDataGridView);
+            Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "AppointmentTableInterface";
+            Name = "PetTableInterface";
             Text = "OwnerTableInterface";
-            Load += AppointmentTableInterface_Load_1;
-            ((System.ComponentModel.ISupportInitialize)appointmentTableDataGridView).EndInit();
+            ((System.ComponentModel.ISupportInitialize)petTableDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -183,10 +181,10 @@
 
         #endregion
 
-        private Label appointmentLabel;
-        private DataGridView appointmentTableDataGridView;
-        private Button appointmentUpdateButton;
-        private Button appointmentDeleteButton;
+        private Label tableLabel;
+        private DataGridView petTableDataGridView;
+        private Button petUpdateButton;
+        private Button petDeleteButton;
         private TextBox SearchBarTextBox;
         private Button SearchButton;
         private ComboBox SearchFieldComboBox;

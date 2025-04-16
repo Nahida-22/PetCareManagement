@@ -30,7 +30,7 @@
         {
             tableLabel = new Label();
             medicationTableDataGridView = new DataGridView();
-            medicationUpdateButton = new Button();
+            petUpdateButton = new Button();
             appointmentDeleteButton = new Button();
             SearchBarTextBox = new TextBox();
             SearchButton = new Button();
@@ -63,18 +63,18 @@
             medicationTableDataGridView.Size = new Size(773, 405);
             medicationTableDataGridView.TabIndex = 1;
             // 
-            // medicationUpdateButton
+            // petUpdateButton
             // 
-            medicationUpdateButton.BackColor = Color.Orange;
-            medicationUpdateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            medicationUpdateButton.ForeColor = Color.White;
-            medicationUpdateButton.Location = new Point(329, 607);
-            medicationUpdateButton.Name = "medicationUpdateButton";
-            medicationUpdateButton.Size = new Size(121, 57);
-            medicationUpdateButton.TabIndex = 3;
-            medicationUpdateButton.Text = "UPDATE";
-            medicationUpdateButton.UseVisualStyleBackColor = false;
-            medicationUpdateButton.Click += appointmentUpdateButton_Click;
+            petUpdateButton.BackColor = Color.Orange;
+            petUpdateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            petUpdateButton.ForeColor = Color.White;
+            petUpdateButton.Location = new Point(329, 607);
+            petUpdateButton.Name = "petUpdateButton";
+            petUpdateButton.Size = new Size(121, 57);
+            petUpdateButton.TabIndex = 3;
+            petUpdateButton.Text = "UPDATE";
+            petUpdateButton.UseVisualStyleBackColor = false;
+            petUpdateButton.Click += appointmentUpdateButton_Click;
             // 
             // appointmentDeleteButton
             // 
@@ -181,7 +181,7 @@
             Controls.Add(SearchButton);
             Controls.Add(SearchBarTextBox);
             Controls.Add(appointmentDeleteButton);
-            Controls.Add(medicationUpdateButton);
+            Controls.Add(petUpdateButton);
             Controls.Add(medicationTableDataGridView);
             Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
@@ -198,7 +198,7 @@
 
         private Label tableLabel;
         private DataGridView medicationTableDataGridView;
-        private Button medicationUpdateButton;
+        private Button petUpdateButton;
         private Button appointmentDeleteButton;
         private TextBox SearchBarTextBox;
         private Button SearchButton;

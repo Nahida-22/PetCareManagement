@@ -52,6 +52,12 @@
     <Compile Update="OwnerForms\OwnerUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="PetForms\PetTableInterface.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PetForms\PetUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="RegisterForms\RegisterInterfaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
