@@ -48,11 +48,8 @@ namespace PawfectCareLimited
                 if (parts.Length >= 2 && parts[0] == username && parts[1] == hashedPassword)
                 {
                     MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Pass the current loginForm to MainMenuForms constructor
-                    MainMenuForms mainMenu = new MainMenuForms(this);
-                    mainMenu.Show(); // Show the Main Menu form
-                    this.Hide(); // Hide the login form
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                     return;
                 }
             }
@@ -60,10 +57,13 @@ namespace PawfectCareLimited
             MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void linkLabel1_Click(object sender, EventArgs e)
+        private string HashPassword(string password)
         {
-            textBox1.Clear();
-            textBox2.Clear();
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            }
         }
 
         private void linkLabel2_Click(object sender, EventArgs e)
@@ -75,13 +75,10 @@ namespace PawfectCareLimited
             }
         }
 
-        private string HashPassword(string password)
+        private void linkLabel1_Click(object sender, EventArgs e)
         {
-            using (SHA256 sha256 = SHA256.Create())
-            {
-                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
-            }
+            textBox1.Clear();
+            textBox2.Clear();
         }
     }
 }
