@@ -39,8 +39,8 @@ namespace PawfectCareLimited
                 return;
             }
 
-            string hashedPassword = HashPassword(password);
             string[] lines = File.ReadAllLines(filePath);
+            string hashedPassword = HashPassword(password);
 
             foreach (string line in lines)
             {
@@ -48,10 +48,11 @@ namespace PawfectCareLimited
                 if (parts.Length >= 2 && parts[0] == username && parts[1] == hashedPassword)
                 {
                     MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    MainMenuForms mainMenu = new MainMenuForms();
-                    mainMenu.FormClosed += (s, args) => this.Show(); // Show login when MainMenu closes
-                    mainMenu.Show();
-                    this.Hide();
+
+                    // Pass the current loginForm to MainMenuForms constructor
+                    MainMenuForms mainMenu = new MainMenuForms(this);
+                    mainMenu.Show(); // Show the Main Menu form
+                    this.Hide(); // Hide the login form
                     return;
                 }
             }

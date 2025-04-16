@@ -1,41 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace PawfectCareLimited
+﻿namespace PawfectCareLimited
 {
     public partial class MainMenuForms : Form
     {
-        public MainMenuForms()
+        private Form loginForm;
+
+        // Add this constructor
+        public MainMenuForms(Form loginFormRef)
         {
             InitializeComponent();
+            loginForm = loginFormRef; // Store reference to login form
         }
 
         private void MainMenuForms_Load(object sender, EventArgs e)
         {
-
         }
-        
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Hide(); // Hide the current MainMenuForms
+            this.Hide();
             HomeForms homeForm = new HomeForms();
             homeForm.ShowDialog();
-            this.Show(); // Show the MainMenu again after HomeForms closes
+            this.Show();
         }
-
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide(); // Hide the current MainMenuForms
-            // Create and show the TablesForms window
+            this.Hide();
             TablesForms tablesForm = new TablesForms();
             tablesForm.ShowDialog();
             this.Show();
@@ -43,21 +33,31 @@ namespace PawfectCareLimited
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.Hide(); // Hide the current MainMenuForms
+            this.Hide();
             OperationsForms operationsForm = new OperationsForms();
-            operationsForm.ShowDialog(); // Open operations form modally
+            operationsForm.ShowDialog();
             this.Show();
         }
-
 
         private void button4_Click(object sender, EventArgs e)
         {
             this.Hide();
             UsersForms usersForm = new UsersForms();
-            usersForm.ShowDialog(); // Opens the form modally
+            usersForm.ShowDialog();
             this.Show();
-
         }
 
+        // Add a logout button handler
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to logout?", "Logout",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                loginForm.Show(); // Show the original login form again
+                this.Close();     // Close this form completely
+            }
+        }
     }
 }
