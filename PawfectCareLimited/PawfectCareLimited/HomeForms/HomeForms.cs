@@ -23,6 +23,7 @@ namespace PawfectCareLimited
 
             if (result == DialogResult.Yes)
             {
+                this.Hide();
                 // Open the real LoginForm
                 loginForm login = new loginForm();
                 login.Show();
@@ -34,6 +35,11 @@ namespace PawfectCareLimited
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void HomeForms_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
