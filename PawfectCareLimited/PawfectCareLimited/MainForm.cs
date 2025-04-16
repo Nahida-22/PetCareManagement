@@ -43,14 +43,16 @@ namespace PawfectCareLimited
                 // Show the window.
                 appointmentTableInterface.ShowDialog();
             }
-            else if(selected == "Medication")
+            else if (selected == "Medication")
             {
                 var medicationTableInterface = new MedicationInterfaceForm();
                 medicationTableInterface.ShowDialog();
 
-            } else if (selected == "Order"){
+            }
+            else if (selected == "Order")
+            {
                 var orderTableInterface = new OrderInterfaceForm();
-                orderTableInterface.ShowDialog();   
+                orderTableInterface.ShowDialog();
             }
             else if (selected == "Location")
             {
@@ -61,7 +63,8 @@ namespace PawfectCareLimited
             {
                 var supplierTableInterface = new SupplierInterfaceForm();
                 supplierTableInterface.ShowDialog();
-            } else if (selected == "Pet")
+            }
+            else if (selected == "Pet")
             {
                 var petTableInterface = new PetTableInterface();
                 petTableInterface.ShowDialog();
@@ -80,6 +83,16 @@ namespace PawfectCareLimited
             // Call the REGISTER Form.
             var registerInterfaceForm = new RegisterInterfaceForm();
             registerInterfaceForm.ShowDialog();
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

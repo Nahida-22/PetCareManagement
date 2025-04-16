@@ -29,12 +29,10 @@
         private void InitializeComponent()
         {
             pictureBox1 = new PictureBox();
-            greetingLabel = new Label();
-            label2 = new Label();
-            label3 = new Label();
             label1 = new Label();
             button1 = new Button();
             button2 = new Button();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -47,39 +45,6 @@
             pictureBox1.Size = new Size(134, 114);
             pictureBox1.TabIndex = 26;
             pictureBox1.TabStop = false;
-            // 
-            // greetingLabel
-            // 
-            greetingLabel.AutoSize = true;
-            greetingLabel.BackColor = Color.DimGray;
-            greetingLabel.ForeColor = Color.White;
-            greetingLabel.Location = new Point(284, 142);
-            greetingLabel.Name = "greetingLabel";
-            greetingLabel.Size = new Size(19, 15);
-            greetingLabel.TabIndex = 27;
-            greetingLabel.Text = "    ";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.DimGray;
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(284, 184);
-            label2.Name = "label2";
-            label2.Size = new Size(19, 15);
-            label2.TabIndex = 29;
-            label2.Text = "    ";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.DimGray;
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(284, 224);
-            label3.Name = "label3";
-            label3.Size = new Size(19, 15);
-            label3.TabIndex = 30;
-            label3.Text = "    ";
             // 
             // label1
             // 
@@ -118,18 +83,27 @@
             button2.UseVisualStyleBackColor = false;
             button2.Click += button2_Click;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Britannic Bold", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.DarkCyan;
+            label2.Location = new Point(151, 145);
+            label2.Name = "label2";
+            label2.Size = new Size(278, 23);
+            label2.TabIndex = 34;
+            label2.Text = "Welcome to PawfectCare Ltd!";
+            // 
             // HomeForms
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(586, 367);
+            Controls.Add(label2);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label1);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(greetingLabel);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "HomeForms";
@@ -143,11 +117,9 @@
         #endregion
 
         private PictureBox pictureBox1;
-        private Label greetingLabel;
-        private Label label2;
-        private Label label3;
         private Label label1;
         private Button button1;
         private Button button2;
+        private Label label2;
     }
 }
