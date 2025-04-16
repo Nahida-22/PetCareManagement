@@ -39,18 +39,17 @@ namespace PawfectCareLimited
                 return;
             }
 
-            string[] lines = File.ReadAllLines(filePath);
             string hashedPassword = HashPassword(password);
+            string[] lines = File.ReadAllLines(filePath);
 
             foreach (string line in lines)
             {
                 string[] parts = line.Split(':');
                 if (parts.Length >= 2 && parts[0] == username && parts[1] == hashedPassword)
                 {
-                    // Optional: You can store email/full name from parts[2] and parts[3] if needed
                     MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     MainMenuForms mainMenu = new MainMenuForms();
+                    mainMenu.FormClosed += (s, args) => this.Show(); // Show login when MainMenu closes
                     mainMenu.Show();
                     this.Hide();
                     return;

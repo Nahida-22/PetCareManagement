@@ -7,6 +7,8 @@ namespace PawfectCareLimited
 {
     public partial class UsersForms : Form
     {
+        private string filePath = Path.Combine(Application.StartupPath, "users.txt");
+
         public UsersForms()
         {
             InitializeComponent();
@@ -14,30 +16,22 @@ namespace PawfectCareLimited
 
         private void UsersForms_Load(object sender, EventArgs e)
         {
-            // Load the users and display them in the DataGridView in the UserForms.Designer.cs
             LoadUsers();
         }
 
         private void LoadUsers()
         {
-            string filePath = "users.txt";
-
-            // Check if the users.txt file exists
             if (File.Exists(filePath))
             {
-                // Create a list to store the user data
                 List<User> users = new List<User>();
-
-                // Read all lines from the file "users.txt"
                 string[] lines = File.ReadAllLines(filePath);
 
                 foreach (string line in lines)
                 {
-                    // Split each line by ":" to get username and password
+                    // Each line is expected in the format: username:hashedPassword[:email][:fullName]
                     string[] userParts = line.Split(':');
-                    if (userParts.Length == 2)
+                    if (userParts.Length >= 2)
                     {
-                        // Create a User object and add it to the list
                         users.Add(new User
                         {
                             Username = userParts[0],
@@ -46,34 +40,29 @@ namespace PawfectCareLimited
                     }
                 }
 
-                // Bind the list of users to the DataGridView
                 dataGridView1.DataSource = users;
             }
             else
             {
-                // Show an error message if the users.txt file does not exist
                 MessageBox.Show("No users found.", "File Missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Define a simple User class to store user data
+        // Simple User model for DataGridView
         public class User
         {
             public string Username { get; set; }
             public string Password { get; set; }
         }
 
-
         private void button1_Click(object sender, EventArgs e)
         {
-            // Hide or close the current form
-            this.Hide();
+            this.Hide(); // Or use this.Close(); depending on the navigation flow
         }
-
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            // Optional: Add logic here for future interactivity
         }
     }
 }
