@@ -29,7 +29,9 @@ namespace PawfectCareLtd.Data // Define the namespace for the application.
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet <Location> Locations { get; set; }
-        public DbSet <Payment> Payments { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PrescriptionMedication> PrescriptionMedications { get; set; }
+
 
         /// <summary>
         /// Configures the relationships, keys, and constraints for the database tables.

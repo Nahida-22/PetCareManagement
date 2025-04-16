@@ -189,12 +189,12 @@ namespace PawfectCareLtd.CRUD
 
 
         // Method to delete a Medication record by ID.
-        public OperationResult DeleteMedicationById(string medicationId)
+       public OperationResult DeleteMedicationById(string medicationId)
         {
-            // Get the Medication table.
+            // Get the Medication table from memory
             var medicationTable = _inMemoryDatabase.GetTable("Medication");
 
-            // Try deleting from the in-memory database.
+            // Try deleting from in-memory
             try
             {
                 medicationTable.Delete(medicationId);
@@ -204,20 +204,35 @@ namespace PawfectCareLtd.CRUD
                 return new OperationResult { success = false, message = $"Medication with ID {medicationId} not found in in-memory database." };
             }
 
-            // Try deleting from the SQL Server database.
-            var medicationEntity = _dbContext.Medications.Find(medicationId);
-            if (medicationEntity != null)
+            // Try deleting from SQL database
+            try
             {
+                var medicationEntity = _dbContext.Medications
+                    .FirstOrDefault(m => m.MedicationID == medicationId);
+
+                if (medicationEntity == null)
+                {
+                    return new OperationResult { success = false, message = $"Medication with ID {medicationId} not found in SQL database." };
+                }
+
+                // Delete related Orders.
+                var relatedOrders = _dbContext.Orders.Where(o => o.MedicationID == medicationId).ToList();
+                _dbContext.Orders.RemoveRange(relatedOrders);
+
+                // Delete related PrescriptionMedications (ensure this DbSet exists)
+                var relatedPrescriptions = _dbContext.PrescriptionMedications.Where(pm => pm.MedicationID == medicationId).ToList();
+                _dbContext.PrescriptionMedications.RemoveRange(relatedPrescriptions);
+
+                // Remove the Medication record
                 _dbContext.Medications.Remove(medicationEntity);
                 _dbContext.SaveChanges();
-            }
-            else
-            {
-                Console.WriteLine($"Medication with ID {medicationId} not found in SQL database.");
-            }
 
-            // Return a success status.
-            return new OperationResult { success = true, message = $"Medication with ID {medicationId} deleted from in-memory database." };
+                return new OperationResult { success = true, message = $"Medication with ID {medicationId} deleted successfully" };
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult { success = false, message = $"Error while deleting from SQL database: {ex.Message}" };
+            }
         }
 
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PawfectCareLtd.Migrations
 {
     /// <inheritdoc />
-    public partial class AllTablesMigration : Migration
+    public partial class MigrationForAllTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -220,7 +220,7 @@ namespace PawfectCareLtd.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PrescriptionMedication",
+                name: "PrescriptionMedications",
                 columns: table => new
                 {
                     PrescriptionID = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
@@ -228,15 +228,15 @@ namespace PawfectCareLtd.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PrescriptionMedication", x => new { x.PrescriptionID, x.MedicationID });
+                    table.PrimaryKey("PK_PrescriptionMedications", x => new { x.PrescriptionID, x.MedicationID });
                     table.ForeignKey(
-                        name: "FK_PrescriptionMedication_Medications_MedicationID",
+                        name: "FK_PrescriptionMedications_Medications_MedicationID",
                         column: x => x.MedicationID,
                         principalTable: "Medications",
                         principalColumn: "MedicationID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PrescriptionMedication_Prescriptions_PrescriptionID",
+                        name: "FK_PrescriptionMedications_Prescriptions_PrescriptionID",
                         column: x => x.PrescriptionID,
                         principalTable: "Prescriptions",
                         principalColumn: "PrescriptionID",
@@ -280,8 +280,8 @@ namespace PawfectCareLtd.Migrations
                 column: "OwnerID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PrescriptionMedication_MedicationID",
-                table: "PrescriptionMedication",
+                name: "IX_PrescriptionMedications_MedicationID",
+                table: "PrescriptionMedications",
                 column: "MedicationID");
 
             migrationBuilder.CreateIndex(
@@ -305,7 +305,7 @@ namespace PawfectCareLtd.Migrations
                 name: "Payments");
 
             migrationBuilder.DropTable(
-                name: "PrescriptionMedication");
+                name: "PrescriptionMedications");
 
             migrationBuilder.DropTable(
                 name: "Appointments");

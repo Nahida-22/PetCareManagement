@@ -17,7 +17,7 @@ namespace PawfectCareLtd.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.2")
+                .HasAnnotation("ProductVersion", "9.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -287,7 +287,7 @@ namespace PawfectCareLtd.Migrations
 
                     b.HasIndex("MedicationID");
 
-                    b.ToTable("PrescriptionMedication");
+                    b.ToTable("PrescriptionMedications");
                 });
 
             modelBuilder.Entity("PawfectCareLtd.Models.Supplier", b =>
