@@ -240,7 +240,7 @@
             Controls.Add(medicationNameLabel);
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(apppointmentUpdateLabel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "VetUpdateForm";
             Text = "UpdateOwnerForm";
             Load += AppointmentUpdateForm_Load_1;

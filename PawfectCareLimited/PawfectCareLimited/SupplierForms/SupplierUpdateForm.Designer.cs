@@ -228,7 +228,7 @@
             Controls.Add(medicationNameLabel);
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(apppointmentUpdateLabel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "SupplierUpdateForm";
             Text = "UpdateOwnerForm";

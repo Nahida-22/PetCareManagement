@@ -104,7 +104,7 @@
             Controls.Add(label2);
             Controls.Add(comboBox1);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 4, 3, 4);
             Name = "TablesForms";
             Text = "TablesForms";

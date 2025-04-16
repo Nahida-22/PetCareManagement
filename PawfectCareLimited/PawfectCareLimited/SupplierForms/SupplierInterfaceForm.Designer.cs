@@ -192,7 +192,7 @@
             Controls.Add(supplierTableDataGridView);
             Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "SupplierInterfaceForm";
             Text = "OwnerTableInterface";

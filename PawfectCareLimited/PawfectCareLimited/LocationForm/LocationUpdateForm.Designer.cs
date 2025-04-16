@@ -223,7 +223,7 @@
             Controls.Add(NameTypeLabel);
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(locationUpdateLabel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "LocationUpdateForm";
             Text = "UpdateOwnerForm";

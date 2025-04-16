@@ -185,7 +185,7 @@
             Controls.Add(medicationTableDataGridView);
             Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "MedicationInterfaceForm";
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)medicationTableDataGridView).EndInit();

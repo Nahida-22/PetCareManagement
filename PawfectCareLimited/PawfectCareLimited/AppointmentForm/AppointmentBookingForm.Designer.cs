@@ -260,7 +260,7 @@
             Controls.Add(petDetailsLabel);
             Controls.Add(lastNameLabel);
             Controls.Add(bookAppointmentLabel);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "AppointmentBookingForm";
             Text = "AppointmentInsertForm";
             Load += AppointmentBookingForm_Load;

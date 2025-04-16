@@ -192,7 +192,7 @@
             Controls.Add(locationTableDataGridView);
             Controls.Add(locationLabel);
             Controls.Add(pictureBox1);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "LocationTableInterface";
             Text = "LocationTableInterface";
