@@ -11,26 +11,23 @@ using Newtonsoft.Json;
 
 namespace PawfectCareLimited
 {
-    public partial class MedicationInterfaceForm : Form
+    public partial class PetTableInterface : Form
     {
-        // Initialise an instance of HttpClient for API calls.
-        private readonly HttpClient _httpClient = new HttpClient();
-
         // Constructor.
-        public MedicationInterfaceForm()
+        public PetTableInterface()
         {
             InitializeComponent();
-            this.Load += new EventHandler(this.MedicationTableInterface_Load);
+            this.Load += new EventHandler(this.PetTableInterface_Load);
         }
 
 
         // Method to initialise the Owner Windoe.
-        private async void MedicationTableInterface_Load(object sender, EventArgs e)
+        private async void PetTableInterface_Load(object sender, EventArgs e)
         {
             try
             {
-                // Call LoadMedications 
-                await Task.Run(() => LoadMedications());
+                // Call LoadPets 
+                await Task.Run(() => LoadPets());
             }
             catch (Exception ex)
             {
@@ -38,27 +35,27 @@ namespace PawfectCareLimited
             }
         }
 
-        private async Task LoadMedications()
+        private async Task LoadPets()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    string apiUrl = "https://localhost:7038/api/medication/all";
+                    string apiUrl = "https://localhost:7038/api/pet/all";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        MedicationApiResponse apiResponse = JsonConvert.DeserializeObject<MedicationApiResponse>(json);
+                        PetApiResponse apiResponse = JsonConvert.DeserializeObject<PetApiResponse>(json);
 
                         if (apiResponse.success)
                         {
                             // Binding to the grid
-                            medicationTableDataGridView.Invoke(() =>
+                            petTableDataGridView.Invoke(() =>
                             {
-                                medicationTableDataGridView.AutoGenerateColumns = true;
-                                medicationTableDataGridView.DataSource = apiResponse.data;
+                                petTableDataGridView.AutoGenerateColumns = true;
+                                petTableDataGridView.DataSource = apiResponse.data;
                             });
                         }
                         else
@@ -79,28 +76,28 @@ namespace PawfectCareLimited
         }
 
         // Event Listener for when the UPDATE button is clicked.
-        private void appointmentUpdateButton_Click(object sender, EventArgs e)
+        private void petUpdateButton_Click(object sender, EventArgs e)
         {
             // Check if a row is selected.
-            if (medicationTableDataGridView.CurrentRow != null)
+            if (petTableDataGridView.CurrentRow != null)
             {
                 // Get values from selected row
-                string id = medicationTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
-                string medicationName= medicationTableDataGridView.CurrentRow.Cells[1].Value?.ToString();
-                string stockQuantity = medicationTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
-                DateTime expiryDate = Convert.ToDateTime(medicationTableDataGridView.CurrentRow.Cells[6].Value);
-                string category = medicationTableDataGridView.CurrentRow.Cells[4].Value?.ToString();
-                string unitPrice = medicationTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
+                string petId = petTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+                string ownerId = petTableDataGridView.CurrentRow.Cells[1].Value?.ToString();
+                string petName = petTableDataGridView.CurrentRow.Cells[2].Value?.ToString();
+                string petType = petTableDataGridView.CurrentRow.Cells[3].Value?.ToString();
+                string breed = petTableDataGridView.CurrentRow.Cells[4].Value?.ToString();
+                string age = petTableDataGridView.CurrentRow.Cells[5].Value?.ToString();
 
 
                 // Call the UPDATE Window and pass the values of the selected row in its constructor.
-                var appointmentUpdateInterface = new MedicationUpdateForm(id, medicationName, stockQuantity, expiryDate, category, unitPrice);
+                var petUpdateInterface = new PetUpdateForm(petId, ownerId, petName, petType, breed, age);
 
                 // Subscribe to the event
-                appointmentUpdateInterface.AppointmentUpdated += (s, args) => LoadMedications();
+                petUpdateInterface.AppointmentUpdated += (s, args) => LoadPets();
 
                 // Show the window.
-                appointmentUpdateInterface.ShowDialog();
+                petUpdateInterface.ShowDialog();
             }
             else
             {
@@ -109,22 +106,22 @@ namespace PawfectCareLimited
             }
         }
 
-        private async void appointmentDeleteButton_Click(object sender, EventArgs e)
+        private async void petDeleteButton_Click(object sender, EventArgs e)
         {
             // Confirm deletion
-            var confirmResult = MessageBox.Show("Are you sure to delete this medication?",
+            var confirmResult = MessageBox.Show("Are you sure to delete this pet?",
                                                 "Confirm Delete",
                                                 MessageBoxButtons.YesNo);
             if (confirmResult != DialogResult.Yes)
                 return;
 
             // Get the id of the selected row.
-            string id = medicationTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
+            string id = petTableDataGridView.CurrentRow.Cells[0].Value?.ToString();
 
             // Check if the a row is selected.
             if (string.IsNullOrEmpty(id))
             {
-                MessageBox.Show("Please select a valid medication.");
+                MessageBox.Show("Please select a valid pet.");
                 return;
             }
 
@@ -133,23 +130,23 @@ namespace PawfectCareLimited
             {
                 try
                 {
-                    string baseUrl = "https://localhost:7038/api/medication"; // Endpoint for deletion.
-                    string deleteUrl = $"{baseUrl}?medicationId={id}";
+                    string baseUrl = "https://localhost:7038/api/pet"; // Endpoint for deletion.
+                    string deleteUrl = $"{baseUrl}?petId={id}";
 
                     HttpResponseMessage response = await client.DeleteAsync(deleteUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Medication deleted successfully.");
+                        MessageBox.Show("Pet deleted successfully.");
 
                         // Refresh the table.
-                        await Task.Run(() => LoadMedications());
+                        await Task.Run(() => LoadPets());
                     }
                     else
                     {
                         // Show error message.
                         string error = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Failed to delete medication. Server says: {error}");
+                        MessageBox.Show($"Failed to delete pet. Server says: {error}");
                     }
                 }
                 catch (Exception ex)
@@ -175,7 +172,7 @@ namespace PawfectCareLimited
             {
                 try
                 {
-                    string baseUrl = "https://localhost:7038/api/medication";
+                    string baseUrl = "https://localhost:7038/api/pet";
                     string fullUrl = $"{baseUrl}?fieldName={fieldName}&fieldValue={fieldValue}";
 
                     HttpResponseMessage response = await client.GetAsync(fullUrl);
@@ -190,12 +187,12 @@ namespace PawfectCareLimited
                             var dataList = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(result.data.ToString());
 
                             DataTable dt = ConvertToDataTable(dataList);
-                            medicationTableDataGridView.DataSource = dt;
+                            petTableDataGridView.DataSource = dt;
                         }
                         else
                         {
                             MessageBox.Show(result.message);
-                            medicationTableDataGridView.DataSource = null;
+                            petTableDataGridView.DataSource = null;
                         }
                     }
                     else
@@ -256,7 +253,7 @@ namespace PawfectCareLimited
         private async void viewAllButton_Click(object sender, EventArgs e)
         {
             // Reset the table. 
-            await Task.Run(() => LoadMedications());
+            await Task.Run(() => LoadPets());
         }
 
         private void appointmentInsertButton_Click(object sender, EventArgs e)
@@ -269,31 +266,35 @@ namespace PawfectCareLimited
             }
         }
 
+
+
         private void button1_Click(object sender, EventArgs e)
         {
+            // Create and show the MainForm
+            MainForm mainForm = new MainForm();
+            mainForm.Show();
+
             // Hide or close the current form
             this.Hide();
         }
     }
 
-    public class Medication
+    public class Pet
     {
-        public string MedicationID { get; set; }
-        public string MedicationName { get; set; }
-        public string SupplierID { get; set; }
-        public string StockQuantity { get; set; }
-        public string Category { get; set; }
-        public string UnitPrice { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        public string PetID { get; set; }
+        public string OwnerID { get; set; }
+        public string PetName { get; set; }
+        public string PetType { get; set; }
+        public string Breed { get; set; }
+        public string Age { get; set; }
 
     }
 
-    public class MedicationApiResponse
+    public class PetApiResponse
     {
         public bool success { get; set; }
         public string message { get; set; }
-        public List<Medication> data { get; set; }
+        public List<Pet> data { get; set; }
     }
-
 }
 

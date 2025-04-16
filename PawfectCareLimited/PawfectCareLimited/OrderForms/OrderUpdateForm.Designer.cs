@@ -51,7 +51,7 @@
             apppointmentUpdateLabel.AutoSize = true;
             apppointmentUpdateLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             apppointmentUpdateLabel.ForeColor = Color.DarkCyan;
-            apppointmentUpdateLabel.Location = new Point(186, 24);
+            apppointmentUpdateLabel.Location = new Point(216, 21);
             apppointmentUpdateLabel.Name = "apppointmentUpdateLabel";
             apppointmentUpdateLabel.Size = new Size(259, 28);
             apppointmentUpdateLabel.TabIndex = 0;
@@ -62,7 +62,7 @@
             UpdateDetailsLabel.AutoSize = true;
             UpdateDetailsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             UpdateDetailsLabel.ForeColor = Color.DarkCyan;
-            UpdateDetailsLabel.Location = new Point(192, 60);
+            UpdateDetailsLabel.Location = new Point(202, 60);
             UpdateDetailsLabel.Name = "UpdateDetailsLabel";
             UpdateDetailsLabel.Size = new Size(283, 21);
             UpdateDetailsLabel.TabIndex = 1;
@@ -127,10 +127,10 @@
             // 
             // updateOrderButton
             // 
-            updateOrderButton.BackColor = Color.DarkCyan;
+            updateOrderButton.BackColor = Color.ForestGreen;
             updateOrderButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             updateOrderButton.ForeColor = Color.White;
-            updateOrderButton.Location = new Point(511, 329);
+            updateOrderButton.Location = new Point(289, 330);
             updateOrderButton.Margin = new Padding(3, 2, 3, 2);
             updateOrderButton.Name = "updateOrderButton";
             updateOrderButton.Size = new Size(131, 44);

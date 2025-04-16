@@ -48,5 +48,10 @@ namespace PawfectCareLimited
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            // Hide or close the current form
+            this.Hide();
+        }
     }
 }

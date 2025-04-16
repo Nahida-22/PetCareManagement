@@ -10,44 +10,42 @@ using System.Windows.Forms;
 
 namespace PawfectCareLimited
 {
-    public partial class AppointmentBookingForm : Form
+    public partial class LocationInsertForm : Form
     {
-        public AppointmentBookingForm()
+        public LocationInsertForm()
         {
             InitializeComponent();
         }
-
-        // Event listener for booking appointment.
-        private async void bookAppointmentButton_Click(object sender, EventArgs e)
+        private async void insertButton_Click(object sender, EventArgs e)
         {
             using (HttpClient client = new HttpClient())
             {
                 // Gather data from UI controls
-                string appointmentId = appointmentIdValue.Text;
-                string petId = petIdValue.Text;
-                DateTime appointmentDate = appointmentDateValue.Value;
-                string serviceType = serviceTypeBookingValue.Text;
-                string locationId = locationIdBookingValue.Text;
-                string vetId = assignedToVetIdBookingValue.Text;
+                string supplierId = locationIdValue.Text;
+                string Name = branchNameValue.Text;
+                string Address = AddressValue.Text;
+                string Phone = phoneNumberValue.Text;
+                string email = emailValue.Text;
+
+
 
                 // Construct the data as a Dictionary
-                var appointmentData = new Dictionary<string, object>
+                var locationData = new Dictionary<string, object>
                 {
-                    { "AppointmentID", appointmentId },
-                    { "PetID", petId },
-                    { "ApptDate", appointmentDate.ToString("yyyy-MM-ddTHH:mm:ss") },
-                    { "ServiceType", serviceType },
-                    { "LocationID", locationId },
-                    { "VetID", vetId },
-                    { "Status", "Scheduled" }, // Default status.
+                    { "LocationID", supplierId },
+                    { "BranchName", Name },
+                    { "Address", Address },
+                    { "phoneNumber", Phone },
+                    { "Email", email },
+
                 };
 
                 try
                 {
-                    string apiUrl = "https://localhost:7038/api/Appointment";
+                    string apiUrl = "https://localhost:7038/api/location";
 
                     // Convert to JSON
-                    var json = System.Text.Json.JsonSerializer.Serialize(appointmentData);
+                    var json = System.Text.Json.JsonSerializer.Serialize(locationData);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     // Send POST request
@@ -57,13 +55,16 @@ namespace PawfectCareLimited
                     if (response.IsSuccessStatusCode)
                     {
                         string responseBody = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show("Appointment booked successfully!");
+                        MessageBox.Show("Location Insert successful.");
                     }
                     else
                     {
                         string error = await response.Content.ReadAsStringAsync();
                         MessageBox.Show($"Error: {error}");
                     }
+
+                    this.Close();
+
                 }
                 catch (Exception ex)
                 {
@@ -72,17 +73,10 @@ namespace PawfectCareLimited
             }
         }
 
-        private void AppointmentBookingForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             // Hide or close the current form
             this.Hide();
         }
-
     }
 }
-

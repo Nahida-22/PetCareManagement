@@ -260,7 +260,12 @@ namespace PawfectCareLimited
 
         private void locationInsertButton_Click(object sender, EventArgs e)
         {
+            using (HttpClient client = new HttpClient())
+            {
+                var locationInsertForm = new LocationInsertForm();
+                locationInsertForm.ShowDialog();
 
+            }
         }
 
         private void locationLabel_Click(object sender, EventArgs e)
@@ -270,10 +275,6 @@ namespace PawfectCareLimited
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Create and show the MainForm
-            MainForm mainForm = new MainForm();
-            mainForm.Show();
-
             // Hide or close the current form
             this.Hide();
         }
