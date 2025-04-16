@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PawfectCareLimited(Winforms).TablesForms
+namespace PawfectCareLimited
 {
     public partial class TablesForms : Form
 {

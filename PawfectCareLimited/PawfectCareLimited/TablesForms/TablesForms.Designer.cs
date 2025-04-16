@@ -1,4 +1,4 @@
-﻿namespace PawfectCareLimited(Winforms).TablesForms
+﻿namespace PawfectCareLimited
 {
     partial class TablesForms
 {

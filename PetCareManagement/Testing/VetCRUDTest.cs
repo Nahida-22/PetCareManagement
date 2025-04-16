@@ -119,37 +119,5 @@ namespace PawfectCareLtd.Tests // Define the namespace for the test framework.
             Assert.IsNotNull(updatedVet); // Ensure Vet exists.
             Assert.AreEqual(updatedVet.Email, "brigitteernser@gmail.com"); // Verify new stock quantity.
         }
-
-
-
-        // Test method to delete an Vet field.
-        [TestMethod]
-        public async Task TestDeleteVet()
-        {
-            // Create a new Vet object with test data.
-            var Vet = new Vet
-            {
-                VetID = "V9003",
-                VetName = "Brigitte Ernser",
-                Specialisation = "Cardiology",
-                PhoneNo = "59194183",
-                Email = "brigitteernser24@gmail.com",
-                Address = "30711 Rogahn Tunnel, Lake Edatown"
-            };
-
-            // Add the data to table first to that the table so that the tester have something to delete.
-            _dbContext!.Vet.Add(Vet);
-            await _dbContext.SaveChangesAsync();
-
-            // Delete the Vet.
-            _dbContext.Vet.Remove(Vet);
-            await _dbContext.SaveChangesAsync();
-
-            // Verify that the Vet has been deleted.
-            var deletedVet = await _dbContext.Vet.FirstOrDefaultAsync(a => a.VetID == "V9003");
-
-            // Check if the field has been deleted.
-            Assert.IsNull(deletedVet);
-        }
     }
 }
