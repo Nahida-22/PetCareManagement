@@ -25,6 +25,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Update="SupplierForms\SupplierInterfaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
