@@ -109,6 +109,7 @@
             Controls.Add(button1);
             Controls.Add(pictureBox1);
             Name = "MainMenuForms";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MainMenuForms";
             Load += MainMenuForms_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

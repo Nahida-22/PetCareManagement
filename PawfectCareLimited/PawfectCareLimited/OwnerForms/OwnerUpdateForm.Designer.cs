@@ -242,6 +242,7 @@
             Name = "OwnerUpdateForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateOwnerForm";
+            Load += OwnerUpdateForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

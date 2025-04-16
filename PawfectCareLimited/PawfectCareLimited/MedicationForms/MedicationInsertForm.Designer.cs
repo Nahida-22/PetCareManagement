@@ -256,6 +256,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "MedicationInsertForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MedicationInsertForm";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

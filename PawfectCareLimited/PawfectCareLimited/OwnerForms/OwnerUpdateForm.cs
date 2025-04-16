@@ -121,5 +121,10 @@ namespace PawfectCareLimited
             // Hide or close the current form
             this.Hide();
         }
+
+        private void OwnerUpdateForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -226,6 +226,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "LocationUpdateForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateOwnerForm";
             Load += locationUpdateForm_Load_1;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

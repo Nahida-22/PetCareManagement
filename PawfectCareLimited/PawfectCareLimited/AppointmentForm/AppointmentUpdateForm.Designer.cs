@@ -246,6 +246,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "AppointmentUpdateForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateOwnerForm";
             Load += AppointmentUpdateForm_Load_1;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

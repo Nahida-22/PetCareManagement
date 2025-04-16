@@ -195,6 +195,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
             Name = "LocationTableInterface";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "LocationTableInterface";
             Load += LocationTableInterface_Load_1;
             ((System.ComponentModel.ISupportInitialize)locationTableDataGridView).EndInit();
