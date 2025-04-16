@@ -68,6 +68,7 @@
             tabPage1.Size = new Size(659, 330);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Operations";
+            tabPage1.Click += tabPage1_Click;
             // 
             // bookAppointmentButton
             // 
@@ -103,6 +104,7 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Database";
             tabPage2.UseVisualStyleBackColor = true;
+            tabPage2.Click += tabPage2_Click;
             // 
             // comboBox1
             // 

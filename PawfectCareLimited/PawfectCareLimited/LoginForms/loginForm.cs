@@ -50,8 +50,8 @@ namespace PawfectCareLimited
                     // Optional: You can store email/full name from parts[2] and parts[3] if needed
                     MessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    MainForm mainForm = new MainForm(); // Replace with your actual main form
-                    mainForm.Show();
+                    MainMenuForms mainMenu = new MainMenuForms();
+                    mainMenu.Show();
                     this.Hide();
                     return;
                 }
