@@ -63,7 +63,7 @@
             UpdateDetailsLabel.AutoSize = true;
             UpdateDetailsLabel.Font = new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             UpdateDetailsLabel.ForeColor = Color.DarkCyan;
-            UpdateDetailsLabel.Location = new Point(217, 48);
+            UpdateDetailsLabel.Location = new Point(250, 51);
             UpdateDetailsLabel.Name = "UpdateDetailsLabel";
             UpdateDetailsLabel.Size = new Size(171, 15);
             UpdateDetailsLabel.TabIndex = 1;
@@ -182,7 +182,7 @@
             // 
             // updateButton
             // 
-            updateButton.BackColor = Color.DarkCyan;
+            updateButton.BackColor = Color.ForestGreen;
             updateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             updateButton.ForeColor = Color.White;
             updateButton.Location = new Point(286, 283);
@@ -204,6 +204,7 @@
             button2.TabIndex = 20;
             button2.Text = "BACK";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // pictureBox1
             // 

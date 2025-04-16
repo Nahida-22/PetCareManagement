@@ -175,11 +175,13 @@
             button1.TabIndex = 23;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // SupplierInsertForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(700, 338);
             Controls.Add(button1);
             Controls.Add(insertButton);
@@ -194,6 +196,7 @@
             Controls.Add(supplierNameLabel);
             Controls.Add(supplierIdLabel);
             Controls.Add(label1);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             Name = "SupplierInsertForm";
             Text = "SupplierInsertForm";

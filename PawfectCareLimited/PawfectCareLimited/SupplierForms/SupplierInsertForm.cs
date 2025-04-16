@@ -27,7 +27,7 @@ namespace PawfectCareLimited
                 string phoneNumber = PhoneNumberValue.Text;
                 string adress = AddressValue.Text;
                 string email = emailValue.Text;
-             
+
 
 
                 // Construct the data as a Dictionary
@@ -38,7 +38,7 @@ namespace PawfectCareLimited
                     { "PhoneNumber", phoneNumber },
                     { "Address", adress},
                     { "Email", email },
-                   
+
                 };
 
                 try
@@ -78,5 +78,12 @@ namespace PawfectCareLimited
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // Hide or close the current form
+            this.Hide();
+        }
+
     }
 }

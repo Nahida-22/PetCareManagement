@@ -127,10 +127,10 @@
             // 
             // updateOrderButton
             // 
-            updateOrderButton.BackColor = Color.DarkCyan;
+            updateOrderButton.BackColor = Color.ForestGreen;
             updateOrderButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             updateOrderButton.ForeColor = Color.White;
-            updateOrderButton.Location = new Point(511, 329);
+            updateOrderButton.Location = new Point(289, 330);
             updateOrderButton.Margin = new Padding(3, 2, 3, 2);
             updateOrderButton.Name = "updateOrderButton";
             updateOrderButton.Size = new Size(131, 44);

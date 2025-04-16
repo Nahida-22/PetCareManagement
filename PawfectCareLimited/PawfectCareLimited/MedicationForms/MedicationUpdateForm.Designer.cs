@@ -148,10 +148,10 @@
             // 
             // updateMedicationButton
             // 
-            updateMedicationButton.BackColor = Color.DarkCyan;
+            updateMedicationButton.BackColor = Color.ForestGreen;
             updateMedicationButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             updateMedicationButton.ForeColor = Color.White;
-            updateMedicationButton.Location = new Point(511, 329);
+            updateMedicationButton.Location = new Point(281, 330);
             updateMedicationButton.Margin = new Padding(3, 2, 3, 2);
             updateMedicationButton.Name = "updateMedicationButton";
             updateMedicationButton.Size = new Size(131, 44);
