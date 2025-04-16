@@ -173,6 +173,7 @@
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "VetTableInterfaceForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)vetTableDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

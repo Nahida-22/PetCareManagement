@@ -262,6 +262,7 @@
             Controls.Add(bookAppointmentLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "AppointmentBookingForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AppointmentInsertForm";
             Load += AppointmentBookingForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

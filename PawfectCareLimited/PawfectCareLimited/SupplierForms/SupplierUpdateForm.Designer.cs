@@ -52,9 +52,9 @@
             apppointmentUpdateLabel.AutoSize = true;
             apppointmentUpdateLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             apppointmentUpdateLabel.ForeColor = Color.DarkCyan;
-            apppointmentUpdateLabel.Location = new Point(186, 24);
+            apppointmentUpdateLabel.Location = new Point(213, 32);
             apppointmentUpdateLabel.Name = "apppointmentUpdateLabel";
-            apppointmentUpdateLabel.Size = new Size(316, 28);
+            apppointmentUpdateLabel.Size = new Size(401, 34);
             apppointmentUpdateLabel.TabIndex = 0;
             apppointmentUpdateLabel.Text = "Update Medication Details";
             // 
@@ -63,9 +63,9 @@
             UpdateDetailsLabel.AutoSize = true;
             UpdateDetailsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             UpdateDetailsLabel.ForeColor = Color.DarkCyan;
-            UpdateDetailsLabel.Location = new Point(192, 60);
+            UpdateDetailsLabel.Location = new Point(219, 80);
             UpdateDetailsLabel.Name = "UpdateDetailsLabel";
-            UpdateDetailsLabel.Size = new Size(283, 21);
+            UpdateDetailsLabel.Size = new Size(353, 28);
             UpdateDetailsLabel.TabIndex = 1;
             UpdateDetailsLabel.Text = "Updating details for Medication ID: ";
             // 
@@ -74,9 +74,9 @@
             medicationNameLabel.AutoSize = true;
             medicationNameLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             medicationNameLabel.ForeColor = Color.DarkCyan;
-            medicationNameLabel.Location = new Point(168, 126);
+            medicationNameLabel.Location = new Point(192, 168);
             medicationNameLabel.Name = "medicationNameLabel";
-            medicationNameLabel.Size = new Size(114, 15);
+            medicationNameLabel.Size = new Size(145, 20);
             medicationNameLabel.TabIndex = 2;
             medicationNameLabel.Text = "Medication Name : ";
             // 
@@ -85,18 +85,17 @@
             changeToValueLabel.AutoSize = true;
             changeToValueLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             changeToValueLabel.ForeColor = SystemColors.ControlDarkDark;
-            changeToValueLabel.Location = new Point(375, 98);
+            changeToValueLabel.Location = new Point(429, 131);
             changeToValueLabel.Name = "changeToValueLabel";
-            changeToValueLabel.Size = new Size(64, 15);
+            changeToValueLabel.Size = new Size(82, 20);
             changeToValueLabel.TabIndex = 5;
             changeToValueLabel.Text = "Change To";
             // 
             // updatedMedicationName
             // 
-            updatedMedicationName.Location = new Point(304, 121);
-            updatedMedicationName.Margin = new Padding(3, 2, 3, 2);
+            updatedMedicationName.Location = new Point(347, 161);
             updatedMedicationName.Name = "updatedMedicationName";
-            updatedMedicationName.Size = new Size(229, 23);
+            updatedMedicationName.Size = new Size(261, 27);
             updatedMedicationName.TabIndex = 6;
             // 
             // stockQuantityLabel
@@ -104,9 +103,9 @@
             stockQuantityLabel.AutoSize = true;
             stockQuantityLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             stockQuantityLabel.ForeColor = Color.DarkCyan;
-            stockQuantityLabel.Location = new Point(168, 158);
+            stockQuantityLabel.Location = new Point(192, 211);
             stockQuantityLabel.Name = "stockQuantityLabel";
-            stockQuantityLabel.Size = new Size(102, 15);
+            stockQuantityLabel.Size = new Size(128, 20);
             stockQuantityLabel.TabIndex = 8;
             stockQuantityLabel.Text = " Stock Quantity : ";
             // 
@@ -115,34 +114,31 @@
             categoryLabel.AutoSize = true;
             categoryLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             categoryLabel.ForeColor = Color.DarkCyan;
-            categoryLabel.Location = new Point(175, 184);
+            categoryLabel.Location = new Point(200, 245);
             categoryLabel.Name = "categoryLabel";
-            categoryLabel.Size = new Size(66, 15);
+            categoryLabel.Size = new Size(85, 20);
             categoryLabel.TabIndex = 9;
             categoryLabel.Text = "Category : ";
             // 
             // updatedStockQuantity
             // 
-            updatedStockQuantity.Location = new Point(303, 152);
-            updatedStockQuantity.Margin = new Padding(3, 2, 3, 2);
+            updatedStockQuantity.Location = new Point(346, 203);
             updatedStockQuantity.Name = "updatedStockQuantity";
-            updatedStockQuantity.Size = new Size(229, 23);
+            updatedStockQuantity.Size = new Size(261, 27);
             updatedStockQuantity.TabIndex = 16;
             // 
             // updatedCategory
             // 
-            updatedCategory.Location = new Point(303, 184);
-            updatedCategory.Margin = new Padding(3, 2, 3, 2);
+            updatedCategory.Location = new Point(346, 245);
             updatedCategory.Name = "updatedCategory";
-            updatedCategory.Size = new Size(229, 23);
+            updatedCategory.Size = new Size(261, 27);
             updatedCategory.TabIndex = 17;
             // 
             // updatedPrice
             // 
-            updatedPrice.Location = new Point(303, 213);
-            updatedPrice.Margin = new Padding(3, 2, 3, 2);
+            updatedPrice.Location = new Point(346, 284);
             updatedPrice.Name = "updatedPrice";
-            updatedPrice.Size = new Size(229, 23);
+            updatedPrice.Size = new Size(261, 27);
             updatedPrice.TabIndex = 18;
             // 
             // updateMedicationButton
@@ -150,10 +146,9 @@
             updateMedicationButton.BackColor = Color.ForestGreen;
             updateMedicationButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             updateMedicationButton.ForeColor = Color.White;
-            updateMedicationButton.Location = new Point(303, 330);
-            updateMedicationButton.Margin = new Padding(3, 2, 3, 2);
+            updateMedicationButton.Location = new Point(346, 440);
             updateMedicationButton.Name = "updateMedicationButton";
-            updateMedicationButton.Size = new Size(131, 44);
+            updateMedicationButton.Size = new Size(150, 59);
             updateMedicationButton.TabIndex = 19;
             updateMedicationButton.Text = "UPDATE";
             updateMedicationButton.UseVisualStyleBackColor = false;
@@ -164,9 +159,10 @@
             button1.BackColor = Color.DarkCyan;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 331);
+            button1.Location = new Point(14, 441);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(76, 43);
+            button1.Size = new Size(87, 57);
             button1.TabIndex = 22;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
@@ -174,17 +170,19 @@
             // panel1
             // 
             panel1.BackColor = Color.DarkCyan;
-            panel1.Location = new Point(202, 84);
+            panel1.Location = new Point(231, 112);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(298, 1);
+            panel1.Size = new Size(341, 1);
             panel1.TabIndex = 23;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
             pictureBox1.Location = new Point(-2, -1);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(134, 114);
+            pictureBox1.Size = new Size(153, 152);
             pictureBox1.TabIndex = 24;
             pictureBox1.TabStop = false;
             // 
@@ -192,7 +190,7 @@
             // 
             expiryDateLabel.Location = new Point(0, 0);
             expiryDateLabel.Name = "expiryDateLabel";
-            expiryDateLabel.Size = new Size(88, 17);
+            expiryDateLabel.Size = new Size(101, 23);
             expiryDateLabel.TabIndex = 0;
             // 
             // unitPriceLabel
@@ -200,18 +198,18 @@
             unitPriceLabel.AutoSize = true;
             unitPriceLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             unitPriceLabel.ForeColor = Color.DarkCyan;
-            unitPriceLabel.Location = new Point(172, 215);
+            unitPriceLabel.Location = new Point(197, 287);
             unitPriceLabel.Name = "unitPriceLabel";
-            unitPriceLabel.Size = new Size(71, 15);
+            unitPriceLabel.Size = new Size(89, 20);
             unitPriceLabel.TabIndex = 10;
             unitPriceLabel.Text = "Unit Price : ";
             // 
             // SupplierUpdateForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(700, 386);
+            ClientSize = new Size(800, 515);
             Controls.Add(expiryDateLabel);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
@@ -229,8 +227,8 @@
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(apppointmentUpdateLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "SupplierUpdateForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateOwnerForm";
             Load += SupplierUpdateForm_Load_1;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

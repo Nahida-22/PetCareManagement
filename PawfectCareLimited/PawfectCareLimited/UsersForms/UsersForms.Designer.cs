@@ -39,18 +39,21 @@
             // pictureBox1
             // 
             pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
-            pictureBox1.Location = new Point(0, -2);
+            pictureBox1.Location = new Point(0, -3);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(134, 114);
+            pictureBox1.Size = new Size(153, 152);
             pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(77, 127);
+            dataGridView1.Location = new Point(88, 169);
+            dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(523, 262);
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(598, 349);
             dataGridView1.TabIndex = 26;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -59,9 +62,9 @@
             apppointmentUpdateLabel.AutoSize = true;
             apppointmentUpdateLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             apppointmentUpdateLabel.ForeColor = Color.DarkCyan;
-            apppointmentUpdateLabel.Location = new Point(294, 41);
+            apppointmentUpdateLabel.Location = new Point(336, 55);
             apppointmentUpdateLabel.Name = "apppointmentUpdateLabel";
-            apppointmentUpdateLabel.Size = new Size(88, 28);
+            apppointmentUpdateLabel.Size = new Size(112, 34);
             apppointmentUpdateLabel.TabIndex = 27;
             apppointmentUpdateLabel.Text = "STAFF";
             // 
@@ -70,9 +73,10 @@
             button1.BackColor = Color.DarkCyan;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 436);
+            button1.Location = new Point(14, 581);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(76, 43);
+            button1.Size = new Size(87, 57);
             button1.TabIndex = 28;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
@@ -80,16 +84,18 @@
             // 
             // UsersForms
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(674, 491);
+            ClientSize = new Size(770, 655);
             Controls.Add(button1);
             Controls.Add(apppointmentUpdateLabel);
             Controls.Add(dataGridView1);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "UsersForms";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UsersForms";
             Load += UsersForms_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

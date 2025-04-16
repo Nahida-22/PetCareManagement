@@ -51,9 +51,9 @@
             apppointmentUpdateLabel.AutoSize = true;
             apppointmentUpdateLabel.Font = new Font("Arial Rounded MT Bold", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             apppointmentUpdateLabel.ForeColor = Color.DarkCyan;
-            apppointmentUpdateLabel.Location = new Point(227, 20);
+            apppointmentUpdateLabel.Location = new Point(259, 27);
             apppointmentUpdateLabel.Name = "apppointmentUpdateLabel";
-            apppointmentUpdateLabel.Size = new Size(227, 28);
+            apppointmentUpdateLabel.Size = new Size(289, 34);
             apppointmentUpdateLabel.TabIndex = 0;
             apppointmentUpdateLabel.Text = "Update Pet Details";
             // 
@@ -62,9 +62,9 @@
             UpdateDetailsLabel.AutoSize = true;
             UpdateDetailsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             UpdateDetailsLabel.ForeColor = Color.DarkCyan;
-            UpdateDetailsLabel.Location = new Point(236, 64);
+            UpdateDetailsLabel.Location = new Point(270, 85);
             UpdateDetailsLabel.Name = "UpdateDetailsLabel";
-            UpdateDetailsLabel.Size = new Size(221, 21);
+            UpdateDetailsLabel.Size = new Size(276, 28);
             UpdateDetailsLabel.TabIndex = 1;
             UpdateDetailsLabel.Text = "Updating details for Pet ID: ";
             // 
@@ -73,9 +73,9 @@
             petNameLabel.AutoSize = true;
             petNameLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petNameLabel.ForeColor = SystemColors.ControlDarkDark;
-            petNameLabel.Location = new Point(168, 150);
+            petNameLabel.Location = new Point(192, 200);
             petNameLabel.Name = "petNameLabel";
-            petNameLabel.Size = new Size(80, 17);
+            petNameLabel.Size = new Size(102, 23);
             petNameLabel.TabIndex = 2;
             petNameLabel.Text = "Pet Name : ";
             // 
@@ -84,18 +84,17 @@
             changeToValueLabel.AutoSize = true;
             changeToValueLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             changeToValueLabel.ForeColor = SystemColors.ControlDarkDark;
-            changeToValueLabel.Location = new Point(375, 122);
+            changeToValueLabel.Location = new Point(429, 163);
             changeToValueLabel.Name = "changeToValueLabel";
-            changeToValueLabel.Size = new Size(64, 15);
+            changeToValueLabel.Size = new Size(82, 20);
             changeToValueLabel.TabIndex = 5;
             changeToValueLabel.Text = "Change To";
             // 
             // updatedPetName
             // 
-            updatedPetName.Location = new Point(304, 145);
-            updatedPetName.Margin = new Padding(3, 2, 3, 2);
+            updatedPetName.Location = new Point(347, 193);
             updatedPetName.Name = "updatedPetName";
-            updatedPetName.Size = new Size(229, 23);
+            updatedPetName.Size = new Size(261, 27);
             updatedPetName.TabIndex = 6;
             // 
             // petTypeLabel
@@ -103,9 +102,9 @@
             petTypeLabel.AutoSize = true;
             petTypeLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petTypeLabel.ForeColor = SystemColors.ControlDarkDark;
-            petTypeLabel.Location = new Point(168, 182);
+            petTypeLabel.Location = new Point(192, 243);
             petTypeLabel.Name = "petTypeLabel";
-            petTypeLabel.Size = new Size(73, 17);
+            petTypeLabel.Size = new Size(93, 23);
             petTypeLabel.TabIndex = 8;
             petTypeLabel.Text = "Pet Type : ";
             // 
@@ -114,34 +113,31 @@
             breedLabel.AutoSize = true;
             breedLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             breedLabel.ForeColor = SystemColors.ControlDarkDark;
-            breedLabel.Location = new Point(172, 208);
+            breedLabel.Location = new Point(197, 277);
             breedLabel.Name = "breedLabel";
-            breedLabel.Size = new Size(55, 17);
+            breedLabel.Size = new Size(72, 23);
             breedLabel.TabIndex = 9;
             breedLabel.Text = "Breed : ";
             // 
             // updatedType
             // 
-            updatedType.Location = new Point(303, 176);
-            updatedType.Margin = new Padding(3, 2, 3, 2);
+            updatedType.Location = new Point(346, 235);
             updatedType.Name = "updatedType";
-            updatedType.Size = new Size(229, 23);
+            updatedType.Size = new Size(261, 27);
             updatedType.TabIndex = 16;
             // 
             // updatedBreed
             // 
-            updatedBreed.Location = new Point(303, 208);
-            updatedBreed.Margin = new Padding(3, 2, 3, 2);
+            updatedBreed.Location = new Point(346, 277);
             updatedBreed.Name = "updatedBreed";
-            updatedBreed.Size = new Size(229, 23);
+            updatedBreed.Size = new Size(261, 27);
             updatedBreed.TabIndex = 17;
             // 
             // updatedAge
             // 
-            updatedAge.Location = new Point(303, 237);
-            updatedAge.Margin = new Padding(3, 2, 3, 2);
+            updatedAge.Location = new Point(346, 316);
             updatedAge.Name = "updatedAge";
-            updatedAge.Size = new Size(229, 23);
+            updatedAge.Size = new Size(261, 27);
             updatedAge.TabIndex = 18;
             // 
             // updatePetButton
@@ -149,10 +145,9 @@
             updatePetButton.BackColor = Color.ForestGreen;
             updatePetButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             updatePetButton.ForeColor = Color.White;
-            updatePetButton.Location = new Point(294, 330);
-            updatePetButton.Margin = new Padding(3, 2, 3, 2);
+            updatePetButton.Location = new Point(336, 440);
             updatePetButton.Name = "updatePetButton";
-            updatePetButton.Size = new Size(131, 44);
+            updatePetButton.Size = new Size(150, 59);
             updatePetButton.TabIndex = 19;
             updatePetButton.Text = "UPDATE";
             updatePetButton.UseVisualStyleBackColor = false;
@@ -163,9 +158,10 @@
             button1.BackColor = Color.DarkCyan;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 331);
+            button1.Location = new Point(14, 441);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(76, 43);
+            button1.Size = new Size(87, 57);
             button1.TabIndex = 22;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
@@ -174,17 +170,19 @@
             // panel1
             // 
             panel1.BackColor = Color.DarkCyan;
-            panel1.Location = new Point(233, 84);
+            panel1.Location = new Point(266, 112);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(228, 1);
+            panel1.Size = new Size(261, 1);
             panel1.TabIndex = 23;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
             pictureBox1.Location = new Point(-2, -1);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(134, 114);
+            pictureBox1.Size = new Size(153, 152);
             pictureBox1.TabIndex = 24;
             pictureBox1.TabStop = false;
             // 
@@ -193,18 +191,18 @@
             petAgeLabel.AutoSize = true;
             petAgeLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petAgeLabel.ForeColor = SystemColors.ControlDarkDark;
-            petAgeLabel.Location = new Point(172, 239);
+            petAgeLabel.Location = new Point(197, 319);
             petAgeLabel.Name = "petAgeLabel";
-            petAgeLabel.Size = new Size(44, 17);
+            petAgeLabel.Size = new Size(57, 23);
             petAgeLabel.TabIndex = 10;
             petAgeLabel.Text = "Age : ";
             // 
             // PetUpdateForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(700, 386);
+            ClientSize = new Size(800, 515);
             Controls.Add(pictureBox1);
             Controls.Add(panel1);
             Controls.Add(button1);
@@ -221,8 +219,8 @@
             Controls.Add(UpdateDetailsLabel);
             Controls.Add(apppointmentUpdateLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "PetUpdateForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateOwnerForm";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);

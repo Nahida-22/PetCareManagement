@@ -48,20 +48,19 @@
             tableLabel.AutoSize = true;
             tableLabel.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tableLabel.ForeColor = Color.DarkCyan;
-            tableLabel.Location = new Point(242, 18);
+            tableLabel.Location = new Point(277, 24);
             tableLabel.Name = "tableLabel";
-            tableLabel.Size = new Size(178, 29);
+            tableLabel.Size = new Size(218, 35);
             tableLabel.TabIndex = 0;
             tableLabel.Text = "Supplier Table";
             // 
             // supplierTableDataGridView
             // 
             supplierTableDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            supplierTableDataGridView.Location = new Point(12, 121);
-            supplierTableDataGridView.Margin = new Padding(3, 2, 3, 2);
+            supplierTableDataGridView.Location = new Point(14, 161);
             supplierTableDataGridView.Name = "supplierTableDataGridView";
             supplierTableDataGridView.RowHeadersWidth = 51;
-            supplierTableDataGridView.Size = new Size(676, 304);
+            supplierTableDataGridView.Size = new Size(773, 405);
             supplierTableDataGridView.TabIndex = 1;
             // 
             // supplierUpdateButton
@@ -69,10 +68,9 @@
             supplierUpdateButton.BackColor = Color.Orange;
             supplierUpdateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             supplierUpdateButton.ForeColor = Color.White;
-            supplierUpdateButton.Location = new Point(288, 455);
-            supplierUpdateButton.Margin = new Padding(3, 2, 3, 2);
+            supplierUpdateButton.Location = new Point(329, 607);
             supplierUpdateButton.Name = "supplierUpdateButton";
-            supplierUpdateButton.Size = new Size(106, 43);
+            supplierUpdateButton.Size = new Size(121, 57);
             supplierUpdateButton.TabIndex = 3;
             supplierUpdateButton.Text = "UPDATE";
             supplierUpdateButton.UseVisualStyleBackColor = false;
@@ -83,10 +81,9 @@
             supplierDeleteButton.BackColor = Color.IndianRed;
             supplierDeleteButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             supplierDeleteButton.ForeColor = Color.White;
-            supplierDeleteButton.Location = new Point(176, 455);
-            supplierDeleteButton.Margin = new Padding(3, 2, 3, 2);
+            supplierDeleteButton.Location = new Point(201, 607);
             supplierDeleteButton.Name = "supplierDeleteButton";
-            supplierDeleteButton.Size = new Size(106, 43);
+            supplierDeleteButton.Size = new Size(121, 57);
             supplierDeleteButton.TabIndex = 4;
             supplierDeleteButton.Text = "DELETE";
             supplierDeleteButton.UseVisualStyleBackColor = false;
@@ -94,10 +91,9 @@
             // 
             // SearchBarTextBox
             // 
-            SearchBarTextBox.Location = new Point(139, 76);
-            SearchBarTextBox.Margin = new Padding(3, 2, 3, 2);
+            SearchBarTextBox.Location = new Point(159, 101);
             SearchBarTextBox.Name = "SearchBarTextBox";
-            SearchBarTextBox.Size = new Size(306, 23);
+            SearchBarTextBox.Size = new Size(349, 27);
             SearchBarTextBox.TabIndex = 5;
             // 
             // SearchButton
@@ -105,10 +101,9 @@
             SearchButton.BackColor = Color.DarkCyan;
             SearchButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SearchButton.ForeColor = Color.White;
-            SearchButton.Location = new Point(451, 66);
-            SearchButton.Margin = new Padding(3, 2, 3, 2);
+            SearchButton.Location = new Point(515, 88);
             SearchButton.Name = "SearchButton";
-            SearchButton.Size = new Size(96, 39);
+            SearchButton.Size = new Size(110, 52);
             SearchButton.TabIndex = 6;
             SearchButton.Text = "SEARCH";
             SearchButton.UseVisualStyleBackColor = false;
@@ -118,10 +113,9 @@
             // 
             SearchFieldComboBox.FormattingEnabled = true;
             SearchFieldComboBox.Items.AddRange(new object[] { "SupplierID", "SupplierName", "PhoneNumber", "Address ", "Email" });
-            SearchFieldComboBox.Location = new Point(553, 76);
-            SearchFieldComboBox.Margin = new Padding(3, 2, 3, 2);
+            SearchFieldComboBox.Location = new Point(632, 101);
             SearchFieldComboBox.Name = "SearchFieldComboBox";
-            SearchFieldComboBox.Size = new Size(133, 23);
+            SearchFieldComboBox.Size = new Size(151, 28);
             SearchFieldComboBox.TabIndex = 7;
             SearchFieldComboBox.SelectedIndexChanged += SearchFieldComboBox_SelectedIndexChanged;
             // 
@@ -130,10 +124,9 @@
             viewAllButton.BackColor = Color.DarkCyan;
             viewAllButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             viewAllButton.ForeColor = Color.White;
-            viewAllButton.Location = new Point(601, 429);
-            viewAllButton.Margin = new Padding(3, 2, 3, 2);
+            viewAllButton.Location = new Point(687, 572);
             viewAllButton.Name = "viewAllButton";
-            viewAllButton.Size = new Size(87, 30);
+            viewAllButton.Size = new Size(99, 40);
             viewAllButton.TabIndex = 8;
             viewAllButton.Text = "View All";
             viewAllButton.UseVisualStyleBackColor = false;
@@ -144,10 +137,9 @@
             supplierInsertButton.BackColor = Color.ForestGreen;
             supplierInsertButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             supplierInsertButton.ForeColor = Color.White;
-            supplierInsertButton.Location = new Point(400, 455);
-            supplierInsertButton.Margin = new Padding(3, 2, 3, 2);
+            supplierInsertButton.Location = new Point(457, 607);
             supplierInsertButton.Name = "supplierInsertButton";
-            supplierInsertButton.Size = new Size(106, 43);
+            supplierInsertButton.Size = new Size(121, 57);
             supplierInsertButton.TabIndex = 9;
             supplierInsertButton.Text = "INSERT";
             supplierInsertButton.UseVisualStyleBackColor = false;
@@ -158,9 +150,10 @@
             button1.BackColor = Color.DarkCyan;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 509);
+            button1.Location = new Point(14, 679);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(76, 43);
+            button1.Size = new Size(87, 57);
             button1.TabIndex = 10;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
@@ -169,18 +162,19 @@
             // pictureBox1
             // 
             pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
-            pictureBox1.Location = new Point(-1, -9);
+            pictureBox1.Location = new Point(-1, -12);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(134, 114);
+            pictureBox1.Size = new Size(153, 152);
             pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
             // SupplierInterfaceForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(700, 564);
+            ClientSize = new Size(800, 752);
             Controls.Add(button1);
             Controls.Add(supplierInsertButton);
             Controls.Add(viewAllButton);
@@ -193,8 +187,8 @@
             Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "SupplierInterfaceForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)supplierTableDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

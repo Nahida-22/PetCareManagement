@@ -242,6 +242,7 @@
             Controls.Add(apppointmentUpdateLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "VetUpdateForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "UpdateOwnerForm";
             Load += AppointmentUpdateForm_Load_1;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

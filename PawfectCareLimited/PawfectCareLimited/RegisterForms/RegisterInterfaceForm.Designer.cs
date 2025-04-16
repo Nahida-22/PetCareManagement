@@ -65,9 +65,9 @@
             registrationLabel.AutoSize = true;
             registrationLabel.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             registrationLabel.ForeColor = Color.DarkCyan;
-            registrationLabel.Location = new Point(255, 9);
+            registrationLabel.Location = new Point(291, 12);
             registrationLabel.Name = "registrationLabel";
-            registrationLabel.Size = new Size(153, 32);
+            registrationLabel.Size = new Size(191, 41);
             registrationLabel.TabIndex = 0;
             registrationLabel.Text = "Registration";
             // 
@@ -76,9 +76,9 @@
             newOwnerLabel.AutoSize = true;
             newOwnerLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             newOwnerLabel.ForeColor = Color.DarkCyan;
-            newOwnerLabel.Location = new Point(92, 67);
+            newOwnerLabel.Location = new Point(105, 89);
             newOwnerLabel.Name = "newOwnerLabel";
-            newOwnerLabel.Size = new Size(156, 21);
+            newOwnerLabel.Size = new Size(195, 28);
             newOwnerLabel.TabIndex = 1;
             newOwnerLabel.Text = "New Owner Details";
             // 
@@ -87,9 +87,9 @@
             firstNameLabel.AutoSize = true;
             firstNameLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             firstNameLabel.ForeColor = SystemColors.ControlDarkDark;
-            firstNameLabel.Location = new Point(54, 110);
+            firstNameLabel.Location = new Point(62, 147);
             firstNameLabel.Name = "firstNameLabel";
-            firstNameLabel.Size = new Size(87, 17);
+            firstNameLabel.Size = new Size(112, 23);
             firstNameLabel.TabIndex = 4;
             firstNameLabel.Text = "First Name : ";
             // 
@@ -98,9 +98,9 @@
             lastNameLabel.AutoSize = true;
             lastNameLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             lastNameLabel.ForeColor = SystemColors.ControlDarkDark;
-            lastNameLabel.Location = new Point(55, 147);
+            lastNameLabel.Location = new Point(63, 196);
             lastNameLabel.Name = "lastNameLabel";
-            lastNameLabel.Size = new Size(85, 17);
+            lastNameLabel.Size = new Size(109, 23);
             lastNameLabel.TabIndex = 5;
             lastNameLabel.Text = "Last Name : ";
             // 
@@ -109,9 +109,9 @@
             phoneNumberLabel.AutoSize = true;
             phoneNumberLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             phoneNumberLabel.ForeColor = SystemColors.ControlDarkDark;
-            phoneNumberLabel.Location = new Point(55, 176);
+            phoneNumberLabel.Location = new Point(63, 235);
             phoneNumberLabel.Name = "phoneNumberLabel";
-            phoneNumberLabel.Size = new Size(81, 17);
+            phoneNumberLabel.Size = new Size(102, 23);
             phoneNumberLabel.TabIndex = 6;
             phoneNumberLabel.Text = "Phone No : ";
             // 
@@ -120,9 +120,9 @@
             emailLabel.AutoSize = true;
             emailLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             emailLabel.ForeColor = SystemColors.ControlDarkDark;
-            emailLabel.Location = new Point(55, 213);
+            emailLabel.Location = new Point(63, 284);
             emailLabel.Name = "emailLabel";
-            emailLabel.Size = new Size(54, 17);
+            emailLabel.Size = new Size(69, 23);
             emailLabel.TabIndex = 7;
             emailLabel.Text = "Email : ";
             // 
@@ -131,9 +131,9 @@
             addressLabel.AutoSize = true;
             addressLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             addressLabel.ForeColor = SystemColors.ControlDarkDark;
-            addressLabel.Location = new Point(55, 242);
+            addressLabel.Location = new Point(63, 323);
             addressLabel.Name = "addressLabel";
-            addressLabel.Size = new Size(69, 17);
+            addressLabel.Size = new Size(89, 23);
             addressLabel.TabIndex = 8;
             addressLabel.Text = "Address : ";
             // 
@@ -142,9 +142,9 @@
             petDetailsLabel.AutoSize = true;
             petDetailsLabel.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             petDetailsLabel.ForeColor = Color.DarkCyan;
-            petDetailsLabel.Location = new Point(456, 72);
+            petDetailsLabel.Location = new Point(521, 96);
             petDetailsLabel.Name = "petDetailsLabel";
-            petDetailsLabel.Size = new Size(92, 21);
+            petDetailsLabel.Size = new Size(114, 28);
             petDetailsLabel.TabIndex = 9;
             petDetailsLabel.Text = "Pet Details";
             // 
@@ -153,9 +153,9 @@
             petNameLabel.AutoSize = true;
             petNameLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petNameLabel.ForeColor = SystemColors.ControlDarkDark;
-            petNameLabel.Location = new Point(411, 118);
+            petNameLabel.Location = new Point(470, 157);
             petNameLabel.Name = "petNameLabel";
-            petNameLabel.Size = new Size(76, 17);
+            petNameLabel.Size = new Size(97, 23);
             petNameLabel.TabIndex = 10;
             petNameLabel.Text = "Pet Name :";
             // 
@@ -164,9 +164,9 @@
             petTypeLabel.AutoSize = true;
             petTypeLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petTypeLabel.ForeColor = SystemColors.ControlDarkDark;
-            petTypeLabel.Location = new Point(419, 155);
+            petTypeLabel.Location = new Point(479, 207);
             petTypeLabel.Name = "petTypeLabel";
-            petTypeLabel.Size = new Size(69, 17);
+            petTypeLabel.Size = new Size(88, 23);
             petTypeLabel.TabIndex = 11;
             petTypeLabel.Text = "Pet Type :";
             // 
@@ -175,9 +175,9 @@
             petBreedLabel.AutoSize = true;
             petBreedLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petBreedLabel.ForeColor = SystemColors.ControlDarkDark;
-            petBreedLabel.Location = new Point(421, 187);
+            petBreedLabel.Location = new Point(481, 249);
             petBreedLabel.Name = "petBreedLabel";
-            petBreedLabel.Size = new Size(51, 17);
+            petBreedLabel.Size = new Size(67, 23);
             petBreedLabel.TabIndex = 12;
             petBreedLabel.Text = "Breed :";
             // 
@@ -186,82 +186,73 @@
             petAgeLabel.AutoSize = true;
             petAgeLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petAgeLabel.ForeColor = SystemColors.ControlDarkDark;
-            petAgeLabel.Location = new Point(421, 221);
+            petAgeLabel.Location = new Point(481, 295);
             petAgeLabel.Name = "petAgeLabel";
-            petAgeLabel.Size = new Size(40, 17);
+            petAgeLabel.Size = new Size(52, 23);
             petAgeLabel.TabIndex = 13;
             petAgeLabel.Text = "Age :";
             // 
             // firstNameValue
             // 
-            firstNameValue.Location = new Point(139, 108);
-            firstNameValue.Margin = new Padding(3, 2, 3, 2);
+            firstNameValue.Location = new Point(159, 144);
             firstNameValue.Name = "firstNameValue";
-            firstNameValue.Size = new Size(141, 23);
+            firstNameValue.Size = new Size(161, 27);
             firstNameValue.TabIndex = 14;
             // 
             // petNameValue
             // 
-            petNameValue.Location = new Point(495, 115);
-            petNameValue.Margin = new Padding(3, 2, 3, 2);
+            petNameValue.Location = new Point(566, 153);
             petNameValue.Name = "petNameValue";
-            petNameValue.Size = new Size(141, 23);
+            petNameValue.Size = new Size(161, 27);
             petNameValue.TabIndex = 15;
             // 
             // lastNameValue
             // 
-            lastNameValue.Location = new Point(139, 142);
-            lastNameValue.Margin = new Padding(3, 2, 3, 2);
+            lastNameValue.Location = new Point(159, 189);
             lastNameValue.Name = "lastNameValue";
-            lastNameValue.Size = new Size(141, 23);
+            lastNameValue.Size = new Size(161, 27);
             lastNameValue.TabIndex = 16;
             // 
             // phoneNumberValue
             // 
-            phoneNumberValue.Location = new Point(139, 174);
-            phoneNumberValue.Margin = new Padding(3, 2, 3, 2);
+            phoneNumberValue.Location = new Point(159, 232);
             phoneNumberValue.Name = "phoneNumberValue";
-            phoneNumberValue.Size = new Size(141, 23);
+            phoneNumberValue.Size = new Size(161, 27);
             phoneNumberValue.TabIndex = 17;
             // 
             // emailValue
             // 
-            emailValue.Location = new Point(139, 206);
-            emailValue.Margin = new Padding(3, 2, 3, 2);
+            emailValue.Location = new Point(159, 275);
             emailValue.Name = "emailValue";
-            emailValue.Size = new Size(141, 23);
+            emailValue.Size = new Size(161, 27);
             emailValue.TabIndex = 18;
             // 
             // addressValue
             // 
-            addressValue.Location = new Point(139, 240);
-            addressValue.Margin = new Padding(3, 2, 3, 2);
+            addressValue.Location = new Point(159, 320);
             addressValue.Name = "addressValue";
-            addressValue.Size = new Size(141, 23);
+            addressValue.Size = new Size(161, 27);
             addressValue.TabIndex = 19;
             // 
             // petTypeValue
             // 
-            petTypeValue.Location = new Point(495, 147);
-            petTypeValue.Margin = new Padding(3, 2, 3, 2);
+            petTypeValue.Location = new Point(566, 196);
             petTypeValue.Name = "petTypeValue";
-            petTypeValue.Size = new Size(141, 23);
+            petTypeValue.Size = new Size(161, 27);
             petTypeValue.TabIndex = 20;
             // 
             // petBreedValue
             // 
-            petBreedValue.Location = new Point(495, 181);
-            petBreedValue.Margin = new Padding(3, 2, 3, 2);
+            petBreedValue.Location = new Point(566, 241);
             petBreedValue.Name = "petBreedValue";
-            petBreedValue.Size = new Size(141, 23);
+            petBreedValue.Size = new Size(161, 27);
             petBreedValue.TabIndex = 21;
             // 
             // petAgeValue
             // 
-            petAgeValue.Location = new Point(495, 216);
-            petAgeValue.Margin = new Padding(3, 2, 3, 2);
+            petAgeValue.Location = new Point(566, 288);
             petAgeValue.Name = "petAgeValue";
-            petAgeValue.Size = new Size(141, 23);
+            petAgeValue.Size = new Size(161, 27);
             petAgeValue.TabIndex = 22;
             // 
             // registerButton
@@ -269,10 +260,9 @@
             registerButton.BackColor = SystemColors.HotTrack;
             registerButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             registerButton.ForeColor = Color.White;
-            registerButton.Location = new Point(554, 315);
-            registerButton.Margin = new Padding(3, 2, 3, 2);
+            registerButton.Location = new Point(633, 420);
             registerButton.Name = "registerButton";
-            registerButton.Size = new Size(100, 43);
+            registerButton.Size = new Size(114, 57);
             registerButton.TabIndex = 24;
             registerButton.Text = "Register";
             registerButton.UseVisualStyleBackColor = false;
@@ -283,18 +273,17 @@
             ownerIdLabel.AutoSize = true;
             ownerIdLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             ownerIdLabel.ForeColor = SystemColors.ControlDarkDark;
-            ownerIdLabel.Location = new Point(55, 276);
+            ownerIdLabel.Location = new Point(63, 368);
             ownerIdLabel.Name = "ownerIdLabel";
-            ownerIdLabel.Size = new Size(78, 17);
+            ownerIdLabel.Size = new Size(101, 23);
             ownerIdLabel.TabIndex = 25;
             ownerIdLabel.Text = "Owner ID : ";
             // 
             // ownerIdValue
             // 
-            ownerIdValue.Location = new Point(139, 276);
-            ownerIdValue.Margin = new Padding(3, 2, 3, 2);
+            ownerIdValue.Location = new Point(159, 368);
             ownerIdValue.Name = "ownerIdValue";
-            ownerIdValue.Size = new Size(141, 23);
+            ownerIdValue.Size = new Size(161, 27);
             ownerIdValue.TabIndex = 26;
             // 
             // petIdLabel
@@ -302,18 +291,17 @@
             petIdLabel.AutoSize = true;
             petIdLabel.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
             petIdLabel.ForeColor = SystemColors.ControlDarkDark;
-            petIdLabel.Location = new Point(421, 254);
+            petIdLabel.Location = new Point(481, 339);
             petIdLabel.Name = "petIdLabel";
-            petIdLabel.Size = new Size(54, 17);
+            petIdLabel.Size = new Size(68, 23);
             petIdLabel.TabIndex = 27;
             petIdLabel.Text = "Pet ID :";
             // 
             // petIdValue
             // 
-            petIdValue.Location = new Point(495, 251);
-            petIdValue.Margin = new Padding(3, 2, 3, 2);
+            petIdValue.Location = new Point(566, 335);
             petIdValue.Name = "petIdValue";
-            petIdValue.Size = new Size(141, 23);
+            petIdValue.Size = new Size(161, 27);
             petIdValue.TabIndex = 28;
             // 
             // nextButton
@@ -321,10 +309,9 @@
             nextButton.BackColor = Color.ForestGreen;
             nextButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             nextButton.ForeColor = Color.White;
-            nextButton.Location = new Point(448, 315);
-            nextButton.Margin = new Padding(3, 2, 3, 2);
+            nextButton.Location = new Point(512, 420);
             nextButton.Name = "nextButton";
-            nextButton.Size = new Size(100, 43);
+            nextButton.Size = new Size(114, 57);
             nextButton.TabIndex = 29;
             nextButton.Text = "Next";
             nextButton.UseVisualStyleBackColor = false;
@@ -335,9 +322,10 @@
             button1.BackColor = Color.DarkCyan;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(12, 315);
+            button1.Location = new Point(14, 420);
+            button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
-            button1.Size = new Size(76, 43);
+            button1.Size = new Size(87, 57);
             button1.TabIndex = 30;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
@@ -346,18 +334,19 @@
             // pictureBox1
             // 
             pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
-            pictureBox1.Location = new Point(-7, -17);
+            pictureBox1.Location = new Point(-8, -23);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(116, 105);
+            pictureBox1.Size = new Size(133, 140);
             pictureBox1.TabIndex = 31;
             pictureBox1.TabStop = false;
             // 
             // RegisterInterfaceForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(700, 368);
+            ClientSize = new Size(800, 491);
             Controls.Add(button1);
             Controls.Add(nextButton);
             Controls.Add(petIdValue);
@@ -388,8 +377,8 @@
             Controls.Add(registrationLabel);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "RegisterInterfaceForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "RegisterInterface";
             Load += RegisterInterfaceForm_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

@@ -107,6 +107,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 4, 3, 4);
             Name = "TablesForms";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "TablesForms";
             Load += TablesForms_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

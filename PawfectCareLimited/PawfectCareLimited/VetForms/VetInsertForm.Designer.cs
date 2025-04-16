@@ -180,6 +180,7 @@
             Controls.Add(vetIdLabel);
             Controls.Add(label1);
             Name = "VetInsertForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MedicationInsertForm";
             ResumeLayout(false);
             PerformLayout();
