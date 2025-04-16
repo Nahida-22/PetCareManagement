@@ -260,7 +260,12 @@ namespace PawfectCareLimited
 
         private void locationInsertButton_Click(object sender, EventArgs e)
         {
+            using (HttpClient client = new HttpClient())
+            {
+                var locationInsertForm = new LocationInsertForm();
+                locationInsertForm.ShowDialog();
 
+            }
         }
 
         private void locationLabel_Click(object sender, EventArgs e)
