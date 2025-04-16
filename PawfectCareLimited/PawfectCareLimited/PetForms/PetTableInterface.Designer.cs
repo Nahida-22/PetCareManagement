@@ -47,29 +47,31 @@
             tableLabel.AutoSize = true;
             tableLabel.Font = new Font("Arial", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             tableLabel.ForeColor = Color.DarkCyan;
-            tableLabel.Location = new Point(277, 24);
+            tableLabel.Location = new Point(294, 19);
             tableLabel.Name = "tableLabel";
-            tableLabel.Size = new Size(146, 35);
+            tableLabel.Size = new Size(118, 29);
             tableLabel.TabIndex = 0;
             tableLabel.Text = "Pet Table";
             // 
             // petTableDataGridView
             // 
             petTableDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            petTableDataGridView.Location = new Point(14, 161);
+            petTableDataGridView.Location = new Point(12, 121);
+            petTableDataGridView.Margin = new Padding(3, 2, 3, 2);
             petTableDataGridView.Name = "petTableDataGridView";
             petTableDataGridView.RowHeadersWidth = 51;
-            petTableDataGridView.Size = new Size(773, 405);
+            petTableDataGridView.Size = new Size(676, 304);
             petTableDataGridView.TabIndex = 1;
             // 
             // petUpdateButton
             // 
-            petUpdateButton.BackColor = Color.Orange;
+            petUpdateButton.BackColor = Color.ForestGreen;
             petUpdateButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             petUpdateButton.ForeColor = Color.White;
-            petUpdateButton.Location = new Point(329, 607);
+            petUpdateButton.Location = new Point(377, 455);
+            petUpdateButton.Margin = new Padding(3, 2, 3, 2);
             petUpdateButton.Name = "petUpdateButton";
-            petUpdateButton.Size = new Size(121, 57);
+            petUpdateButton.Size = new Size(106, 43);
             petUpdateButton.TabIndex = 3;
             petUpdateButton.Text = "UPDATE";
             petUpdateButton.UseVisualStyleBackColor = false;
@@ -80,9 +82,10 @@
             petDeleteButton.BackColor = Color.IndianRed;
             petDeleteButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             petDeleteButton.ForeColor = Color.White;
-            petDeleteButton.Location = new Point(201, 607);
+            petDeleteButton.Location = new Point(228, 455);
+            petDeleteButton.Margin = new Padding(3, 2, 3, 2);
             petDeleteButton.Name = "petDeleteButton";
-            petDeleteButton.Size = new Size(121, 57);
+            petDeleteButton.Size = new Size(106, 43);
             petDeleteButton.TabIndex = 4;
             petDeleteButton.Text = "DELETE";
             petDeleteButton.UseVisualStyleBackColor = false;
@@ -90,9 +93,10 @@
             // 
             // SearchBarTextBox
             // 
-            SearchBarTextBox.Location = new Point(159, 101);
+            SearchBarTextBox.Location = new Point(139, 76);
+            SearchBarTextBox.Margin = new Padding(3, 2, 3, 2);
             SearchBarTextBox.Name = "SearchBarTextBox";
-            SearchBarTextBox.Size = new Size(349, 27);
+            SearchBarTextBox.Size = new Size(306, 23);
             SearchBarTextBox.TabIndex = 5;
             // 
             // SearchButton
@@ -100,9 +104,10 @@
             SearchButton.BackColor = Color.DarkCyan;
             SearchButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SearchButton.ForeColor = Color.White;
-            SearchButton.Location = new Point(515, 88);
+            SearchButton.Location = new Point(451, 66);
+            SearchButton.Margin = new Padding(3, 2, 3, 2);
             SearchButton.Name = "SearchButton";
-            SearchButton.Size = new Size(110, 52);
+            SearchButton.Size = new Size(96, 39);
             SearchButton.TabIndex = 6;
             SearchButton.Text = "SEARCH";
             SearchButton.UseVisualStyleBackColor = false;
@@ -112,9 +117,10 @@
             // 
             SearchFieldComboBox.FormattingEnabled = true;
             SearchFieldComboBox.Items.AddRange(new object[] { "PetID", "OwnerID", "PetName", "PetType", "Breed", "Age" });
-            SearchFieldComboBox.Location = new Point(632, 101);
+            SearchFieldComboBox.Location = new Point(553, 76);
+            SearchFieldComboBox.Margin = new Padding(3, 2, 3, 2);
             SearchFieldComboBox.Name = "SearchFieldComboBox";
-            SearchFieldComboBox.Size = new Size(151, 28);
+            SearchFieldComboBox.Size = new Size(133, 23);
             SearchFieldComboBox.TabIndex = 7;
             // 
             // viewAllButton
@@ -122,9 +128,10 @@
             viewAllButton.BackColor = Color.DarkCyan;
             viewAllButton.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             viewAllButton.ForeColor = Color.White;
-            viewAllButton.Location = new Point(687, 572);
+            viewAllButton.Location = new Point(601, 429);
+            viewAllButton.Margin = new Padding(3, 2, 3, 2);
             viewAllButton.Name = "viewAllButton";
-            viewAllButton.Size = new Size(99, 40);
+            viewAllButton.Size = new Size(87, 30);
             viewAllButton.TabIndex = 8;
             viewAllButton.Text = "View All";
             viewAllButton.UseVisualStyleBackColor = false;
@@ -135,10 +142,9 @@
             button1.BackColor = Color.DarkCyan;
             button1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             button1.ForeColor = Color.White;
-            button1.Location = new Point(14, 679);
-            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Location = new Point(12, 509);
             button1.Name = "button1";
-            button1.Size = new Size(87, 57);
+            button1.Size = new Size(76, 43);
             button1.TabIndex = 10;
             button1.Text = "BACK";
             button1.UseVisualStyleBackColor = false;
@@ -147,19 +153,18 @@
             // pictureBox1
             // 
             pictureBox1.Image = PawfectCareLimited_Winforms_.Resource1.logoPawfectCare;
-            pictureBox1.Location = new Point(-1, -12);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
+            pictureBox1.Location = new Point(-1, -9);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(153, 152);
+            pictureBox1.Size = new Size(134, 114);
             pictureBox1.TabIndex = 25;
             pictureBox1.TabStop = false;
             // 
             // PetTableInterface
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(800, 752);
+            ClientSize = new Size(700, 564);
             Controls.Add(button1);
             Controls.Add(viewAllButton);
             Controls.Add(SearchFieldComboBox);
@@ -171,6 +176,7 @@
             Controls.Add(tableLabel);
             Controls.Add(pictureBox1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "PetTableInterface";
             Text = "OwnerTableInterface";
             ((System.ComponentModel.ISupportInitialize)petTableDataGridView).EndInit();
