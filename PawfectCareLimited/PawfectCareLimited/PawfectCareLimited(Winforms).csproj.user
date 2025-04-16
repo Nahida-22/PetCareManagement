@@ -37,6 +37,9 @@
     <Compile Update="MainMenuForms\MainMenuForms.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="OperationsForms\OperationsForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="OrderForms\OrderInsertForm.cs">
       <SubType>Form</SubType>
     </Compile>
